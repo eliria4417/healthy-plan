@@ -1,8 +1,9 @@
 {
   "name": "Healthy Plan",
-  "short_name": "Wellness",
+  "short_name": "Healthy Plan",
   "description": "Recipes, grocery lists, meal plans & health tracking",
-  "start_url": "./wellness-plan.html",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#3d6142",
   "theme_color": "#3d6142",
