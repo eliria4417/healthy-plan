@@ -809,7 +809,7 @@ function RecipeCard({ recipe, unit }) {
           <div style={{ fontFamily:"Georgia, serif", fontSize:18, marginBottom:8 }}>{recipe.title}</div>
           <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
             <span style={{ background:"#fde8d8", color:"#b05e20", fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>~{S.cal} kcal</span>
-            <span style={{ background:C.sageLight, color:C.sageDark, fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>{S.protein}g protein</span>
+            <span style={{ background:C.sageLight, color:C.sageDark, fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>{S.protein}g ({Math.round(S.protein * 0.035)}oz) protein</span>
             <span style={{ background:"#e8eaf6", color:"#3949ab", fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>⏱ {recipe.time}</span>
           </div>
         </div>
@@ -833,7 +833,7 @@ function RecipeCard({ recipe, unit }) {
               </div>
               <div style={{ flex:1, background:C.sageLight, borderRadius:10, padding:"10px 14px", textAlign:"center" }}>
                 <div style={{ fontSize:18, fontWeight:700, color:C.sageDark }}>{S.protein}g</div>
-                <div style={{ fontSize:11, color:C.muted }}>protein</div>
+                <div style={{ fontSize:11, color:C.muted }}>{Math.round(S.protein * 0.035)}oz protein</div>
               </div>
               {portions === 3 && (
                 <div style={{ flex:1, background:"#fff8e1", borderRadius:10, padding:"10px 14px", textAlign:"center" }}>
@@ -889,7 +889,7 @@ function MealDay({ day, mealFilter }) {
     <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
       <div style={{ fontFamily:"Georgia, serif", fontSize:18, color:C.sageDark, marginBottom:12, paddingBottom:10, borderBottom:`1px solid ${C.sageLight}`, display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
         <span>{day.day}</span>
-        {mealFilter==="All" && <span style={{ fontSize:12, color:C.muted, fontStyle:"italic" }}>{total} kcal · {totalP}g protein</span>}
+        {mealFilter==="All" && <span style={{ fontSize:12, color:C.muted, fontStyle:"italic" }}>{total} kcal · {totalP}g / {Math.round(totalP * 0.035)}oz protein</span>}
       </div>
       {meals.map((meal,i) => {
         const cs = CAT[meal.label] || { bg:"#eee", fg:"#333" };
@@ -899,7 +899,7 @@ function MealDay({ day, mealFilter }) {
             <span style={{ fontSize:13, flex:1, lineHeight:1.5, color:C.charcoal }}>{meal.desc}</span>
             <div style={{ textAlign:"right", flexShrink:0 }}>
               <div style={{ fontSize:12, color:C.accent, fontWeight:600 }}>{meal.cal} kcal</div>
-              <div style={{ fontSize:11, color:C.sage }}>{meal.protein}g pro</div>
+              <div style={{ fontSize:11, color:C.sage }}>{meal.protein}g / {Math.round(meal.protein * 0.035)}oz</div>
             </div>
           </div>
         );
@@ -936,32 +936,32 @@ function App() {
       name: "Eloise 🌿",
       current_lbs: 152, goal_lbs: 130, height: "5'3\"",
       current_kg: 69, goal_kg: 59,
-      cal: 1350, protein: "100–110g", carbs: "80–100g", fat: "40–50g", sugar: "< 30g",
+      cal: 1350, protein: "100–110g (3.5–3.9oz)", carbs: "80–100g (2.8–3.5oz)", fat: "40–50g (1.4–1.8oz)", sugar: "< 30g (< 1oz)",
       activity: "~10,000 steps/day, walking",
       timeline: "~5–6 months",
       tolose_lbs: 22, tolose_kg: 10,
-      tips: ["Your calorie deficit is moderate — sustainable over 5–6 months without tanking energy.", "Walking 10K steps burns an extra ~150–200 kcal/day — keep this your daily non-negotiable.", "Protein at 100–110g protects your muscle while you lose fat — hit this every day.", "Weigh yourself Monday mornings only — daily fluctuations will mess with your head."],
+      tips: ["Your calorie deficit is moderate — sustainable over 5–6 months without tanking energy.", "Walking 10K steps burns an extra ~150–200 kcal/day — keep this your daily non-negotiable.", "Protein at 100–110g (3.5–3.9oz) protects your muscle while you lose fat — hit this every day.", "Weigh yourself Monday mornings only — daily fluctuations will mess with your head."],
       macros: [
-        { label:"Protein", value:105, max:150, color:"#9dcfa1", unit:"100–110g" },
-        { label:"Carbs",   value:90,  max:200, color:"#f5c842", unit:"80–100g" },
-        { label:"Fat",     value:45,  max:100, color:"#f5a07a", unit:"40–50g" },
-        { label:"Sugar",   value:25,  max:100, color:"#f57a7a", unit:"< 30g" },
+        { label:"Protein", value:105, max:150, color:"#9dcfa1", unit:"100–110g / 3.5–3.9oz" },
+        { label:"Carbs",   value:90,  max:200, color:"#f5c842", unit:"80–100g / 2.8–3.5oz" },
+        { label:"Fat",     value:45,  max:100, color:"#f5a07a", unit:"40–50g / 1.4–1.8oz" },
+        { label:"Sugar",   value:25,  max:100, color:"#f57a7a", unit:"< 30g / < 1oz" },
       ],
     },
     boyfriend: {
       name: "Boyfriend 🏃",
       current_lbs: 194, goal_lbs: 170, height: "5'10\"",
       current_kg: 88, goal_kg: 77,
-      cal: 2050, protein: "155–165g", carbs: "150–180g", fat: "55–65g", sugar: "< 40g",
+      cal: 2050, protein: "155–165g (5.5–5.8oz)", carbs: "150–180g (5.3–6.3oz)", fat: "55–65g (1.9–2.3oz)", sugar: "< 40g (< 1.4oz)",
       activity: "Running 3.5 mi / 5.6km, 3–4x/week",
       timeline: "~4–5 months",
       tolose_lbs: 24, tolose_kg: 11,
-      tips: ["His deficit is conservative — important because he's running. Too aggressive = no energy for training.", "Running 3.5 miles burns ~350–400 kcal. On run days he can eat up to his maintenance (~2,500 kcal) if needed.", "Protein at 155–165g is critical — running breaks down muscle, protein rebuilds it.", "He'll likely lose weight faster than you at first — don't compare progress. Different bodies, different rates."],
+      tips: ["His deficit is conservative — important because he's running. Too aggressive = no energy for training.", "Running 3.5 miles / 5.6km burns ~350–400 kcal. On run days he can eat up to ~2,500 kcal if needed.", "Protein at 155–165g (5.5–5.8oz) is critical — running breaks down muscle, protein rebuilds it.", "He'll likely lose weight faster than you at first — don't compare progress. Different bodies, different rates."],
       macros: [
-        { label:"Protein", value:160, max:200, color:"#9dcfa1", unit:"155–165g" },
-        { label:"Carbs",   value:165, max:250, color:"#f5c842", unit:"150–180g" },
-        { label:"Fat",     value:60,  max:120, color:"#f5a07a", unit:"55–65g" },
-        { label:"Sugar",   value:35,  max:100, color:"#f57a7a", unit:"< 40g" },
+        { label:"Protein", value:160, max:200, color:"#9dcfa1", unit:"155–165g / 5.5–5.8oz" },
+        { label:"Carbs",   value:165, max:250, color:"#f5c842", unit:"150–180g / 5.3–6.3oz" },
+        { label:"Fat",     value:60,  max:120, color:"#f5a07a", unit:"55–65g / 1.9–2.3oz" },
+        { label:"Sugar",   value:35,  max:100, color:"#f57a7a", unit:"< 40g / < 1.4oz" },
       ],
     },
   };
