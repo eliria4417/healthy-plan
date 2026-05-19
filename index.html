@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wellness Plan">
+<meta name="theme-color" content="#3d6142">
+<title>🌿 Our Wellness Plan</title>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:'DM Sans',sans-serif;background:#faf8f4;overscroll-behavior:none}
+  ::-webkit-scrollbar{display:none}
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+  .splash{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#3d6142,#2d4f31);color:white;gap:16px}
+  .splash-title{font-family:'Lora',serif;font-size:28px;font-style:italic}
+  .splash-sub{font-size:13px;opacity:0.6;letter-spacing:2px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="splash">
+    <div style="font-size:48px">🌿</div>
+    <div class="splash-title">Our Wellness Plan</div>
+    <div class="splash-sub">Loading...</div>
+  </div>
+</div>
+<script type="text/babel">
+const { useState } = React;
+
+const C = {
+  sage: "#5c8a60", sageDark: "#3d6142", sageLight: "#e6f0e7",
+  cream: "#faf8f4", warm: "#f5ede0", accent: "#c4773b", accentLight: "#fdf0e4",
+  charcoal: "#252525", muted: "#6e6e6e",
+  heb: "#e8192c", tj: "#9b1b2a", wf: "#00674b",
+};
+
+const CAT = {
+  Breakfast: { bg: "#fff8e1", fg: "#7a5c00" },
+  Lunch:     { bg: "#e0f2f1", fg: "#00574b" },
+  Snack:     { bg: "#e6f0e7", fg: "#3d6142" },
+  Dinner:    { bg: "#fde8d8", fg: "#b05e20" },
+  Wrap:      { bg: "#ede7f6", fg: "#4527a0" },
+};
+
+// ─────────────────────────────────────────────────────────────
+// RECIPES  (imperial + metric + shared steps)
+// ─────────────────────────────────────────────────────────────
+// PCOS ratings: "great" = actively helps PCOS, "good" = fine, "caution" = eat mindfully
+// Bloating ratings: "low" = minimal bloating risk, "medium" = moderate, "high" = potential trigger
+
+const RECIPES = [
+  // ── BREAKFAST ──────────────────────────────────────────────
+  { title:"Overnight Protein Oats", category:"Breakfast", cal:360, protein:30, time:"5 min prep", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["½ cup rolled oats","¾ cup Fage 0% Greek yogurt","½ cup HEB Reduced Fat 2% milk","1 scoop vanilla whey protein","½ tsp cinnamon","Handful frozen berries"],
+    metric:  ["45g rolled oats","180ml Fage 0% Greek yogurt","120ml HEB Reduced Fat 2% milk","1 scoop vanilla whey protein","2.5ml cinnamon","Handful frozen berries"],
+    steps:   ["Mix oats, yogurt, 2% milk, protein powder, and cinnamon in a jar.","Add frozen berries on top — they'll thaw and sweeten overnight.","Seal jar, refrigerate overnight (or at least 4 hours).","Grab and go in the morning. No cooking, no excuses."] },
+
+  { title:"Greek Yogurt Parfait", category:"Breakfast", cal:280, protein:22, time:"3 min (or overnight)", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["¾ cup Fage 0% Greek yogurt","¼ cup frozen berries","1 tbsp peanut butter","1 tsp honey (optional)","1 tbsp chia seeds","Topping (morning only): ½ fresh banana sliced"],
+    metric:  ["180ml Fage 0% Greek yogurt","60g frozen berries","15ml peanut butter","5ml honey (optional)","10g chia seeds","Topping (morning only): ½ fresh banana sliced"],
+    steps:   ["OVERNIGHT: Layer yogurt, frozen berries, chia seeds, peanut butter drizzle in a jar. Cover and refrigerate. Add banana slices in the morning only — never the night before, they go brown.","SAME-DAY: Spoon yogurt into a bowl, layer berries and chia seeds, drizzle peanut butter, add banana slices immediately.","Peanut butter: 1 tbsp / 15ml is the limit — ~95 kcal on its own. Measure it.","Optional tiny drizzle of honey — 1 tsp / 5ml max."] },
+
+  { title:"Protein Smoothie", category:"Breakfast", cal:300, protein:32, time:"5 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 scoop whey protein (chocolate or vanilla)","1 cup HEB Reduced Fat 2% milk","½ frozen banana","1 cup baby spinach (you won't taste it)","½ tsp cinnamon","4–5 ice cubes"],
+    metric:  ["1 scoop whey protein (chocolate or vanilla)","240ml HEB Reduced Fat 2% milk","½ frozen banana","30g baby spinach","2.5ml cinnamon","4–5 ice cubes"],
+    steps:   ["Add all ingredients to blender.","Blend until completely smooth — about 30 seconds.","Pour and drink immediately. Don't let it sit or it gets thick.","Tip: freeze overripe bananas in advance — sweeter and colder."] },
+
+  { title:"Cottage Cheese Egg Scramble", category:"Breakfast", cal:300, protein:28, time:"10 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["3 large eggs","¼ cup low-fat cottage cheese","Handful baby spinach","¼ cup cherry tomatoes halved","Everything But the Bagel seasoning","Avocado oil spray"],
+    metric:  ["3 large eggs","60g low-fat cottage cheese","Handful baby spinach (~30g)","60g cherry tomatoes halved","Everything But the Bagel seasoning","Avocado oil spray"],
+    steps:   ["Whisk eggs with cottage cheese — makes them creamy and protein-packed.","Spray pan on medium heat. Add spinach and tomatoes, cook 1 min.","Pour egg mix in, fold gently until just set. Don't overcook.","Top with Everything But the Bagel seasoning."] },
+
+  { title:"Egg White & Mushroom Omelette", category:"Breakfast", cal:180, protein:22, time:"10 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["4 egg whites (or ¾ cup liquid egg whites)","½ cup mushrooms sliced","Handful baby spinach","1 tbsp feta cheese","Avocado oil spray, salt & pepper"],
+    metric:  ["4 egg whites (or 180ml liquid egg whites)","75g mushrooms sliced","Handful baby spinach (~30g)","15g feta cheese","Avocado oil spray, salt & pepper"],
+    steps:   ["Spray pan, sauté mushrooms on medium-high until golden, ~4 min.","Add spinach, stir until wilted, set veggies aside.","Re-spray pan, pour in egg whites, season with salt & pepper.","Once edges set, add veggies + feta to one half, fold over.","Cook 1 more minute until set. Light and filling."] },
+
+  { title:"Air Fryer Asparagus & Eggs", category:"Breakfast", cal:240, protein:20, time:"15 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["1 bunch asparagus trimmed (~½ lb)","2 eggs","Avocado oil spray","Salt, pepper, garlic powder","Juice of ½ lemon"],
+    metric:  ["1 bunch asparagus trimmed (~225g)","2 eggs","Avocado oil spray","Salt, pepper, garlic powder","Juice of ½ lemon"],
+    steps:   ["Spray asparagus with avocado oil, season with salt, pepper, garlic.","Air fry at 400°F / 200°C for 8–10 min until tender and slightly crispy.","Meanwhile cook eggs your preferred way (poached or fried).","Plate asparagus, top with eggs, squeeze lemon over everything."] },
+
+  { title:"Vanilla Chia Pudding", category:"Breakfast", cal:310, protein:20, time:"5 min prep", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["3 tbsp chia seeds","1 cup HEB Reduced Fat 2% milk","1 scoop vanilla whey protein","½ tsp vanilla extract","1 tsp honey or agave","Toppings: sliced banana + berries"],
+    metric:  ["30g chia seeds","240ml HEB Reduced Fat 2% milk","1 scoop vanilla whey protein","2.5ml vanilla extract","5ml honey or agave","Toppings: sliced banana + berries"],
+    steps:   ["Whisk protein powder into milk until fully dissolved — no lumps.","Add vanilla extract and honey/agave, stir well.","Add chia seeds and whisk immediately. Wait 2 min, whisk again — prevents clumping.","Pour into a jar, cover, refrigerate overnight (minimum 4 hours).","In the morning stir well. If too thick, add a splash of milk.","Top with sliced banana and berries. Eat cold from the jar."] },
+
+  { title:"Chocolate Chia Pudding", category:"Breakfast", cal:320, protein:22, time:"5 min prep", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["3 tbsp chia seeds","1 cup HEB Reduced Fat 2% milk","1 scoop chocolate whey protein","1 tbsp unsweetened cocoa powder","1 tsp agave or honey","½ tsp vanilla extract","Toppings: sliced banana + 1 tbsp peanut butter"],
+    metric:  ["30g chia seeds","240ml HEB Reduced Fat 2% milk","1 scoop chocolate whey protein","7g unsweetened cocoa powder","5ml agave or honey","2.5ml vanilla extract","Toppings: sliced banana + 15ml peanut butter"],
+    steps:   ["Whisk cocoa powder and protein powder into milk until fully smooth — cocoa clumps easily.","Add agave/honey and vanilla, stir well.","Add chia seeds, whisk immediately. Wait 2 min, whisk again.","Cover and refrigerate overnight or at least 4 hours.","Morning: stir well, add splash of milk if too thick.","Top with banana and a drizzle of peanut butter. Tastes like dessert — it's not."] },
+
+  { title:"Banana Blueberry Chia Pudding", category:"Breakfast", cal:280, protein:10, time:"5 min prep", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["3 tbsp chia seeds","1 cup HEB Reduced Fat 2% milk","½ frozen banana, mashed","½ tsp vanilla extract","Pinch of cinnamon","Toppings: ½ fresh banana sliced + handful frozen blueberries"],
+    metric:  ["30g chia seeds","240ml HEB Reduced Fat 2% milk","½ frozen banana mashed (~60g)","2.5ml vanilla extract","Pinch of cinnamon","Toppings: ½ fresh banana sliced + handful frozen blueberries (~60g)"],
+    steps:   ["Mash the frozen banana directly in your jar — natural sweetener and thickener. No sugar needed.","Pour 2% milk over, add vanilla and cinnamon. Stir well.","Add chia seeds, whisk immediately. Wait 2 min, whisk again — prevents clumping.","Add frozen blueberries before refrigerating — they thaw overnight and release juice into the pudding.","Cover and refrigerate overnight (minimum 4 hours).","Top with fresh banana slices in the morning. Eat cold from the jar."] },
+
+  { title:"Banana Protein Pancakes", category:"Breakfast", cal:290, protein:24, time:"15 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 ripe banana mashed","2 whole eggs","1 scoop vanilla whey protein","¼ tsp cinnamon","Pinch of salt","Avocado oil spray","Optional: fresh berries or tiny drizzle of honey"],
+    metric:  ["1 ripe banana mashed (~100g)","2 whole eggs","1 scoop vanilla whey protein","1.25ml cinnamon","Pinch of salt","Avocado oil spray","Optional: fresh berries or tiny drizzle of honey"],
+    steps:   ["Mash banana thoroughly — the riper the better.","Whisk in eggs, protein powder, cinnamon and salt until smooth. Batter will be thin, that's normal.","Spray non-stick pan on medium-low. Pour small rounds (~8cm / 3 inch) — keep them small, these are delicate.","Cook 2–3 min until bubbles form and edges look set. Flip carefully, cook 1 more minute.","Serve with fresh berries. No syrup needed — the banana sweetens naturally."] },
+
+  { title:"Banana Peanut Butter Smoothie Bowl", category:"Breakfast", cal:330, protein:26, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 frozen banana","¾ cup Fage 0% Greek yogurt","1 scoop vanilla whey protein","¼ cup HEB Reduced Fat 2% milk","1 tbsp natural peanut butter","Toppings: sliced banana, chia seeds, berries"],
+    metric:  ["1 frozen banana (~120g)","180ml Fage 0% Greek yogurt","1 scoop vanilla whey protein","60ml HEB Reduced Fat 2% milk","15ml natural peanut butter","Toppings: sliced banana, chia seeds, berries"],
+    steps:   ["Blend frozen banana, yogurt, protein powder, and 2% milk until thick and smooth. Use as little liquid as possible — spoonable, not drinkable.","Pour into a bowl.","Drizzle peanut butter over the top.","Add toppings: fresh banana slices, chia seeds, berries.","Eat with a spoon immediately. Feels indulgent, isn't."] },
+
+  { title:"Banana Oat Breakfast Cookies", category:"Breakfast", cal:260, protein:18, time:"20 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["1 ripe banana mashed","1 cup rolled oats","1 scoop chocolate whey protein","1 tbsp almond butter","¼ tsp cinnamon","Pinch of salt","Optional: 1 tbsp dark chocolate chips"],
+    metric:  ["1 ripe banana mashed (~100g)","90g rolled oats","1 scoop chocolate whey protein","15ml almond butter","1.25ml cinnamon","Pinch of salt","Optional: 15g dark chocolate chips"],
+    steps:   ["Preheat oven to 350°F / 175°C. Line a baking sheet with parchment.","Mix all ingredients until combined. Dough will be thick and sticky.","Scoop into 8 rounds on the sheet, flatten slightly with a spoon.","Bake 12–14 minutes until golden on the edges.","Makes 8 cookies — 2 per serving. Store in the fridge up to 4 days."] },
+
+  // ── LUNCH ──────────────────────────────────────────────────
+  { title:"Big Spinach Chicken Salad", category:"Lunch", cal:370, protein:36, time:"10 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["3 cups baby spinach","4 oz grilled chicken breast sliced","¼ cup cherry tomatoes","¼ cucumber sliced","2 tbsp feta cheese","Dressing: 1 tsp olive oil + juice of ½ lemon + Dijon + salt"],
+    metric:  ["90g baby spinach","115g grilled chicken breast sliced","40g cherry tomatoes","¼ cucumber sliced","20g feta cheese","Dressing: 5ml olive oil + juice of ½ lemon + Dijon + salt"],
+    steps:   ["Toss spinach, tomatoes, and cucumber in a large bowl.","Whisk together dressing ingredients in a small bowl.","Drizzle dressing over salad and toss to coat.","Top with sliced chicken and crumbled feta. Eat immediately."] },
+
+  { title:"Turkey Lettuce Wraps", category:"Lunch", cal:310, protein:28, time:"15 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["4 oz ground turkey","1 garlic clove minced","1 tbsp coconut aminos","½ tsp ginger powder","4 large romaine lettuce leaves","Shredded carrots, diced cucumber to top"],
+    metric:  ["115g ground turkey","1 garlic clove minced","15ml coconut aminos","2.5ml ginger powder","4 large romaine lettuce leaves","Shredded carrots, diced cucumber to top"],
+    steps:   ["Cook turkey in a sprayed pan with garlic until browned, ~5 min.","Add coconut aminos and ginger, stir and cook 1 more minute.","Spoon turkey mixture into lettuce leaves.","Top with carrots and cucumber. Eat like a taco."] },
+
+  { title:"Tuna-Stuffed Avocado", category:"Lunch", cal:290, protein:26, time:"5 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 can albacore tuna (~5 oz, drained)","1 avocado halved & pitted","Juice of ½ lemon","1 tsp Dijon mustard","Salt, pepper, red pepper flakes","Cherry tomatoes to serve"],
+    metric:  ["1 can albacore tuna (~140g, drained)","1 avocado halved & pitted","Juice of ½ lemon","5ml Dijon mustard","Salt, pepper, red pepper flakes","Cherry tomatoes to serve"],
+    steps:   ["Drain tuna, mix with lemon juice, mustard, salt and pepper.","Scoop a little avocado from each half to make room.","Mash the scooped avocado into the tuna mix.","Pile mixture back into avocado shells. Eat immediately."] },
+
+  { title:"Salmon & Spinach Salad", category:"Lunch", cal:360, protein:35, time:"15 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["1 salmon fillet (~6 oz)","3 cups baby spinach","¼ avocado sliced","Cherry tomatoes, cucumber","Dressing: 1 tsp olive oil + apple cider vinegar + Dijon + salt"],
+    metric:  ["1 salmon fillet (~170g)","90g baby spinach","¼ avocado sliced","Cherry tomatoes, cucumber","Dressing: 5ml olive oil + apple cider vinegar + Dijon + salt"],
+    steps:   ["Air fry salmon at 400°F / 200°C for 10–12 min.","While salmon cooks, assemble salad base with spinach, tomatoes, cucumber.","Whisk dressing and toss with greens.","Flake salmon over the top, fan out avocado slices.","Eat immediately — salmon on salad is genuinely excellent."] },
+
+  { title:"Shrimp Taco Lettuce Cups", category:"Lunch", cal:290, protein:28, time:"15 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["8 oz raw shrimp, peeled and deveined","1 tsp cumin + 1 tsp chili powder + garlic powder","Juice of 1 lime","6 large romaine lettuce leaves","¼ avocado diced","Cherry tomatoes halved","Optional: 1 tbsp Greek yogurt as sour cream swap"],
+    metric:  ["250g raw shrimp, peeled and deveined","5ml cumin + 5ml chili powder + garlic powder","Juice of 1 lime","6 large romaine lettuce leaves","¼ avocado diced","Cherry tomatoes halved","Optional: 15ml Greek yogurt as sour cream swap"],
+    steps:   ["Toss shrimp with cumin, chili powder, garlic powder, salt and a squeeze of lime.","Spray pan on medium-high. Cook shrimp 2 min per side until pink and slightly charred.","Lay out lettuce leaves as taco shells.","Fill each with shrimp, diced avocado, cherry tomatoes.","Top with a small dollop of Greek yogurt. Squeeze more lime over everything."] },
+
+  { title:"Spicy Shrimp & Spinach Bowl", category:"Lunch", cal:270, protein:31, time:"12 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["10 oz raw shrimp, peeled and deveined","3 cups baby spinach","2 garlic cloves minced","½ tsp cayenne pepper","1 tsp smoked paprika","Juice of ½ lemon","Avocado oil spray, salt & pepper","Optional: ¼ avocado sliced on top"],
+    metric:  ["300g raw shrimp, peeled and deveined","90g baby spinach","2 garlic cloves minced","2.5ml cayenne pepper","5ml smoked paprika","Juice of ½ lemon","Avocado oil spray, salt & pepper","Optional: ¼ avocado sliced on top"],
+    steps:   ["Spray pan on medium-high. Add garlic, cook 30 seconds.","Add shrimp, season with cayenne, paprika, salt and pepper. Cook 2 min per side.","Add spinach directly to the pan, toss until wilted — about 1 minute.","Squeeze lemon over the whole pan.","Serve in a bowl, top with avocado if using. Fast, filling, almost zero carbs."] },
+
+  // ── SNACKS ─────────────────────────────────────────────────
+  { title:"Rice Cake Stack with Tuna", category:"Snack", cal:160, protein:18, time:"3 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["2 rice cakes","1 can albacore tuna (~5 oz, drained)","½ tsp Dijon mustard","Salt, pepper, Everything But the Bagel","Sliced cucumber to serve"],
+    metric:  ["2 rice cakes","1 can albacore tuna (~140g, drained)","2.5ml Dijon mustard","Salt, pepper, Everything But the Bagel","Sliced cucumber to serve"],
+    steps:   ["Mix drained tuna with mustard, salt, and pepper.","Pile tuna generously onto rice cakes.","Sprinkle Everything But the Bagel seasoning on top.","Serve with cucumber slices on the side."] },
+
+  { title:"Cottage Cheese & Berry Bowl", category:"Snack", cal:140, protein:14, time:"2 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["½ cup low-fat cottage cheese","¼ cup fresh or frozen berries","½ tsp cinnamon","Optional: 1 tsp honey"],
+    metric:  ["120g low-fat cottage cheese","60g fresh or frozen berries","2.5ml cinnamon","Optional: 5ml honey"],
+    steps:   ["Spoon cottage cheese into a bowl.","Top with berries and a sprinkle of cinnamon.","Optional tiny drizzle of honey for sweetness.","High protein, ready in 2 minutes."] },
+
+  { title:"Hard-Boiled Eggs & Carrots", category:"Snack", cal:130, protein:12, time:"12 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["2 eggs","1 cup baby carrots","Salt, pepper, paprika","Optional: 1 tbsp hummus for dipping"],
+    metric:  ["2 eggs","130g baby carrots","Salt, pepper, paprika","Optional: 15ml hummus for dipping"],
+    steps:   ["Place eggs in cold water, bring to boil, cook 10 min.","Transfer to ice water 5 min, then peel.","Season eggs with salt, pepper, and a pinch of paprika.","Serve with baby carrots and optional hummus."] },
+
+  { title:"Chomps & Cucumber Snack Box", category:"Snack", cal:120, protein:10, time:"2 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 Chomps beef stick","1 cucumber sliced","Optional: 1 string cheese"],
+    metric:  ["1 Chomps beef stick (~28g)","1 cucumber sliced","Optional: 1 string cheese (~28g)"],
+    steps:   ["Slice cucumber into rounds.","Arrange with Chomps stick on a plate or in a container.","Add string cheese if you need more protein.","Zero cooking, completely portable."] },
+
+  { title:"String Cheese & Bell Pepper", category:"Snack", cal:100, protein:9, time:"1 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["2 reduced-fat string cheese sticks","1 cup mini bell peppers"],
+    metric:  ["2 reduced-fat string cheese sticks (~56g)","150g mini bell peppers"],
+    steps:   ["Pull string cheese apart slowly (it's more satisfying that way).","Dip or eat alongside crunchy bell pepper strips.","That's the whole recipe. You've got this."] },
+
+  // ── DINNER ─────────────────────────────────────────────────
+  { title:"Juicy Brined Air Fryer Chicken Breast", category:"Dinner", cal:270, protein:38, time:"30 min (+30 min brine)", airfryer:true,
+    imperial:["2 boneless skinless chicken breasts (~1 lb)","Brine: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","1 tsp smoked paprika","1 tsp garlic powder","½ tsp onion powder","½ tsp black pepper","1 tbsp olive oil","Avocado oil spray"],
+    metric:  ["2 boneless skinless chicken breasts (~450g)","Brine: 480ml cold water + 15g salt + 5g sugar","5ml smoked paprika","5ml garlic powder","2.5ml onion powder","2.5ml black pepper","15ml olive oil","Avocado oil spray"],
+    steps:   [
+      "BRINE FIRST — this is the entire secret. Mix cold water, salt, and sugar in a bowl until dissolved. Submerge chicken breasts fully. Let sit 30 minutes at room temperature (or up to 2 hours in the fridge). Don't skip this.",
+      "Remove chicken from brine, pat completely dry with paper towels. Dry surface = crispy outside, juicy inside.",
+      "Mix paprika, garlic powder, onion powder, and black pepper. Rub olive oil all over the chicken, then coat thoroughly with the spice mix.",
+      "Spray air fryer basket with avocado oil. Place chicken in a single layer — don't overlap.",
+      "Air fry at 375°F / 190°C for 10 minutes. Flip. Cook another 5–8 minutes.",
+      "CRITICAL: Use a meat thermometer. Pull it out the moment it hits 165°F / 74°C — not 170°F, not 175°F. Every extra degree dries it out.",
+      "REST for 5 full minutes before cutting. This is not optional — cutting too early loses all the juices.",
+      "Slice against the grain. It should be visibly juicy. Serve with roasted veggies or over a big salad.",
+    ] },
+
+  { title:"Air Fryer Lemon Herb Chicken", category:"Dinner", cal:280, protein:35, time:"20 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["2 boneless skinless chicken breasts (~1 lb)","Juice of 1 lemon","1 tsp garlic powder + 1 tsp paprika","½ tsp dried oregano, salt & pepper","Avocado oil spray"],
+    metric:  ["2 boneless skinless chicken breasts (~450g)","Juice of 1 lemon","5ml garlic powder + 5ml paprika","2.5ml dried oregano, salt & pepper","Avocado oil spray"],
+    steps:   ["Pound chicken to even ¾-inch / 2cm thickness for even cooking.","Mix lemon juice + spices, coat chicken thoroughly. Let sit 5 min.","Spray air fryer basket. Place chicken in single layer.","Air fry 375°F / 190°C for 10–12 min, flip halfway. Internal temp: 165°F / 74°C.","Rest 3 min before slicing. Serve over spinach or with broccoli."] },
+
+  { title:"Turkey & Zucchini Stir-Fry", category:"Dinner", cal:350, protein:32, time:"20 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["4 oz 93% lean ground turkey","1 medium zucchini diced","½ cup bell peppers sliced","2 tbsp coconut aminos","2 garlic cloves minced, 1 tsp sesame oil","Optional: ½ cup brown rice (+100 kcal)"],
+    metric:  ["115g 93% lean ground turkey","1 medium zucchini diced","80g bell peppers sliced","30ml coconut aminos","2 garlic cloves minced, 5ml sesame oil","Optional: 90g cooked brown rice (+100 kcal)"],
+    steps:   ["Spray pan, sauté garlic on medium-high 30 seconds.","Add turkey, break apart, cook until browned ~5 minutes.","Add zucchini and peppers, cook 4–5 min until tender-crisp.","Pour in coconut aminos and sesame oil, toss to coat.","Serve alone or over a small portion of brown rice."] },
+
+  { title:"Air Fryer Salmon with Lemon", category:"Dinner", cal:320, protein:34, time:"15 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["1 salmon fillet (~6 oz)","Juice of ½ lemon","1 tsp garlic powder, dried dill","Salt & pepper","Avocado oil spray"],
+    metric:  ["1 salmon fillet (~170g)","Juice of ½ lemon","5ml garlic powder, dried dill","Salt & pepper","Avocado oil spray"],
+    steps:   ["Pat salmon dry. Spray with avocado oil, season with all spices.","Squeeze lemon generously over the top.","Air fry at 400°F / 200°C for 10–12 minutes. No flipping needed.","Serve with a big spinach salad or roasted broccoli."] },
+
+  { title:"Air Fryer Chicken Fajita Bowl", category:"Dinner", cal:380, protein:38, time:"25 min", airfryer:true, pcos:"great", bloat:"medium",
+    imperial:["2 chicken breasts sliced into strips","1 cup bell peppers sliced","½ onion sliced","1 tsp cumin + 1 tsp chili powder + garlic powder","½ cup frozen cauliflower rice","Avocado oil spray, lime juice, salt"],
+    metric:  ["2 chicken breasts sliced into strips","150g bell peppers sliced","½ onion sliced","5ml cumin + 5ml chili powder + garlic powder","90g frozen cauliflower rice","Avocado oil spray, lime juice, salt"],
+    steps:   ["Toss chicken strips and veggies with all spices and a spray of oil.","Spread in air fryer basket in a single layer.","Air fry at 390°F / 200°C for 12–14 min, shaking halfway.","Microwave cauliflower rice per package, use as bowl base.","Top with chicken fajita mix, squeeze of lime. Done."] },
+
+  { title:"Ground Turkey Soup", category:"Dinner", cal:300, protein:30, time:"25 min", airfryer:false, pcos:"great", bloat:"medium",
+    imperial:["4 oz 93% lean ground turkey","1 can diced tomatoes (14.5 oz, no salt added)","1 cup low-sodium chicken broth","½ cup zucchini diced","½ cup spinach","1 garlic clove, 1 tsp Italian seasoning","Salt & pepper"],
+    metric:  ["115g 93% lean ground turkey","1 can diced tomatoes (~410g, no salt added)","240ml low-sodium chicken broth","80g zucchini diced","30g spinach","1 garlic clove, 5ml Italian seasoning","Salt & pepper"],
+    steps:   ["Brown turkey with garlic in a pot over medium heat, ~5 min.","Add diced tomatoes, broth, zucchini, and seasoning.","Bring to a boil, then simmer 15 minutes.","Stir in spinach in the last 2 min — it wilts fast.","Season to taste. This makes excellent leftovers."] },
+
+  { title:"Chicken & Broccoli Sheet Pan", category:"Dinner", cal:340, protein:40, time:"30 min", airfryer:false, pcos:"great", bloat:"medium",
+    imperial:["2 chicken breasts","2 cups broccoli florets","1 tbsp olive oil","1 tsp garlic powder, 1 tsp smoked paprika","Salt & pepper","Optional: red pepper flakes"],
+    metric:  ["2 chicken breasts","200g broccoli florets","15ml olive oil","5ml garlic powder, 5ml smoked paprika","Salt & pepper","Optional: red pepper flakes"],
+    steps:   ["Preheat oven to 425°F / 220°C. Line a baking sheet with foil.","Toss broccoli in olive oil, salt, and pepper. Spread on sheet.","Season chicken with garlic, paprika, salt. Place beside broccoli.","Roast 20–25 min until chicken hits 165°F / 74°C and broccoli is slightly charred.","Squeeze lemon over everything before serving."] },
+
+  { title:"Air Fryer Crispy Drumsticks", category:"Dinner", cal:370, protein:38, time:"30 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["4 chicken drumsticks (skin on)","1 tsp garlic powder","1 tsp smoked paprika","½ tsp onion powder","½ tsp dried oregano","Salt & pepper","Avocado oil spray"],
+    metric:  ["4 chicken drumsticks (skin on)","5ml garlic powder","5ml smoked paprika","2.5ml onion powder","2.5ml dried oregano","Salt & pepper","Avocado oil spray"],
+    steps:   ["Pat drumsticks completely dry with paper towels — the secret to crispy skin.","Mix all spices, rub generously all over including under the skin.","Spray drumsticks with avocado oil.","Air fry at 400°F / 200°C for 22–25 minutes, flipping halfway. Skin should be deeply golden.","Internal temp: 165°F / 74°C near the bone.","Rest 3 minutes. Serve with a big green salad."] },
+
+  { title:"Honey Mustard Baked Drumsticks", category:"Dinner", cal:390, protein:36, time:"45 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["4 chicken drumsticks","1 tbsp Dijon mustard","1 tsp honey","1 tsp garlic powder","1 tsp apple cider vinegar","Salt & pepper","Avocado oil spray"],
+    metric:  ["4 chicken drumsticks","15ml Dijon mustard","5ml honey","5ml garlic powder","5ml apple cider vinegar","Salt & pepper","Avocado oil spray"],
+    steps:   ["Preheat oven to 425°F / 220°C. Line a baking sheet with foil.","Mix Dijon, honey, garlic powder, apple cider vinegar, salt and pepper into a glaze.","Pat drumsticks dry, coat thoroughly in the glaze.","Bake 35–40 minutes, flipping once halfway, until skin is caramelized and internal temp is 165°F / 74°C.","The honey is minimal — just enough to caramelize without a significant sugar spike."] },
+
+  { title:"Air Fryer Garlic Shrimp", category:"Dinner", cal:280, protein:32, time:"12 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["10 oz raw shrimp, peeled and deveined","3 garlic cloves minced","1 tsp smoked paprika","½ tsp red pepper flakes","Juice of 1 lemon","1 tsp olive oil","Salt & pepper","Fresh parsley to serve"],
+    metric:  ["300g raw shrimp, peeled and deveined","3 garlic cloves minced","5ml smoked paprika","2.5ml red pepper flakes","Juice of 1 lemon","5ml olive oil","Salt & pepper","Fresh parsley to serve"],
+    steps:   ["Pat shrimp dry. Toss with garlic, paprika, red pepper flakes, olive oil, salt and pepper.","Spread in a single layer in air fryer basket — don't overlap or they steam instead of crisp.","Air fry at 400°F / 200°C for 6–8 minutes until pink and slightly curled. Don't overcook — rubbery fast.","Squeeze lemon over immediately after cooking.","Serve over cauliflower rice or a bed of spinach. Top with parsley."] },
+
+  { title:"Shrimp & Zucchini Stir-Fry", category:"Dinner", cal:260, protein:30, time:"15 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["10 oz raw shrimp, peeled and deveined","1 medium zucchini sliced into half-moons","½ cup bell peppers sliced","2 garlic cloves minced","2 tbsp coconut aminos","1 tsp sesame oil","Red pepper flakes, salt & pepper","Avocado oil spray"],
+    metric:  ["300g raw shrimp, peeled and deveined","1 medium zucchini sliced into half-moons","80g bell peppers sliced","2 garlic cloves minced","30ml coconut aminos","5ml sesame oil","Red pepper flakes, salt & pepper","Avocado oil spray"],
+    steps:   ["Spray pan on high heat. Add garlic, cook 30 seconds.","Add zucchini and peppers, cook 3–4 minutes until just tender.","Push veggies to the side, add shrimp in a single layer. Cook 2 min per side until pink.","Pour in coconut aminos and sesame oil, toss everything together.","Season with red pepper flakes, salt and pepper. Serve immediately."] },
+
+  { title:"Turkey-Stuffed Baby Bell Peppers", category:"Dinner", cal:340, protein:34, time:"25 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["1 lb 93% lean ground turkey","12–15 baby bell peppers, halved & seeded","2 garlic cloves minced","½ tsp each: cumin, smoked paprika, chili powder","¼ cup canned diced tomatoes (drained)","Salt & pepper","Optional: shredded cheese, cilantro, lime"],
+    metric:  ["450g 93% lean ground turkey","12–15 baby bell peppers, halved & seeded","2 garlic cloves minced","2.5ml each: cumin, smoked paprika, chili powder","60g canned diced tomatoes (drained)","Salt & pepper","Optional: shredded cheese, cilantro, lime"],
+    steps:   ["Preheat oven to 400°F / 200°C (air fryer: 375°F / 190°C). Halve peppers, scoop seeds.","Spray pan, cook garlic on medium 30 seconds.","Add turkey, break apart, cook until browned ~5–6 min. Drain excess liquid.","Stir in spices and drained tomatoes. Cook 2 more minutes.","Arrange pepper halves cut-side up. Spray lightly with avocado oil.","Spoon turkey filling into each pepper half — pack it in.","Oven: bake 12–15 min. Air fryer: 8–10 min until peppers are tender.","Optional: tiny cheese sprinkle in last 2 min.","Finish with cilantro and squeeze of lime. Eat immediately."] },
+
+  { title:"Lighter Gnocchi Carbonara", category:"Dinner", cal:520, protein:28, time:"20 min", airfryer:false, pcos:"caution", bloat:"medium",
+    imperial:["5 oz regular gnocchi (weigh it — don't eyeball)","2 strips bacon cut into pieces","2 whole eggs","¼ cup cottage cheese (blended smooth)","2 tbsp shredded parmesan","1 garlic clove minced","Black pepper — generous, it's essential","Salt for pasta water","Optional: handful baby spinach"],
+    metric:  ["150g regular gnocchi (weigh it — don't eyeball)","2 strips bacon cut into pieces","2 whole eggs","60g cottage cheese (blended smooth)","20g shredded parmesan","1 garlic clove minced","Black pepper — generous, it's essential","Salt for pasta water","Optional: handful baby spinach (~30g)"],
+    steps:   ["⚠️ Occasional treat — ~520 kcal, higher carbs than usual. Enjoy it and get back on track tomorrow.","Blitz cottage cheese until completely smooth — silky sauce, zero lumps.","Whisk eggs, blended cottage cheese, parmesan, and generous black pepper. Set aside.","Cook gnocchi in well-salted boiling water until they float, 2–3 min. Reserve ¼ cup / 60ml pasta water before draining.","Cook bacon until crispy. Remove, leave tiny bit of fat. Add garlic, cook 30 seconds.","Turn heat to LOW — critical. High heat scrambles your eggs.","Add drained gnocchi. Pour egg mixture over, tossing constantly.","Add pasta water a splash at a time until creamy. Residual heat cooks eggs gently.","Stir in bacon and optional spinach. Plate immediately — carbonara waits for no one."] },
+
+  { title:"Juicy Brined Air Fryer Chicken Breast", category:"Dinner", cal:290, protein:38, time:"30 min + 15 min brine", airfryer:true,
+    imperial:["2 boneless skinless chicken breasts (~1 lb total)","BRINE: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","1 tbsp olive oil","1 tsp garlic powder","1 tsp smoked paprika","½ tsp onion powder","½ tsp dried thyme","Salt & black pepper","Avocado oil spray"],
+    metric:  ["2 boneless skinless chicken breasts (~450g total)","BRINE: 480ml cold water + 15g salt + 5g sugar","15ml olive oil","5ml garlic powder","5ml smoked paprika","2.5ml onion powder","2.5ml dried thyme","Salt & black pepper","Avocado oil spray"],
+    steps:   ["BRINE FIRST — this is the secret. Dissolve salt and sugar in cold water in a bowl. Submerge chicken breasts completely. Brine for 15–30 minutes at room temperature. Don't skip this — it's what keeps them juicy.","Remove chicken from brine, pat completely dry with paper towels. Dry surface = better browning.","If breasts are thick (over 1 inch / 2.5cm), butterfly them or pound to even thickness. Uneven thickness = dry edges before the center is cooked.","Mix olive oil with all spices. Rub thoroughly all over the chicken — top, bottom, and sides.","Preheat air fryer for 3 minutes at 375°F / 190°C. A hot basket sears the surface immediately and locks in moisture.","Spray basket with avocado oil. Place chicken smooth-side down. Do NOT overcrowd.","Cook at 375°F / 190°C for 9 minutes. Flip. Cook another 6–9 minutes.","🌡️ CHECK THE TEMP — pull it out the moment it hits 160°F / 71°C. It will carry-cook to 165°F / 74°C while resting. This is the most important step.","REST for 5 full minutes before slicing. Cutting too early lets all the juices run out. Cover loosely with foil while it rests.","Slice against the grain. It should be visibly moist inside. If it's dry, you cooked it too long or skipped the brine."] },
+  { title:"Juicy Italian Herb Chicken Breast", category:"Dinner", cal:285, protein:38, time:"30 min + 15 min brine", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["2 boneless skinless chicken breasts (~1 lb total)","BRINE: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","1 tbsp olive oil","1 tsp dried oregano","1 tsp dried basil","½ tsp garlic powder","½ tsp onion powder","¼ tsp red pepper flakes","Salt & black pepper","Fresh lemon squeeze + fresh parsley to finish"],
+    metric:  ["2 boneless skinless chicken breasts (~450g total)","BRINE: 480ml cold water + 15g salt + 5g sugar","15ml olive oil","5ml dried oregano","5ml dried basil","2.5ml garlic powder","2.5ml onion powder","1.25ml red pepper flakes","Salt & black pepper","Fresh lemon squeeze + fresh parsley to finish"],
+    steps:   ["BRINE FIRST — dissolve salt and sugar in cold water. Submerge chicken 15–30 min at room temperature. Non-negotiable for juicy chicken.","Remove from brine, pat completely dry. Dry surface = better browning.","Butterfly or pound to even thickness if over 1 inch / 2.5cm thick.","Mix olive oil with all herbs and spices. Rub all over chicken — top, bottom, and sides.","Preheat air fryer 3 min at 375°F / 190°C. Hot basket = instant surface sear.","Spray basket, place chicken smooth-side down. Cook 9 min, flip, cook 6–9 more min.","Pull at 160°F / 71°C internal temp — it carries over to 165°F / 74°C while resting.","REST 5 full minutes before slicing. Cover loosely with foil.","Squeeze fresh lemon over the top, scatter fresh parsley. Serve immediately."] },
+
+  { title:"Juicy Lemon Garlic Chicken Breast", category:"Dinner", cal:280, protein:38, time:"30 min + 15 min brine", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["2 boneless skinless chicken breasts (~1 lb total)","BRINE: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","Zest and juice of 1 lemon","3 garlic cloves, minced","1 tbsp olive oil","1 tsp dried oregano","½ tsp black pepper","Salt","Fresh parsley to finish"],
+    metric:  ["2 boneless skinless chicken breasts (~450g total)","BRINE: 480ml cold water + 15g salt + 5g sugar","Zest and juice of 1 lemon","3 garlic cloves, minced","15ml olive oil","5ml dried oregano","2.5ml black pepper","Salt","Fresh parsley to finish"],
+    steps:   ["BRINE FIRST — dissolve salt and sugar in cold water. Submerge chicken 15–30 min. This is what makes the difference between juicy and dry.","Remove from brine, pat completely dry.","Butterfly or pound to even thickness if needed — uneven thickness is the #1 cause of dry chicken.","Mix lemon zest, lemon juice, minced garlic, olive oil, oregano, salt and pepper into a paste. Rub all over chicken.","Preheat air fryer 3 min at 375°F / 190°C.","Spray basket, place chicken smooth-side down. Cook 9 min, flip, cook 6–9 more min.","Pull at 160°F / 71°C — carry-over cooking takes it to 165°F / 74°C.","REST 5 full minutes before slicing. The lemon-garlic aroma while it rests is incredible.","Scatter fresh parsley and an extra squeeze of lemon. Done."] },
+
+  { title:"Juicy Smoky Paprika & Honey Chicken", category:"Dinner", cal:305, protein:37, time:"30 min + 15 min brine", airfryer:true, pcos:"good", bloat:"low",
+    imperial:["2 boneless skinless chicken breasts (~1 lb total)","BRINE: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","1 tbsp olive oil","1½ tsp smoked paprika","1 tsp garlic powder","½ tsp cumin","½ tsp onion powder","1 tsp honey (just 1 — it caramelizes beautifully)","Salt & black pepper","Avocado oil spray"],
+    metric:  ["2 boneless skinless chicken breasts (~450g total)","BRINE: 480ml cold water + 15g salt + 5g sugar","15ml olive oil","7.5ml smoked paprika","5ml garlic powder","2.5ml cumin","2.5ml onion powder","5ml honey","Salt & black pepper","Avocado oil spray"],
+    steps:   ["BRINE FIRST — dissolve salt and sugar in cold water. Submerge chicken 15–30 min. Do not skip this.","Remove from brine, pat completely dry with paper towels.","Mix olive oil, smoked paprika, garlic powder, cumin, onion powder, salt and pepper. Add the honey last and mix into the rub.","Coat chicken completely in the rub. The honey will make it slightly sticky — that's what creates the caramelized crust.","Preheat air fryer 3 min at 375°F / 190°C.","Spray basket, place chicken smooth-side down. Cook 9 min, flip, cook 6–9 more min.","Watch the last few minutes — the honey can darken fast. Pull at 160°F / 71°C internal temp.","REST 5 full minutes before slicing. The crust should be deep red and slightly sticky.","The inside will be juicy, the outside caramelized. This is the most crowd-pleasing version."] },
+
+  { title:"Juicy French Mustard & Thyme Chicken", category:"Dinner", cal:290, protein:38, time:"30 min + 15 min brine", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["2 boneless skinless chicken breasts (~1 lb total)","BRINE: 2 cups cold water + 1 tbsp salt + 1 tsp sugar","1 tbsp Dijon mustard","1 tbsp olive oil","1 tsp fresh or dried thyme","1 tsp garlic powder","½ tsp onion powder","1 tsp apple cider vinegar","Salt & black pepper","Fresh thyme to finish (optional)"],
+    metric:  ["2 boneless skinless chicken breasts (~450g total)","BRINE: 480ml cold water + 15g salt + 5g sugar","15ml Dijon mustard","15ml olive oil","5ml fresh or dried thyme","5ml garlic powder","2.5ml onion powder","5ml apple cider vinegar","Salt & black pepper","Fresh thyme to finish (optional)"],
+    steps:   ["BRINE FIRST — dissolve salt and sugar in cold water. Submerge chicken 15–30 min. This is always the first step for juicy chicken.","Remove from brine, pat completely dry.","Mix Dijon mustard, olive oil, thyme, garlic powder, onion powder, apple cider vinegar, salt and pepper into a smooth marinade. Taste it — it should be punchy.","Coat chicken completely. The mustard forms a crust that keeps moisture locked inside during cooking.","Preheat air fryer 3 min at 375°F / 190°C.","Spray basket, place chicken smooth-side down. Cook 9 min, flip, cook 6–9 more min.","Pull at 160°F / 71°C. Rest 5 full minutes — mandatory.","The mustard crust should be golden and slightly set. Slice against the grain.","This pairs beautifully with roasted asparagus or a simple green salad. Very French, very good."] },
+
+  // ── WRAPS (HEB Carb Sense Whole Wheat Tortillas) ──────────
+  { title:"Tuna Avocado Wrap", category:"Wrap", cal:310, protein:28, time:"5 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","1 can albacore tuna (~5 oz, drained)","¼ avocado, mashed","1 tsp Dijon mustard","Handful baby spinach","¼ cup cherry tomatoes, halved","Juice of ¼ lemon","Salt, pepper, red pepper flakes"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","1 can albacore tuna (~140g, drained)","¼ avocado, mashed","5ml Dijon mustard","Handful baby spinach (~20g)","40g cherry tomatoes, halved","Juice of ¼ lemon","Salt, pepper, red pepper flakes"],
+    steps:   ["Drain tuna and mix with mashed avocado, Dijon, lemon juice, salt and pepper — the avocado replaces mayo completely.","Lay tortilla flat. Layer spinach first — it acts as a moisture barrier and keeps the wrap from going soggy.","Spread tuna mixture over spinach. Add cherry tomatoes.","Fold sides in, roll tightly from the bottom. Slice diagonally. Works perfectly cold — great meal prep wrap."] },
+
+  { title:"Greek Egg Salad Wrap", category:"Wrap", cal:320, protein:24, time:"15 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","3 hard-boiled eggs, chopped","2 tbsp Fage 0% Greek yogurt (mayo swap)","1 tsp Dijon mustard","¼ cucumber, diced","Handful baby spinach","Salt, pepper, fresh dill or dried","Optional: ¼ tsp paprika"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","3 hard-boiled eggs, chopped","30ml Fage 0% Greek yogurt (mayo swap)","5ml Dijon mustard","¼ cucumber, diced","Handful baby spinach (~20g)","Salt, pepper, fresh dill or dried","Optional: 1.25ml paprika"],
+    steps:   ["Boil eggs 10 min, transfer to ice water, peel and chop.","Mix eggs with Greek yogurt, Dijon, salt, pepper, and dill. Greek yogurt makes it creamy and adds protein vs mayo.","Lay tortilla flat. Add spinach, then egg salad, then diced cucumber for crunch.","Roll tightly, slice diagonally. Eat immediately or wrap in foil and refrigerate up to 1 day."] },
+
+  { title:"Grilled Chicken Caesar Wrap", category:"Wrap", cal:350, protein:36, time:"10 min", airfryer:true, pcos:"good", bloat:"low",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","4 oz air fryer chicken breast, sliced","1 cup romaine lettuce, chopped","1 tbsp light Caesar dressing (measure it)","1 tbsp shaved parmesan","Juice of ¼ lemon","Black pepper"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","115g air fryer chicken breast, sliced","40g romaine lettuce, chopped","15ml light Caesar dressing (measure it)","10g shaved parmesan","Juice of ¼ lemon","Black pepper"],
+    steps:   ["Cook chicken breast using the juicy air fryer method (brine, 375°F / 190°C, pull at 160°F / 71°C, rest 5 min). Slice thin.","Toss chopped romaine with Caesar dressing and lemon juice — use just enough to coat, not drown.","Lay tortilla flat. Layer romaine first, then chicken slices, then parmesan.","Crack black pepper generously over the top. Roll tightly, slice diagonally. Serve warm."] },
+
+  { title:"Turkey, Spinach & Hummus Wrap", category:"Wrap", cal:330, protein:30, time:"15 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","4 oz ground turkey, cooked and seasoned","2 tbsp hummus","Handful baby spinach","¼ cup roasted red peppers or fresh bell pepper strips","¼ avocado sliced","Salt, cumin, garlic powder"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","115g ground turkey, cooked and seasoned","30ml hummus","Handful baby spinach (~20g)","40g roasted red peppers or fresh bell pepper strips","¼ avocado sliced","Salt, cumin, garlic powder"],
+    steps:   ["Cook ground turkey in a sprayed pan with garlic powder, cumin, salt until browned, ~5 min. Let cool slightly.","Spread hummus across the full surface of the tortilla — it acts as a moisture barrier and flavor base.","Layer spinach, warm turkey, bell peppers, and avocado slices.","Roll tightly from the bottom, folding sides in. Great warm or packed cold for lunch."] },
+
+  { title:"Spicy Shrimp Wrap", category:"Wrap", cal:300, protein:29, time:"15 min", airfryer:true, pcos:"great", bloat:"low",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","6 oz raw shrimp, peeled and deveined","1 tsp smoked paprika + ½ tsp cayenne","1 tsp garlic powder","Juice of ½ lime","2 tbsp Fage 0% Greek yogurt (sour cream swap)","Handful shredded cabbage or romaine","¼ avocado sliced","Avocado oil spray, salt"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","170g raw shrimp, peeled and deveined","5ml smoked paprika + 2.5ml cayenne","5ml garlic powder","Juice of ½ lime","30ml Fage 0% Greek yogurt (sour cream swap)","Handful shredded cabbage or romaine","¼ avocado sliced","Avocado oil spray, salt"],
+    steps:   ["Toss shrimp with paprika, cayenne, garlic powder, salt and a squeeze of lime.","Air fry at 400°F / 200°C for 6–8 min until pink and slightly charred. Or cook in a hot pan 2 min per side.","Mix Greek yogurt with a squeeze of lime and pinch of salt — your creamy sauce.","Spread Greek yogurt sauce on tortilla. Layer cabbage or romaine, shrimp, and avocado slices.","Squeeze more lime over everything. Roll tightly, eat immediately — shrimp wraps don't keep well."] },
+
+  { title:"Veggie Hummus Wrap", category:"Wrap", cal:260, protein:12, time:"8 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","3 tbsp hummus","Handful baby spinach","¼ cucumber, sliced thin","¼ cup cherry tomatoes, halved","¼ avocado, sliced","¼ cup shredded carrots","Juice of ¼ lemon","Salt, pepper, red pepper flakes","Optional: 1 tbsp feta cheese for extra flavor"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","45ml hummus","Handful baby spinach (~20g)","¼ cucumber, sliced thin","40g cherry tomatoes, halved","¼ avocado, sliced","30g shredded carrots","Juice of ¼ lemon","Salt, pepper, red pepper flakes","Optional: 15g feta cheese"],
+    steps:   ["Spread hummus generously across the tortilla — this is your protein and moisture base.","Layer spinach, then cucumber, tomatoes, carrots, and avocado.","Squeeze lemon over everything, season with salt, pepper, and red pepper flakes.","Optional: crumble feta on top for a salty punch.","Roll tightly, slice diagonally. This one is light — pair with a hard-boiled egg or string cheese to hit your protein target."] },
+
+  { title:"BBQ Chicken Wrap", category:"Wrap", cal:370, protein:38, time:"20 min", airfryer:true, pcos:"good", bloat:"low",
+    imperial:["1 HEB Carb Sense Whole Wheat tortilla","4 oz air fryer chicken breast, shredded","1 tbsp low-sugar BBQ sauce (measure it)","Handful shredded cabbage or romaine","2 tbsp Fage 0% Greek yogurt","1 tsp apple cider vinegar","Salt & pepper","Optional: thinly sliced red onion"],
+    metric:  ["1 HEB Carb Sense Whole Wheat tortilla","115g air fryer chicken breast, shredded","15ml low-sugar BBQ sauce (measure it)","Handful shredded cabbage (~30g)","30ml Fage 0% Greek yogurt","5ml apple cider vinegar","Salt & pepper","Optional: thinly sliced red onion"],
+    steps:   ["Cook chicken using the juicy brine method. Shred with two forks while still warm — it absorbs the BBQ sauce better when hot.","Toss shredded chicken with BBQ sauce. Just 1 tbsp / 15ml — enough to coat without overdoing the sugar.","Mix Greek yogurt with apple cider vinegar, salt and pepper — this is your slaw dressing.","Toss cabbage in the dressing.","Layer slaw on tortilla, then BBQ chicken, then optional red onion.","Roll tightly, serve warm. This is the most satisfying wrap on the list."] },
+  // ── FRIED RICE ─────────────────────────────────────────────
+  { title:"High-Protein Beef Fried Rice", category:"Dinner", cal:420, protein:36, time:"25 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["5 oz lean ground beef (90% or higher) or sirloin, diced small","1 cup cooked white or black rice — start with ⅓ cup / 60g uncooked (rice triples when cooked)","2 whole eggs","½ cup frozen peas","3 garlic cloves, minced","1 inch fresh ginger, grated (or ½ tsp ground ginger)","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","2 green onions, sliced","Avocado oil spray","Optional: red pepper flakes, sriracha"],
+    metric:  ["140g lean ground beef (90%+) or sirloin, diced small","180g cooked white or black rice — start with 60g uncooked (rice triples when cooked)","2 whole eggs","75g frozen peas","3 garlic cloves, minced","2.5cm fresh ginger, grated (or 2.5ml ground ginger)","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","2 green onions, sliced","Avocado oil spray","Optional: red pepper flakes, sriracha"],
+    steps:   ["🍚 RICE PREP — two options: (1) Best: cook rice the night before, refrigerate uncovered. (2) Same-day: spread freshly cooked rice in a thin layer on a baking sheet, bake at 350°F / 175°C for 10–15 min stirring once halfway, cool 5 min. Either method gives you dry rice that won't turn mushy.","If using ground beef, cook in a sprayed pan on high heat, breaking apart until browned. If using sirloin, cook diced pieces 2–3 min per side. Season with salt and pepper. Remove and set aside.","In the same pan on high heat, add garlic and ginger. Cook 30 seconds — it should smell incredible.","Add rice. Press it flat and let it sit untouched 2 min — this is how you get that slightly crispy texture.","Push rice to the side. Crack eggs directly into the pan, scramble quickly, then fold into the rice before fully set.","Add frozen peas — no need to thaw, they'll cook in 2 minutes.","Return beef to the pan. Pour soy sauce or coconut aminos and sesame oil over everything, toss well on high heat 1–2 min.","Finish with green onions and optional sriracha. Eat immediately — fried rice doesn't reheat well.","Black rice tip: it has a slightly nutty flavor and turns deep purple when cooked. Stunning in the bowl and genuinely more nutritious than white rice."] },
+
+  { title:"High-Protein Chicken Fried Rice", category:"Dinner", cal:390, protein:38, time:"25 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["6 oz boneless skinless chicken breast, diced small","1 cup cooked white or black rice — start with ⅓ cup / 60g uncooked (rice triples when cooked)","2 whole eggs","½ cup frozen peas","3 garlic cloves, minced","1 inch fresh ginger, grated (or ½ tsp ground ginger)","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","2 green onions, sliced","1 tsp rice vinegar (optional but brightens everything)","Avocado oil spray, salt & pepper"],
+    metric:  ["170g boneless skinless chicken breast, diced small","180g cooked white or black rice — start with 60g uncooked (rice triples when cooked)","2 whole eggs","75g frozen peas","3 garlic cloves, minced","2.5cm fresh ginger, grated (or 2.5ml ground ginger)","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","2 green onions, sliced","5ml rice vinegar (optional)","Avocado oil spray, salt & pepper"],
+    steps:   ["🍚 RICE PREP — two options: (1) Best: cook rice the night before, refrigerate uncovered. (2) Same-day: spread freshly cooked rice on a baking sheet in a thin layer, bake at 350°F / 175°C for 10–15 min stirring once halfway, cool 5 min. Both give you dry rice that won't go mushy.","Dice chicken into small, even pieces — about 1cm / ½ inch. Small pieces cook fast and distribute evenly through the rice.","Heat pan or wok on HIGH heat — this is critical. Fried rice needs high heat to get that restaurant-style char, not steam.","Spray with avocado oil. Add chicken, spread flat, don't stir for 2 min. Let it get golden. Stir, cook 2 more min until cooked through. Season with salt and pepper. Remove and set aside.","Same pan, add garlic and ginger. Cook 30 seconds, stirring constantly.","Add rice. Press flat, leave untouched 2 min for crispy bits to form.","Push rice to the side. Crack eggs in, scramble quickly, fold into rice before fully set.","Add frozen peas, return chicken to the pan.","Pour soy sauce/coconut aminos, sesame oil, and rice vinegar over everything. Toss on high heat 1–2 min until everything is glossy and fragrant.","Top with green onions. Taste and adjust seasoning. Eat immediately.","💡 Make it lower carb: replace half or all the rice with riced cauliflower — same technique, half the calories."] },
+
+  { title:"Beef Fried Rice (Cauliflower)", category:"Dinner", cal:300, protein:35, time:"20 min", airfryer:false, pcos:"great", bloat:"medium",
+    imperial:["5 oz lean ground beef (90%+) or sirloin diced small","2 cups cauliflower rice (fresh or frozen)","2 whole eggs","½ cup frozen peas","3 garlic cloves minced","1 inch fresh ginger grated","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","2 green onions sliced","Avocado oil spray, salt & pepper","Optional: sriracha"],
+    metric:  ["140g lean ground beef (90%+) or sirloin diced small","200g cauliflower rice (fresh or frozen)","2 whole eggs","75g frozen peas","3 garlic cloves minced","2.5cm fresh ginger grated","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","2 green onions sliced","Avocado oil spray, salt & pepper","Optional: sriracha"],
+    steps:   ["Key rule: cauliflower rice releases a lot of water — HIGH heat and don't overcrowd the pan or it steams and turns soggy.","If using frozen cauliflower rice, microwave 3 min first, then spread on paper towels and press firmly to remove as much moisture as possible. Non-negotiable step.","Cook beef on high heat until browned, season with salt and pepper. Remove and set aside.","Same pan high heat. Add garlic and ginger, cook 30 seconds.","Add cauliflower rice in a single layer. Press flat, cook untouched 3–4 min until slightly golden on the bottom.","Push to the side. Crack eggs in, scramble quickly, fold into cauliflower rice before fully set.","Add peas and return beef. Pour soy sauce and sesame oil over everything. Toss on high heat 2 min.","Top with green onions. Saves ~120 kcal vs the white rice version with the same protein. Doesn't feel like a compromise."] },
+
+  { title:"Beef Fried Rice (Half & Half)", category:"Dinner", cal:360, protein:36, time:"25 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["5 oz lean ground beef (90%+) or sirloin diced small","½ cup cooked white or black rice — start with ~2½ tbsp / 30g uncooked","1 cup cauliflower rice","2 whole eggs","½ cup frozen peas","3 garlic cloves minced","1 inch fresh ginger grated","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    metric:  ["140g lean ground beef (90%+) or sirloin diced small","90g cooked white or black rice — start with 30g uncooked","100g cauliflower rice","2 whole eggs","75g frozen peas","3 garlic cloves minced","2.5cm fresh ginger grated","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    steps:   ["🍚 RICE PREP — two options: (1) Best: cook rice the night before, refrigerate uncovered. (2) Same-day: spread freshly cooked rice on a baking sheet, bake at 350°F / 175°C for 10–15 min stirring once halfway, cool 5 min before using.","Microwave frozen cauliflower rice 3 min, press dry with paper towels before using.","Cook beef on high heat until browned. Remove and set aside.","Same pan, garlic and ginger, 30 seconds.","Add cauliflower rice first — cook untouched on high heat 2–3 min to drive off moisture.","Add the dry regular rice on top. Toss together, press flat, cook 2 more min for crispy bits.","Push to the side. Crack eggs in, scramble, fold in before fully set.","Add peas and beef back. Soy sauce and sesame oil over everything. High heat, toss 1–2 min.","Top with green onions. 💡 Black rice half & half looks stunning — deep purple mixed with cauliflower white."] },
+
+  { title:"Chicken Fried Rice (Cauliflower)", category:"Dinner", cal:280, protein:37, time:"20 min", airfryer:false, pcos:"great", bloat:"medium",
+    imperial:["6 oz boneless skinless chicken breast diced small","2 cups cauliflower rice (fresh or frozen)","2 whole eggs","½ cup frozen peas","3 garlic cloves minced","1 inch fresh ginger grated","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","1 tsp rice vinegar (optional)","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    metric:  ["170g boneless skinless chicken breast diced small","200g cauliflower rice (fresh or frozen)","2 whole eggs","75g frozen peas","3 garlic cloves minced","2.5cm fresh ginger grated","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","5ml rice vinegar (optional)","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    steps:   ["Lowest calorie version of all six fried rice recipes at 280 kcal — best macro ratio in the app.","Microwave frozen cauliflower rice 3 min, spread on paper towels and press out moisture. Do not skip this.","Dice chicken into small even pieces (~1cm / ½ inch). High heat, spray pan, cook chicken spread flat — don't stir for 2 min. Flip, 2 more min until cooked through. Season, remove and set aside.","Same pan high heat. Garlic and ginger, 30 seconds.","Add cauliflower rice, press flat, cook untouched 3–4 min until slightly golden.","Push to side. Crack eggs in, scramble, fold into rice before fully set.","Add peas and chicken back. Soy sauce, sesame oil, rice vinegar over everything. High heat, toss 2 min.","Top with green onions. At 37g protein and 280 kcal this is your best protein-to-calorie ratio of any dinner in the app."] },
+
+  { title:"Chicken Fried Rice (Half & Half)", category:"Dinner", cal:335, protein:38, time:"25 min", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["6 oz boneless skinless chicken breast diced small","½ cup cooked white or black rice — start with ~2½ tbsp / 30g uncooked","1 cup cauliflower rice","2 whole eggs","½ cup frozen peas","3 garlic cloves minced","1 inch fresh ginger grated","3 tbsp low-sodium soy sauce or coconut aminos","1 tsp sesame oil","1 tsp rice vinegar (optional)","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    metric:  ["170g boneless skinless chicken breast diced small","90g cooked white or black rice — start with 30g uncooked","100g cauliflower rice","2 whole eggs","75g frozen peas","3 garlic cloves minced","2.5cm fresh ginger grated","45ml low-sodium soy sauce or coconut aminos","5ml sesame oil","5ml rice vinegar (optional)","2 green onions sliced","Avocado oil spray, salt & pepper"],
+    steps:   ["🍚 RICE PREP — two options: (1) Best: cook rice the night before, refrigerate uncovered. (2) Same-day: spread freshly cooked rice on a baking sheet, bake at 350°F / 175°C for 10–15 min stirring once halfway, cool 5 min before using.","Microwave frozen cauliflower rice 3 min, press dry with paper towels.","Cook diced chicken on high heat — flat, no stirring for 2 min, flip, 2 more min. Season, remove and set aside.","Garlic and ginger in same pan, 30 seconds.","Add cauliflower rice first, cook on high heat untouched 2–3 min.","Add dry regular rice, toss together, press flat and cook 2 more min for crispy bits.","Push to side. Eggs in, scramble quickly, fold in before fully set.","Add peas and chicken back. Soy sauce, sesame oil, rice vinegar over everything. High heat, toss 2 min.","Top with green onions. 💡 Black rice half & half looks incredible — deep purple mixed with cauliflower white. Worth trying just for the visual."] },
+
+  // ── GOÛTER (AFTERNOON SNACKS) ───────────────────────────────
+  { title:"Banana & Peanut Butter Rice Cake", category:"Snack", cal:130, protein:5, time:"2 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 Lundberg rice cake","1 tsp natural peanut butter","½ small banana, sliced","Pinch of cinnamon"],
+    metric:  ["1 Lundberg rice cake","5ml natural peanut butter","½ small banana, sliced","Pinch of cinnamon"],
+    steps:   ["Spread peanut butter thinly over rice cake — 1 tsp only, it adds up fast.","Layer banana slices on top.","Sprinkle cinnamon over everything.","Eat immediately. Simple, sweet, satisfying — classic goûter energy without the guilt."] },
+
+  { title:"Greek Yogurt with Honey & Cinnamon", category:"Snack", cal:120, protein:12, time:"2 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["½ cup Fage 0% Greek yogurt","1 tsp honey","¼ tsp cinnamon","Optional: 4–5 walnut halves for crunch"],
+    metric:  ["120ml Fage 0% Greek yogurt","5ml honey","1.25ml cinnamon","Optional: 4–5 walnut halves for crunch"],
+    steps:   ["Spoon yogurt into a small bowl or jar.","Drizzle honey in a thin spiral over the top — 1 tsp max.","Dust with cinnamon.","Add a few walnut halves if you want crunch and healthy fats.","This is the French pharmacy version of a goûter — feels indulgent, costs you almost nothing calorically."] },
+
+  { title:"Apple Slices with Cottage Cheese", category:"Snack", cal:110, protein:10, time:"3 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["½ medium apple, sliced thin","¼ cup low-fat cottage cheese","Pinch of cinnamon","Optional: tiny drizzle of honey"],
+    metric:  ["½ medium apple, sliced thin","60g low-fat cottage cheese","Pinch of cinnamon","Optional: tiny drizzle of honey"],
+    steps:   ["Slice apple into thin rounds or wedges.","Spoon cottage cheese into a small bowl alongside.","Dust both with cinnamon.","Dip apple slices into cottage cheese as you eat — sweet, creamy, crunchy.","Genuinely one of the best light sweet snacks on this list."] },
+
+  { title:"Chocolate Protein Mug Cake", category:"Snack", cal:150, protein:14, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop chocolate whey protein","1 tbsp unsweetened cocoa powder","1 egg","2 tbsp HEB 2% milk","¼ tsp baking powder","Pinch of salt","Optional: 5 dark chocolate chips on top"],
+    metric:  ["1 scoop chocolate whey protein","7g unsweetened cocoa powder","1 egg","30ml HEB 2% milk","1.25ml baking powder","Pinch of salt","Optional: 5 dark chocolate chips on top"],
+    steps:   ["Mix protein powder, cocoa powder, baking powder and salt in a microwave-safe mug.","Add egg and milk, stir vigorously until completely smooth — no lumps.","Press a few chocolate chips on top if using.","Microwave on high 60–75 seconds. Check at 60 — should be just set in the middle, slightly fudgy. Don't overcook or it goes rubbery.","Let cool 1 minute before eating — it finishes cooking from residual heat.","Your goûter chocolat. 14g protein, 150 kcal, ready in 5 minutes. Better than any packaged snack."] },
+
+  { title:"Cucumber & Feta Bites", category:"Snack", cal:90, protein:6, time:"5 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["½ cucumber, sliced into thick rounds","2 tbsp feta cheese, crumbled","¼ tsp dried oregano","Red pepper flakes","Juice of ¼ lemon","Optional: 2–3 cherry tomatoes, halved"],
+    metric:  ["½ cucumber, sliced into thick rounds","30g feta cheese, crumbled","1.25ml dried oregano","Red pepper flakes","Juice of ¼ lemon","Optional: 2–3 cherry tomatoes, halved"],
+    steps:   ["Slice cucumber into thick rounds — about 1cm / ½ inch each.","Top each round with a pinch of crumbled feta.","Sprinkle oregano and red pepper flakes over everything.","Squeeze a little lemon over the top.","Add a cherry tomato half on top of each one if you have them.","Savory, fresh, crunchy — zero cooking, ready in 5 min. Very Mediterranean goûter energy."] },
+
+  { title:"Soft-Boiled Egg with Fleur de Sel", category:"Snack", cal:80, protein:7, time:"10 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 large egg","Fleur de sel or good sea salt","Black pepper","Optional: 1 rice cake alongside"],
+    metric:  ["1 large egg","Fleur de sel or good sea salt","Black pepper","Optional: 1 rice cake alongside"],
+    steps:   ["Bring a small pot of water to a full boil.","Lower egg in gently with a spoon. Cook exactly 6 minutes for a runny yolk, 7 for jammy.","Transfer immediately to ice water for 2 minutes — stops the cooking.","Peel carefully. Slice in half.","Sprinkle fleur de sel and black pepper over the yolk.","The most French goûter on the list. Simple, perfect, satisfying. The quality of the egg matters — Vital Farms is worth it here."] },
+
+  { title:"Rice Cake with Tuna & Dijon", category:"Snack", cal:120, protein:14, time:"3 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 Lundberg rice cake","2 oz canned albacore tuna, drained","½ tsp Dijon mustard","3–4 cucumber slices","Squeeze of lemon, black pepper"],
+    metric:  ["1 Lundberg rice cake","55g canned albacore tuna, drained","2.5ml Dijon mustard","3–4 cucumber slices","Squeeze of lemon, black pepper"],
+    steps:   ["Mix tuna with Dijon mustard, lemon and black pepper.","Pile onto rice cake.","Top with cucumber slices.","Savory, high protein, no cooking. The Dijon makes it feel properly French.","Make the tuna mix in advance and keep in the fridge — assemble in 30 seconds when hungry."] },
+
+  { title:"Frozen Banana Bites", category:"Snack", cal:90, protein:2, time:"5 min + freeze time", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 ripe banana","2 tbsp dark chocolate chips, melted","1 tsp natural peanut butter (optional drizzle)","Pinch of fleur de sel"],
+    metric:  ["1 ripe banana","20g dark chocolate chips, melted","5ml natural peanut butter (optional drizzle)","Pinch of fleur de sel"],
+    steps:   ["Slice banana into rounds about 1cm / ½ inch thick.","Melt chocolate chips in the microwave in 20-second bursts, stirring between each.","Dip each banana round halfway into melted chocolate, or drizzle over the top.","Place on a parchment-lined plate or tray.","Optional: drizzle a tiny bit of peanut butter over and sprinkle fleur de sel.","Freeze at least 1 hour. Store in a freezer bag.","Eat straight from the freezer — best frozen solid. Make a batch on Sunday for the whole week.","Your healthy Magnum. Better than anything from a packet."] },
+
+  // ── PETITS GÂTEAUX ─────────────────────────────────────────
+  { title:"Protein Brownies", category:"Snack", cal:145, protein:12, time:"25 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["2 scoops chocolate whey protein","2 tbsp sweet cocoa powder","2 tbsp all-purpose flour","¼ tsp baking powder","2 eggs","3 tbsp honey or maple syrup","2 tbsp melted butter","2 tbsp HEB 2% milk","½ tsp vanilla extract","Pinch of salt","¼ cup dark chocolate chips"],
+    metric:  ["2 scoops chocolate whey protein","14g sweet cocoa powder","16g all-purpose flour","1.25ml baking powder","2 eggs","45ml honey or maple syrup","30g melted butter","30ml HEB 2% milk","2.5ml vanilla extract","Pinch of salt","45g dark chocolate chips"],
+    steps:   ["Preheat oven to 325°F / 160°C. Line an 8x8 inch / 20x20cm tin with parchment.","Whisk protein powder, cocoa, flour, baking powder and salt together in a bowl.","In a separate bowl whisk eggs, honey/maple syrup, melted butter, milk and vanilla until smooth.","Pour wet into dry, stir until just combined — don't overmix or they go tough.","Fold in chocolate chips gently.","Pour into tin, smooth the top. Tap tin on counter twice to release air bubbles.","Bake 15–17 minutes. Center should look slightly underdone — it firms up as it cools. A toothpick should come out with a few moist crumbs, not wet batter.","Cool completely before cutting — at least 20 minutes. Cutting warm = crumbling.","Cut into 9 squares. Store in the fridge up to 5 days. Each square ~145 kcal / 12g protein."] },
+
+  { title:"Classic Brownies (Naturally Healthy)", category:"Snack", cal:160, protein:4, time:"30 min", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["½ cup dark chocolate chips, melted","3 tbsp melted butter","2 eggs","¼ cup honey or maple syrup","1 tsp vanilla extract","¼ cup all-purpose flour","2 tbsp sweet cocoa powder","¼ tsp baking powder","Pinch of salt"],
+    metric:  ["90g dark chocolate chips, melted","45g melted butter","2 eggs","60ml honey or maple syrup","5ml vanilla extract","32g all-purpose flour","14g sweet cocoa powder","1.25ml baking powder","Pinch of salt"],
+    steps:   ["Preheat oven to 325°F / 160°C. Line an 8x8 inch / 20x20cm tin with parchment.","Melt chocolate chips and butter together in 30-second microwave bursts, stirring between each, until smooth. Cool 5 minutes.","Whisk eggs, honey/maple syrup and vanilla into the chocolate mixture.","Sift in flour, cocoa, baking powder and salt. Fold until just combined — stop the moment no dry streaks remain.","Pour into tin. Bake 18–20 minutes. Center should look barely set — this gives fudgy brownies, not cakey ones.","Cool completely before cutting. Proper fudgy brownies made with honey instead of refined sugar.","Cut into 9 squares. Room temp up to 3 days, fridge up to 1 week."] },
+
+  { title:"Protein Chocolate Chip Cookies", category:"Snack", cal:120, protein:8, time:"20 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","½ cup all-purpose flour","¼ tsp baking soda","Pinch of salt","1 egg","2 tbsp melted butter","2 tbsp honey or maple syrup","1 tsp vanilla extract","¼ cup dark chocolate chips"],
+    metric:  ["1 scoop vanilla whey protein","65g all-purpose flour","1.25ml baking soda","Pinch of salt","1 egg","30g melted butter","30ml honey or maple syrup","5ml vanilla extract","45g dark chocolate chips"],
+    steps:   ["Preheat oven to 350°F / 175°C. Line a baking sheet with parchment.","Mix protein powder, flour, baking soda and salt in a bowl.","In another bowl whisk egg, melted butter, honey/maple syrup and vanilla.","Combine wet and dry until a dough forms. Fold in chocolate chips.","Roll into 10 balls, place on sheet, flatten slightly with your palm — they don't spread much.","Bake 9–11 minutes. They should look underdone and pale — they firm up on the tray as they cool.","Leave on tray 10 minutes before moving. Makes 10 cookies at ~120 kcal / 8g protein each."] },
+
+  { title:"Honey Butter Cookies", category:"Snack", cal:110, protein:2, time:"20 min", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["1 cup all-purpose flour","¼ tsp baking powder","Pinch of salt","4 tbsp softened butter","3 tbsp honey","1 egg yolk","1 tsp vanilla extract","1 tsp cinnamon-sugar to dust on top"],
+    metric:  ["130g all-purpose flour","1.25ml baking powder","Pinch of salt","60g softened butter","45ml honey","1 egg yolk","5ml vanilla extract","5ml cinnamon-sugar to dust"],
+    steps:   ["Preheat oven to 350°F / 175°C. Line a baking sheet with parchment.","Beat softened butter and honey until pale and creamy — 2 minutes by hand.","Add egg yolk and vanilla, beat until smooth.","Fold in flour, baking powder and salt until a soft dough forms. Don't overwork.","Roll into 12 small balls. Place on tray, flatten with a fork.","Dust lightly with cinnamon-sugar.","Bake 10–12 minutes until just golden at the edges — centers should still look pale.","Cool on the tray. Buttery, delicate, very French. Honey gives a floral sweetness sugar can't replicate.","Makes 12 cookies at ~110 kcal each."] },
+
+  { title:"Protein Madeleines", category:"Snack", cal:95, protein:7, time:"25 min + 30 min rest", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","½ cup all-purpose flour","1 tsp baking powder","Pinch of salt","2 eggs","2 tbsp honey","3 tbsp melted butter","1 tsp vanilla extract","Zest of ½ lemon — essential, don't skip","Cinnamon-sugar to dust"],
+    metric:  ["1 scoop vanilla whey protein","65g all-purpose flour","5ml baking powder","Pinch of salt","2 eggs","30ml honey","45g melted butter","5ml vanilla extract","Zest of ½ lemon","5ml cinnamon-sugar to dust"],
+    steps:   ["You'll need a madeleine tin for the shell shape. No tin? Use a mini muffin tin — same taste, different look.","Preheat oven to 375°F / 190°C. Butter and lightly flour each mould.","Whisk eggs and honey vigorously 2 minutes until pale and slightly thickened — this creates the signature hump.","Add vanilla and lemon zest. Whisk again.","Sift in flour, protein powder and baking powder. Fold gently with a spatula — don't whisk, you'll lose the air.","Fold in melted butter last, in a slow stream. Batter should be smooth and glossy.","Refrigerate batter 30 minutes minimum — cold batter creates the famous hump. Don't skip this.","Fill each mould ¾ full. Bake 11–13 minutes until edges are golden and centers spring back when pressed.","Unmould after 5 minutes. Dust with cinnamon-sugar while still warm.","Best eaten within 2 hours. Makes ~12 at 95 kcal / 7g protein each."] },
+
+  { title:"Madeleines Classiques (La vraie recette)", category:"Snack", cal:110, protein:3, time:"25 min + 1h rest", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["¾ cup all-purpose flour","1 tsp baking powder","Pinch of salt","2 eggs","¼ cup white sugar","1 tsp vanilla extract","Zest of 1 lemon","4 tbsp butter, browned (beurre noisette)","Cinnamon-sugar or powdered sugar to dust"],
+    metric:  ["100g all-purpose flour","5ml baking powder","Pinch of salt","2 eggs","50g white sugar","5ml vanilla extract","Zest of 1 lemon","60g butter, browned (beurre noisette)","Cinnamon-sugar or powdered sugar to dust"],
+    steps:   ["Make beurre noisette: melt butter in a small pan over medium heat, swirling constantly until it smells nutty and turns golden brown. Pour into a bowl immediately. Let cool.","Whisk eggs and sugar a full 3 minutes until pale, thick and ribbon-like. Don't rush this — it's what makes madeleines light.","Add vanilla and lemon zest. The lemon zest is non-negotiable — it's what makes a madeleine a madeleine.","Sift flour, baking powder and salt over the egg mixture. Fold very gently in large sweeping motions.","Drizzle in cooled brown butter slowly, fold until just incorporated.","Cover and refrigerate at least 1 hour — overnight is even better. The cold rest creates the famous hump.","Preheat oven to 400°F / 200°C. Butter and flour the tin generously.","Fill moulds ¾ full. Bake 10–12 minutes until edges are deep golden and centers have humped.","Unmould immediately. Dust with cinnamon-sugar. Eat warm. Marcel Proust était dans le vrai.","Makes ~12 at ~110 kcal each."] },
+
+  { title:"Protein Blondies", category:"Snack", cal:135, protein:10, time:"25 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","½ cup all-purpose flour","¼ tsp baking powder","Pinch of salt","1 egg","3 tbsp maple syrup","2 tbsp melted butter","1 tsp vanilla extract","¼ cup dark chocolate chips"],
+    metric:  ["1 scoop vanilla whey protein","65g all-purpose flour","1.25ml baking powder","Pinch of salt","1 egg","45ml maple syrup","30g melted butter","5ml vanilla extract","45g dark chocolate chips"],
+    steps:   ["Preheat oven to 325°F / 160°C. Line an 8x8 inch / 20x20cm tin with parchment.","Whisk egg, maple syrup, melted butter and vanilla until smooth.","Fold in protein powder, flour, baking powder and salt until just combined.","Fold in chocolate chips.","Spread into tin — batter will be thick, use a spatula to push into corners.","Bake 15–18 minutes. Edges golden, center slightly underdone — firms up as it cools.","Cool fully before cutting — minimum 30 minutes. Better the next day.","Cut into 9 squares at ~135 kcal / 10g protein each. Maple syrup gives caramel depth honey can't match."] },
+
+  { title:"Blondies Beurre & Miel", category:"Snack", cal:155, protein:3, time:"25 min", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["¾ cup all-purpose flour","¼ tsp baking powder","¼ tsp salt","4 tbsp melted butter","¼ cup honey or maple syrup","1 egg","1 tsp vanilla extract","¼ cup dark chocolate chips"],
+    metric:  ["100g all-purpose flour","1.25ml baking powder","1.25ml salt","60g melted butter","60ml honey or maple syrup","1 egg","5ml vanilla extract","45g dark chocolate chips"],
+    steps:   ["Preheat oven to 325°F / 160°C. Line an 8x8 inch / 20x20cm tin with parchment.","Whisk melted butter and honey/maple syrup together until smooth.","Add egg and vanilla, whisk again until well combined.","Fold in flour, baking powder and salt until just combined.","Fold in chocolate chips. Pour into tin, smooth the top.","Bake 18–20 minutes. Golden on top, slightly soft in the center.","Cool completely before cutting. Makes 9 squares at ~155 kcal each.","Honey version: floral sweetness. Maple version: deep caramel. Try both."] },
+
+  { title:"No-Bake Energy Balls", category:"Snack", cal:100, protein:5, time:"10 min + chill", airfryer:false, pcos:"good", bloat:"medium",
+    imperial:["1 cup rolled oats","1 scoop vanilla whey protein","3 tbsp honey","2 tbsp peanut butter","1 tsp vanilla extract","¼ cup dark chocolate chips","Pinch of salt","2–3 tbsp HEB 2% milk if too dry"],
+    metric:  ["90g rolled oats","1 scoop vanilla whey protein","45ml honey","30ml peanut butter","5ml vanilla extract","45g dark chocolate chips","Pinch of salt","30–45ml HEB 2% milk if too dry"],
+    steps:   ["Mix oats, protein powder and salt in a bowl.","Add honey, peanut butter and vanilla. Mix well — it will be thick and sticky.","Fold in chocolate chips.","If mixture is too dry to hold together, add milk 1 tbsp at a time until it just comes together.","Refrigerate mixture 20–30 minutes — cold mixture is much easier to roll.","Roll into 12 balls using your palms. If they crack, add a tiny splash more milk.","Store in an airtight container in the fridge up to 1 week, or freeze up to 1 month.","Makes 12 balls at ~100 kcal / 5g protein each. No oven, no mess — grab straight from the fridge all week."] },
+
+  // ── EGG BITES (STARBUCKS-STYLE) ────────────────────────────
+  { title:"Bacon & Cheese Egg Bites", category:"Breakfast", cal:130, protein:12, time:"35 min", airfryer:false,
+    imperial:["4 large eggs","½ cup low-fat cottage cheese","¼ cup shredded cheddar or gruyère","2 strips bacon, cooked and crumbled","Salt, pepper, pinch of garlic powder","Avocado oil spray"],
+    metric:  ["4 large eggs","120g low-fat cottage cheese","30g shredded cheddar or gruyère","2 strips bacon, cooked and crumbled","Salt, pepper, pinch of garlic powder","Avocado oil spray"],
+    steps:   ["Preheat oven to 300°F / 150°C. This low temp is the key — too hot and they turn rubbery instead of silky.","Blend eggs and cottage cheese together in a blender for 30 seconds until completely smooth. The cottage cheese is what gives you that creamy Starbucks texture — don't skip it.","Add shredded cheese, salt, pepper and garlic powder. Pulse 3–4 times to combine — don't over-blend.","Spray a silicone muffin mold or muffin tin very generously with avocado oil.","Divide crumbled bacon evenly into each mold.","Pour egg mixture over the bacon, filling each mold about ¾ full.","Place mold inside a larger baking dish. Pour hot water into the outer dish until it comes halfway up the sides of the mold. This water bath is the Starbucks secret — it steams them gently from outside.","Bake 25–30 minutes until just set — they should jiggle very slightly in the center when you tap the pan.","Cool 5 minutes before unmolding. They pop out cleanly from silicone.","Makes 6 bites at ~130 kcal / 12g protein each. Store in the fridge up to 4 days — reheat 30 seconds in the microwave."] },
+
+  { title:"Spinach & Feta Egg Bites", category:"Breakfast", cal:110, protein:11, time:"35 min", airfryer:false,
+    imperial:["4 large eggs","½ cup low-fat cottage cheese","¼ cup crumbled feta cheese","½ cup baby spinach, finely chopped","1 garlic clove, minced","¼ tsp dried oregano","Salt & pepper","Avocado oil spray"],
+    metric:  ["4 large eggs","120g low-fat cottage cheese","40g crumbled feta cheese","30g baby spinach, finely chopped","1 garlic clove, minced","1.25ml dried oregano","Salt & pepper","Avocado oil spray"],
+    steps:   ["Preheat oven to 300°F / 150°C.","Blend eggs and cottage cheese until completely smooth — full 30 seconds in the blender.","Add oregano, garlic, salt and pepper. Pulse briefly.","Chop spinach very finely — large pieces don't distribute well in small bites.","Stir spinach and crumbled feta into the blended egg mixture by hand — don't blend, you want visible pieces.","Spray muffin molds generously with avocado oil.","Pour mixture evenly into molds, ¾ full.","Place in a larger baking dish with hot water halfway up the sides.","Bake 25–30 minutes until just set with a slight jiggle in the center.","Cool 5 minutes, unmold. Makes 6 bites at ~110 kcal / 11g protein. Very Mediterranean, works perfectly cold as a goûter too."] },
+
+  { title:"Sun-Dried Tomato & Mozzarella Egg Bites", category:"Breakfast", cal:125, protein:11, time:"35 min", airfryer:false,
+    imperial:["4 large eggs","½ cup low-fat cottage cheese","¼ cup fresh mozzarella, diced small","3 tbsp sun-dried tomatoes (in oil, drained and chopped)","1 tsp fresh or dried basil","Salt & pepper","Avocado oil spray"],
+    metric:  ["4 large eggs","120g low-fat cottage cheese","40g fresh mozzarella, diced small","30g sun-dried tomatoes, drained and chopped","5ml fresh or dried basil","Salt & pepper","Avocado oil spray"],
+    steps:   ["Preheat oven to 300°F / 150°C.","Pat sun-dried tomatoes completely dry with paper towels — excess oil will make the bites greasy.","Blend eggs and cottage cheese 30 seconds until silky smooth.","Season with basil, salt and pepper. Pulse twice.","Stir in diced mozzarella and chopped sun-dried tomatoes by hand — don't blend, you want distinct pockets of flavor.","Spray molds generously. Pour mixture in, ¾ full.","Water bath: place in larger dish with hot water halfway up the sides.","Bake 25–30 minutes until just set.","Cool 5 minutes before unmolding. These taste like a caprese salad in egg form — the sun-dried tomatoes are intense and sweet, the mozzarella melts into little creamy pockets.","Makes 6 bites at ~125 kcal / 11g protein. Add to your HEB list: sun-dried tomatoes (jarred), fresh mozzarella."] },
+
+  { title:"Turkey & Bell Pepper Egg Bites", category:"Breakfast", cal:120, protein:13, time:"35 min", airfryer:false,
+    imperial:["4 large eggs","½ cup low-fat cottage cheese","3 oz cooked ground turkey or diced deli turkey","¼ cup bell peppers, finely diced","2 tbsp shredded cheddar","¼ tsp smoked paprika","Salt & pepper","Avocado oil spray"],
+    metric:  ["4 large eggs","120g low-fat cottage cheese","85g cooked ground turkey or diced deli turkey","40g bell peppers, finely diced","15g shredded cheddar","1.25ml smoked paprika","Salt & pepper","Avocado oil spray"],
+    steps:   ["Preheat oven to 300°F / 150°C.","If using raw ground turkey, cook it first in a sprayed pan until browned. Season with salt, pepper and smoked paprika. Let cool.","Blend eggs and cottage cheese 30 seconds until completely smooth.","Add smoked paprika, salt and pepper. Pulse twice.","Dice bell peppers very finely — small pieces integrate better in egg bites.","Stir turkey, bell peppers and shredded cheddar into the egg mixture by hand.","Spray molds well. Pour mixture in ¾ full.","Place in water bath — larger baking dish, hot water halfway up the sides.","Bake 25–30 min until just set with a slight jiggle.","Cool 5 minutes, unmold. Highest protein of the four at 13g per bite. Perfect grab-and-go breakfast — make a batch Sunday, reheat 30 sec each morning all week."] },
+
+  // ── PROTEIN MILKSHAKES ─────────────────────────────────────
+  { title:"Vanilla Protein Milkshake (Thick)", category:"Breakfast", cal:220, protein:26, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","1 cup HEB 2% milk","4–5 ice cubes","½ tsp vanilla extract","1 tsp honey (optional)","Pinch of salt — brings out the vanilla"],
+    metric:  ["1 scoop vanilla whey protein","240ml HEB 2% milk","4–5 ice cubes","2.5ml vanilla extract","5ml honey (optional)","Pinch of salt"],
+    steps:   ["Add liquid first, then protein powder, then ice — this order protects your blender and ensures smooth blending.","Blend on high 45–60 seconds until thick and completely smooth.","Should be like a thick soft-serve shake. Too thick? Add a splash of milk. Too thin? Add 2–3 more ice cubes and blend again.","The pinch of salt is not optional — it rounds out the sweetness and makes the vanilla pop. Trust it.","Drink immediately — milkshakes separate quickly.","💡 For extra thickness: freeze your milk into ice cubes the night before and use those instead of regular ice."] },
+
+  { title:"Vanilla Protein Milkshake (Drinkable)", category:"Breakfast", cal:240, protein:26, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","1½ cups HEB 2% milk","3 ice cubes","½ tsp vanilla extract","1 tsp honey (optional)","Pinch of salt"],
+    metric:  ["1 scoop vanilla whey protein","360ml HEB 2% milk","3 ice cubes","2.5ml vanilla extract","5ml honey (optional)","Pinch of salt"],
+    steps:   ["Add milk first, then protein powder, vanilla, honey, salt and ice.","Blend 30–40 seconds — shorter blend time and more milk gives you the classic drinkable texture.","Should pour easily through a straw. Too thick? Add milk 30ml / 2 tbsp at a time.","Pour into a tall glass over fresh ice cubes.","Your everyday version — easy to drink on the go, light enough alongside breakfast."] },
+
+  { title:"Vanilla Banana Protein Milkshake", category:"Breakfast", cal:280, protein:27, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","1 cup HEB 2% milk","½ frozen banana","3 ice cubes","½ tsp vanilla extract","Pinch of cinnamon","Pinch of salt"],
+    metric:  ["1 scoop vanilla whey protein","240ml HEB 2% milk","½ frozen banana (~60g)","3 ice cubes","2.5ml vanilla extract","Pinch of cinnamon","Pinch of salt"],
+    steps:   ["Freeze your banana at least 2 hours in advance — frozen banana is the key to natural thickness and creaminess without ice cream.","Add milk, protein powder, frozen banana, vanilla, cinnamon, salt and ice to blender.","Blend on high 45–60 seconds — frozen banana takes longer to break down than ice.","Taste before adding honey — the banana sweetens it naturally, you probably won't need any.","Thick, creamy, naturally sweet. Tastes like a banana soft-serve shake.","💡 The riper the banana was before freezing, the sweeter the shake."] },
+
+  { title:"Vanilla Peanut Butter Protein Milkshake", category:"Breakfast", cal:320, protein:30, time:"5 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","1 cup HEB 2% milk","1 tbsp natural peanut butter","4 ice cubes","½ tsp vanilla extract","1 tsp honey","Pinch of salt"],
+    metric:  ["1 scoop vanilla whey protein","240ml HEB 2% milk","15ml natural peanut butter","4 ice cubes","2.5ml vanilla extract","5ml honey","Pinch of salt"],
+    steps:   ["Add milk first — this helps the peanut butter blend smoothly without sticking to the bottom.","Add protein powder, peanut butter, vanilla, honey, salt and ice.","Blend on high 60 seconds — peanut butter needs a full minute to fully incorporate.","Taste — want more peanut butter flavor? Add another tiny bit, but remember 1 tbsp is already 95 kcal so be precise.","Most filling milkshake on the list — protein + fat keeps you full for hours.","Pour over ice and drink immediately. Dangerously good."] },
+
+  { title:"Vanilla Berry Protein Milkshake", category:"Breakfast", cal:250, protein:27, time:"5 min", airfryer:false, pcos:"great", bloat:"low",
+    imperial:["1 scoop vanilla whey protein","1 cup HEB 2% milk","½ cup frozen blueberries or mixed berries","3 ice cubes","½ tsp vanilla extract","1 tsp honey (optional)","Pinch of salt"],
+    metric:  ["1 scoop vanilla whey protein","240ml HEB 2% milk","75g frozen blueberries or mixed berries","3 ice cubes","2.5ml vanilla extract","5ml honey (optional)","Pinch of salt"],
+    steps:   ["Add milk, protein powder, frozen berries, vanilla, salt and ice to blender.","Blend on high 60 seconds — frozen berries need longer than ice to fully break down.","Check color — should be a deep purple-pink. Taste before adding honey — frozen berries are usually sweet enough.","Pour immediately — this one separates faster than the others due to berry juice. Drink within 5 minutes.","💡 Blueberries give the best color and flavor. Mixed berries give more complexity. Both work beautifully."] },
+
+  // ── PETITS GÂTEAUX FRANÇAIS ────────────────────────────────
+
+  { title:"Brioche Moelleuse (No-Yeast)", category:"Snack", cal:150, protein:5, time:"30 min", airfryer:false, pcos:"caution", bloat:"medium",
+    imperial:["1½ cups all-purpose flour","2 tsp baking powder","¼ tsp salt","2 tbsp white sugar","2 eggs","¼ cup HEB 2% milk","3 tbsp melted butter","1 tsp vanilla extract","1 tsp honey (to brush on top)"],
+    metric:  ["195g all-purpose flour","10ml baking powder","1.25ml salt","25g white sugar","2 eggs","60ml HEB 2% milk","45g melted butter","5ml vanilla extract","5ml honey to brush on top"],
+    steps:   ["No yeast = no waiting. Baking powder gives the pillowy lift. Not a classic brioche but genuinely soft, buttery and satisfying — exactly the goûter feeling.","Preheat oven to 350°F / 175°C. Line a muffin tin with paper cups or spray well.","Whisk eggs, milk, melted butter, vanilla and sugar together until smooth and slightly pale — about 2 minutes. The whisking adds air which is your rise.","Sift in flour, baking powder and salt. Fold gently until just combined — lumps are fine. Overmixing = tough texture.","Fill each muffin cup about ⅔ full — they rise significantly.","Bake 15–18 minutes until golden and a toothpick comes out clean.","Immediately brush with a thin layer of honey while still hot — gives that signature brioche shine.","Cool 5 minutes before eating. Warm is best. Makes 9 at ~150 kcal / 5g protein each."] },
+
+  { title:"Pain au Chocolat Style Rolls (No-Yeast)", category:"Snack", cal:180, protein:4, time:"35 min", airfryer:false, pcos:"caution", bloat:"medium",
+    imperial:["1½ cups all-purpose flour","2 tsp baking powder","¼ tsp salt","1 tbsp white sugar","2 eggs","¼ cup HEB 2% milk","3 tbsp melted butter","1 tsp vanilla extract","Filling: ¼ cup dark chocolate chips + 1 tsp butter, melted together","1 egg yolk + 1 tsp milk (egg wash)"],
+    metric:  ["195g all-purpose flour","10ml baking powder","1.25ml salt","12g white sugar","2 eggs","60ml HEB 2% milk","45g melted butter","5ml vanilla extract","Filling: 45g dark chocolate chips + 5g butter, melted together","1 egg yolk + 5ml milk (egg wash)"],
+    steps:   ["Preheat oven to 375°F / 190°C. Line a baking sheet with parchment.","Make the chocolate filling first: melt dark chocolate chips and butter together in 20-second microwave bursts, stirring between each until smooth. Set aside to cool and thicken slightly — about 10 min.","Make the dough: whisk eggs, milk, melted butter, vanilla and sugar. Fold in flour, baking powder and salt until a soft dough forms.","Turn onto a lightly floured surface. Roll into a rectangle about 25x20cm / 10x8 inch, roughly 5mm / ¼ inch thick.","Spread chocolate filling in a thin layer over the dough, leaving a 1cm / ½ inch border all around.","Roll up tightly from the long side like a Swiss roll. Slice into 8 rounds.","Place cut-side up on baking sheet. Brush generously with egg wash — this gives you that signature golden crust.","Bake 15–18 minutes until deeply golden. The chocolate will ooze slightly at the edges — that's perfect.","Best eaten warm. Makes 8 at ~180 kcal each. Not a real pain au chocolat — but the chocolate-in-soft-dough feeling is absolutely there."] },
+
+  { title:"Pitch-Style Chocolate Brioche Buns", category:"Snack", cal:190, protein:6, time:"35 min", airfryer:false, pcos:"caution", bloat:"medium",
+    imperial:["1½ cups all-purpose flour","1 scoop vanilla whey protein","2 tsp baking powder","¼ tsp salt","2 tbsp white sugar","2 eggs","¼ cup HEB 2% milk","3 tbsp melted butter","1 tsp vanilla extract","Filling: ⅓ cup dark chocolate chips + 1 tsp butter melted together","1 tsp honey to brush on top"],
+    metric:  ["195g all-purpose flour","1 scoop vanilla whey protein","10ml baking powder","1.25ml salt","25g white sugar","2 eggs","60ml HEB 2% milk","45g melted butter","5ml vanilla extract","Filling: 60g dark chocolate chips + 5g butter melted","5ml honey to brush on top"],
+    steps:   ["The Pitch is a soft brioche roll with a generous chocolate heart — this is the no-yeast protein version. Less guilt, same soul.","Preheat oven to 350°F / 175°C. Spray a muffin tin well or use silicone molds.","Melt chocolate chips and butter together. Let cool and thicken 10 minutes — it needs to be spreadable but not liquid.","Whisk eggs, milk, melted butter, vanilla and sugar until smooth.","Fold in flour, protein powder, baking powder and salt until just combined.","Fill each muffin cup ⅓ full of batter. Add a generous teaspoon of chocolate filling in the center — don't be shy, this is the whole point.","Cover with more batter until each cup is ⅔ full. The chocolate should be completely enclosed.","Bake 16–18 minutes until tops are golden and set.","Brush immediately with honey. Cool 5 minutes before eating — the chocolate center stays molten for a while, be careful.","Makes 9 at ~190 kcal / 6g protein. Closest thing to a real Pitch on this list."] },
+
+  { title:"Petit Prince Style Biscuits", category:"Snack", cal:95, protein:3, time:"25 min", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["1 cup all-purpose flour","2 tbsp white sugar","¼ tsp baking powder","Pinch of salt","3 tbsp softened butter","1 egg yolk","1 tbsp HEB 2% milk","½ tsp vanilla extract","Filling: 2 tbsp dark chocolate chips melted","Cinnamon-sugar to dust"],
+    metric:  ["130g all-purpose flour","25g white sugar","1.25ml baking powder","Pinch of salt","45g softened butter","1 egg yolk","15ml HEB 2% milk","2.5ml vanilla extract","Filling: 20g dark chocolate chips, melted","Cinnamon-sugar to dust"],
+    steps:   ["The Petit Prince is a small round biscuit with a chocolate base — buttery, slightly crisp, not too sweet. This is the closest thing you can make without a factory.","Preheat oven to 350°F / 175°C. Line a baking sheet with parchment.","Beat softened butter and sugar until pale and creamy — 2 minutes by hand.","Add egg yolk, milk and vanilla. Beat until smooth.","Fold in flour, baking powder and salt until a soft dough forms. Don't overwork.","Roll into 14 small balls, place on tray, flatten into rounds about 5mm / ¼ inch thick with the bottom of a glass.","Bake 10–12 minutes until edges are just golden. Centers should still look pale.","Cool completely — they firm up as they cool. Warm they're too soft.","Melt chocolate chips. Spread or drizzle a thin layer on the flat side of each biscuit. Let set 15 minutes.","Makes 14 biscuits at ~95 kcal each. Best after the chocolate has fully set."] },
+
+  { title:"Financiers (Without Almond Flour)", category:"Snack", cal:110, protein:4, time:"25 min", airfryer:false, pcos:"caution", bloat:"low",
+    imperial:["½ cup all-purpose flour","¼ cup white sugar","Pinch of salt","3 egg whites","4 tbsp butter (browned — beurre noisette)","1 tsp vanilla extract","1 tsp honey","Optional: a few dark chocolate chips pressed on top"],
+    metric:  ["65g all-purpose flour","50g white sugar","Pinch of salt","3 egg whites","60g butter, browned","5ml vanilla extract","5ml honey","Optional: a few dark chocolate chips pressed on top"],
+    steps:   ["Classic financiers use almond flour — we don't have it so we use all-purpose flour with browned butter to compensate. The beurre noisette is absolutely essential and non-negotiable.","Make beurre noisette: melt butter in a small pan over medium heat, swirling constantly until it turns golden brown and smells nutty — like hazelnuts. Pour immediately into a bowl. Let cool 10 minutes.","Preheat oven to 375°F / 190°C. Spray a mini muffin tin or financier mold well.","Whisk flour, sugar and salt together in a bowl.","Add egg whites (not whipped — just straight from the shell), vanilla and honey. Stir until combined.","Pour in the cooled brown butter. Mix until smooth and glossy.","Fill each mold ¾ full. Press a chocolate chip or two on top if using.","Bake 12–14 minutes until edges are golden and centers spring back when pressed.","Cool in the mold 5 minutes before removing — they're delicate warm.","Without almond flour they're slightly less chewy than the classic, but the beurre noisette makes them deeply, properly French. Makes 12 at ~110 kcal / 4g protein each."] },
+
+  { title:"Crêpes Légères", category:"Snack", cal:120, protein:6, time:"20 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["¾ cup all-purpose flour","1 egg","1 cup HEB 2% milk","1 tbsp melted butter","1 tsp vanilla extract","Pinch of salt","1 tsp white sugar","Butter for the pan","Toppings: honey, cinnamon-sugar, banana slices, or dark chocolate chips melted"],
+    metric:  ["100g all-purpose flour","1 egg","240ml HEB 2% milk","15g melted butter","5ml vanilla extract","Pinch of salt","5g white sugar","Butter for the pan","Toppings: honey, cinnamon-sugar, banana slices, or dark chocolate chips melted"],
+    steps:   ["Blend flour, egg, milk, melted butter, vanilla, salt and sugar in a blender 30 seconds until completely smooth. Or whisk by hand until no lumps remain.","Refrigerate batter 30 minutes minimum — rested batter makes thinner, more elastic crêpes. This step is worth it.","Heat a non-stick pan on medium. Add a tiny knob of butter, swirl to coat.","Pour a small ladle of batter (~60ml / ¼ cup) into the pan. Immediately lift and swirl the pan in a circular motion to spread batter into a thin even circle.","Cook 60–90 seconds until edges look dry and slightly lacy. Flip with a spatula or toss if you're feeling French.","Cook 30 seconds on the other side. Slide onto a plate.","Repeat with remaining batter — each crêpe gets faster as the pan heats up.","Fill with your choice: a drizzle of honey + squeeze of lemon (classic), cinnamon-sugar, sliced banana, or a few melted chocolate chips.","Fold into quarters or roll into a tube. Eat immediately.","Makes about 8 crêpes at ~120 kcal / 6g protein each (before toppings). This is your most authentically French recipe in the entire app."] },
+
+  { title:"Crêpes Protéinées", category:"Snack", cal:130, protein:10, time:"20 min", airfryer:false, pcos:"good", bloat:"low",
+    imperial:["½ cup all-purpose flour","1 scoop vanilla whey protein","1 egg","1 cup HEB 2% milk","1 tbsp melted butter","½ tsp vanilla extract","Pinch of salt","Butter for the pan"],
+    metric:  ["65g all-purpose flour","1 scoop vanilla whey protein","1 egg","240ml HEB 2% milk","15g melted butter","2.5ml vanilla extract","Pinch of salt","Butter for the pan"],
+    steps:   ["Protein crêpes are thicker than classic ones due to the whey — expect something between a crêpe and a thin American pancake. Still delicious.","Blend all ingredients 30 seconds until completely smooth. Batter will be slightly thicker than classic crêpe batter.","Rest 15 minutes minimum — the protein powder needs time to hydrate properly.","Heat non-stick pan on medium-low. Protein crêpes burn faster than classic ones — lower heat is key.","Pour ~60ml / ¼ cup batter. Swirl to spread. Cook 90 seconds until edges look set.","Flip carefully — protein crêpes are more delicate. Cook 45 seconds on the other side.","Fill with honey + banana, cinnamon-sugar, or melted dark chocolate.","Makes about 7 crêpes at ~130 kcal / 10g protein each. 4g more protein per crêpe than the classic version — worth it for goûter."] },
+];
+
+const GROCERY = {
+  heb: {
+    label:"H-E-B", note:"Your complete foundation", color:C.heb,
+    categories:[
+      { name:"🥩 Proteins", items:[
+        { name:"HEB Boneless Skinless Chicken Breasts", brand:"HEB Brand — Value Pack", why:"🌸 31g protein / 165 kcal — high protein supports insulin balance" },
+        { name:"Butterball 93% Lean Ground Turkey", brand:"Butterball — 1 lb / 450g pack", why:"22g protein, low fat, super versatile" },
+        { name:"Vital Farms Pasture-Raised Eggs", brand:"Vital Farms — 12 count", why:"🌸 6g protein + hormone-balancing choline — best quality at HEB" },
+        { name:"Fage Total 0% Greek Yogurt", brand:"Fage — Plain, 32 oz / 900g tub", why:"17g protein per 180ml, zero sugar" },
+        { name:"Good Culture Low-Fat Cottage Cheese", brand:"Good Culture — 16 oz / 450g", why:"14g protein, cleaner ingredients than most" },
+        { name:"StarKist Albacore Tuna in Water", brand:"StarKist — 5 oz / 140g cans, 4-pack", why:"🌸 20g protein + omega-3s — anti-inflammatory for PCOS" },
+        { name:"Atlantic Salmon Fillets", brand:"HEB Seafood Counter — fresh or frozen", why:"🌸 High protein + omega-3s — one of the best PCOS foods, eat 3x/week" },
+        { name:"Sargento Reduced Fat String Cheese", brand:"Sargento — 12 count", why:"8g protein, 50 kcal — perfect snack" },
+      ]},
+      { name:"🥦 Produce", items:[
+        { name:"Baby Spinach", brand:"HEB Organics — 5 oz / 140g clamshell", why:"🌸 High magnesium — often deficient in PCOS, great salad base" },
+        { name:"Arugula", brand:"HEB Organics — 5 oz clamshell", why:"🌸 Low glycemic, high magnesium — excellent PCOS leafy green" },
+        { name:"Broccoli Florets", brand:"HEB — fresh or 12 oz / 340g frozen bag", why:"High fiber, low carb — always cook to reduce bloating" },
+        { name:"Zucchini", brand:"HEB Produce — 2 pack", why:"~20 kcal each, gentle on digestion, great low-carb veggie" },
+        { name:"Mini Bell Peppers", brand:"HEB — 1 lb / 450g bag, tri-color", why:"🌸 High vitamin C — supports adrenal function in PCOS" },
+        { name:"Cherry Tomatoes", brand:"HEB Organics — 10 oz / 280g pint", why:"Low cal, naturally sweet, anti-inflammatory lycopene" },
+        { name:"Avocados", brand:"HEB — pack of 4, ripe", why:"🌸 Healthy fats + folate — supports hormone balance in PCOS" },
+        { name:"Baby Carrots", brand:"HEB — 1 lb / 450g bag", why:"35 kcal per serving, great snack" },
+        { name:"Lemons", brand:"HEB — mesh bag of 5", why:"🌸 Supports liver detox — helps process excess hormones in PCOS" },
+        { name:"Yellow Onion & Garlic", brand:"HEB Produce", why:"Flavor base for almost every recipe — always cook to reduce bloating" },
+        { name:"Mushrooms", brand:"HEB — 8 oz / 225g sliced", why:"Low cal, meaty texture, great in scrambles" },
+        { name:"Cucumber", brand:"HEB Produce", why:"Near-zero cal, hydrating, gentle on digestion" },
+        { name:"Asparagus", brand:"HEB Produce — 1 lb / 450g bunch", why:"Low carb, high fiber, natural diuretic — helps PCOS bloating" },
+        { name:"Fresh Ginger Root", brand:"HEB Produce", why:"🌸 Anti-inflammatory, aids digestion, reduces bloating" },
+        { name:"Green Onions / Scallions", brand:"HEB Produce — bunch", why:"Fresh finish for fried rice, soups, stir-fries" },
+        { name:"Frozen Blueberries", brand:"HEB Brand — 12 oz bag", why:"🌸 Low sugar, high antioxidants — one of the best fruits for PCOS" },
+      ]},
+      { name:"🥫 Pantry & Staples", items:[
+        { name:"California Olive Ranch Extra Virgin Olive Oil", brand:"California Olive Ranch — 500ml", why:"🌸 Anti-inflammatory healthy fat — best main cooking fat for PCOS" },
+        { name:"Chosen Foods Avocado Oil Spray", brand:"Chosen Foods — 5.5 oz spray", why:"Essential for air fryer — zero cal vs 120 per tbsp" },
+        { name:"Coconut Aminos", brand:"Coconut Secret — 240ml", why:"Low-sodium soy sauce alternative for stir-fries" },
+        { name:"Bush\'s Black Beans (Low Sodium)", brand:"Bush\'s Best — 15 oz / 425g can x2", why:"7g protein + fiber — rinse well and use in small amounts to reduce bloating" },
+        { name:"Quaker Old-Fashioned Rolled Oats", brand:"Quaker — 42 oz / 1.2kg canister", why:"🌸 Complex carbs, high fiber, slow-release energy — good for PCOS insulin" },
+        { name:"Optimum Nutrition Gold Standard Whey", brand:"ON — Vanilla or Chocolate, 2 lb / 900g", why:"24g protein per scoop, 120 kcal" },
+        { name:"Swanson Low-Sodium Chicken Broth", brand:"Swanson — 32 oz / 946ml carton", why:"Adds flavor without calories" },
+        { name:"Lundberg Brown Rice Cakes (Lightly Salted)", brand:"Lundberg — 8.5 oz / 240g bag", why:"35 kcal each, great snack base" },
+        { name:"Canned Diced Tomatoes (No Salt Added)", brand:"HEB Brand — 14.5 oz / 410g x2", why:"Base for sauces & soups" },
+        { name:"HEB Carb Sense Whole Wheat Tortillas", brand:"HEB Brand — 8 count pack", why:"Lower carb than regular flour — needed for all wrap recipes" },
+        { name:"Hummus", brand:"Cedar\'s or Sabra Classic — 10 oz / 280g tub", why:"High protein spread, replaces mayo in wraps, great veggie dip" },
+        { name:"Shredded Cabbage / Coleslaw Mix", brand:"HEB Produce — 14 oz bag", why:"Crunchy wrap filler, near-zero cal, lasts a week in the fridge" },
+        { name:"All-Purpose Flour", brand:"HEB Brand or Gold Medal — 5 lb / 2.3kg bag", why:"Base for brownies, cookies, madeleines, crêpes & French baking" },
+        { name:"Dark Chocolate Chips", brand:"Ghirardelli 60% Cacao — 10 oz / 283g bag", why:"🌸 70%+ dark chocolate has magnesium — baking + goûter recipes" },
+        { name:"Maple Syrup (Pure)", brand:"HEB Brand or Spring Tree — 8 oz / 236ml", why:"🌸 Lower GI than white sugar — better for PCOS insulin response" },
+        { name:"Black Rice (Forbidden Rice)", brand:"Lotus Foods or HEB Brand — 15 oz / 425g bag", why:"🌸 Higher fiber, antioxidants & lower GI than white rice" },
+        { name:"Low-Sodium Soy Sauce", brand:"Kikkoman — 10 oz / 296ml", why:"Essential for fried rice and stir-fries" },
+        { name:"Sesame Oil", brand:"Kadoya — 5.5 oz / 163ml", why:"Tiny amount adds huge flavor — a little goes a long way" },
+        { name:"Dijon Mustard", brand:"Grey Poupon or HEB Brand", why:"Zero cal flavor boost for dressings & marinades" },
+        { name:"Apple Cider Vinegar", brand:"Bragg — 16 oz / 473ml", why:"🌸 Helps with insulin sensitivity — great in dressings" },
+        { name:"HEB Reduced Fat 2% Milk", brand:"HEB Brand — 1 gallon", why:"8g protein per cup, creamier than plant milks in all recipes" },
+        { name:"Chia Seeds", brand:"HEB Organics — 12 oz / 340g bag", why:"🌸 Omega-3s, fiber, lowers glycemic load — excellent for PCOS" },
+        { name:"Ground Flaxseed", brand:"Bob\'s Red Mill — 16 oz / 453g bag", why:"🌸 Balances estrogen in PCOS — 1 tbsp daily in oats or yogurt" },
+        { name:"Turmeric (Ground)", brand:"HEB Brand or Simply Organic — 2 oz jar", why:"🌸 Powerful anti-inflammatory — add to everything for PCOS" },
+        { name:"Ground Ginger", brand:"HEB Brand — 1.5 oz jar", why:"🌸 Anti-inflammatory, aids digestion, reduces bloating" },
+        { name:"Ground Cinnamon", brand:"HEB Brand or Simply Organic", why:"🌸 Clinically shown to improve insulin sensitivity in PCOS" },
+        { name:"Fennel Seeds", brand:"HEB Brand — spice aisle", why:"Chew a pinch after meals — excellent natural bloating remedy" },
+        { name:"Spearmint Tea", brand:"Bigelow or HEB Brand — 20 bag box", why:"🌸 Clinically shown to reduce androgens in PCOS — 2 cups/day" },
+        { name:"Peppermint Tea", brand:"Celestial Seasonings or HEB Brand — 20 bag box", why:"Most effective natural post-meal bloating remedy" },
+        { name:"Instant Yeast", brand:"Fleischmann\'s RapidRise — 3 pack", why:"Optional: for making real brioche or pitch-style buns" },
+      ]},
+    ],
+  },
+  tj: {
+    label:"Trader Joe\'s", note:"Add-ons that make life easier", color:C.tj,
+    categories:[{ name:"⭐ Top Picks", items:[
+      { name:"Everything But the Bagel Seasoning", brand:"Trader Joe\'s — 2.3 oz / 65g", why:"Zero cal, transforms eggs/avocado/chicken" },
+      { name:"Cauliflower Gnocchi (Frozen)", brand:"Trader Joe\'s — 12 oz / 340g bag", why:"Low-carb pasta alternative, air fryer in 15 min" },
+      { name:"Turkey Meatballs (Frozen)", brand:"Trader Joe\'s — 16 oz / 450g bag", why:"Fast high-protein meal, zero prep" },
+      { name:"Chili Lime Chicken Burgers (Frozen)", brand:"Trader Joe\'s — 4 pack", why:"140 kcal, 22g protein — easiest weeknight dinner" },
+      { name:"Unexpected Cheddar Cheese", brand:"Trader Joe\'s — block", why:"So flavorful you naturally use less" },
+      { name:"High Protein Greens Salad Kit", brand:"Trader Joe\'s — ready to eat", why:"🌸 Fast PCOS-friendly lunch — just add salmon or chicken" },
+      { name:"Frozen Riced Cauliflower", brand:"Trader Joe\'s — 12 oz / 340g bag", why:"🌸 25 kcal per cup vs 200 for rice — lower GI, better for PCOS" },
+      { name:"Organic Chicken Bone Broth", brand:"Trader Joe\'s — 17.6 oz / 500ml", why:"10g protein, gut-healing, great for soups" },
+      { name:"Turmeric Ginger Herbal Tea", brand:"Trader Joe\'s — 20 bag box", why:"🌸 Anti-inflammatory double hit — great for PCOS mornings" },
+      { name:"Spearmint Tea", brand:"Trader Joe\'s — 20 bag box", why:"🌸 Clinically shown to reduce androgens in PCOS — 2 cups/day" },
+      { name:"Peppermint Tea", brand:"Trader Joe\'s — 20 bag box", why:"Best natural bloating remedy — drink after dinner" },
+    ]}],
+  },
+  wf: {
+    label:"Whole Foods", note:"Premium upgrades + PCOS supplements", color:C.wf,
+    categories:[
+      { name:"⭐ Food Picks", items:[
+        { name:"Chomps Original Beef Sticks", brand:"Chomps — 10-count multipack", why:"90 kcal, 9g protein — best portable snack" },
+        { name:"365 Grass-Fed 90% Lean Ground Beef", brand:"Whole Foods 365 — 1 lb / 450g", why:"🌸 Better omega-3 profile — less inflammatory than conventional beef" },
+        { name:"Siete Almond Flour Tortillas", brand:"Siete — 8 count", why:"🌸 Grain-free, lower carb, lower GI — better for PCOS" },
+        { name:"Pre-Marinated Salmon Portions", brand:"Whole Foods Seafood — lemon herb", why:"🌸 Zero prep, omega-3 rich — eat 3x/week for PCOS" },
+        { name:"Kite Hill Almond Milk Yogurt (Plain)", brand:"Kite Hill — 16 oz / 450g", why:"Dairy-free option if dairy worsens your symptoms" },
+        { name:"Ground Flaxseed", brand:"Bob\'s Red Mill — 16 oz bag", why:"🌸 Balances estrogen — 1 tbsp daily in oats/yogurt" },
+      ]},
+      { name:"🌸 PCOS Supplements (ask your doctor first)", items:[
+        { name:"Ovasitol Inositol Powder", brand:"Theralogix Ovasitol — 90 day supply", why:"🌸 Gold standard PCOS supplement — Myo + D-Chiro Inositol blend" },
+        { name:"Magnesium Glycinate", brand:"Pure Encapsulations — 180 capsules", why:"🌸 Often deficient in PCOS — helps insulin sensitivity & sleep" },
+        { name:"Omega-3 Fish Oil", brand:"Nordic Naturals Ultimate Omega — 60 count", why:"🌸 Anti-inflammatory, supports hormonal balance in PCOS" },
+        { name:"Vitamin D3 + K2", brand:"Thorne or NOW Foods", why:"🌸 Most PCOS women are Vitamin D deficient — worth testing" },
+      ]},
+    ],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────
+// MEAL PLAN
+// ─────────────────────────────────────────────────────────────
+const MEAL_PLAN = [
+  { day:"Monday", meals:[
+    { label:"Breakfast", desc:"Overnight Protein Oats", cal:360, protein:30 },
+    { label:"Lunch",     desc:"Big Spinach Chicken Salad", cal:370, protein:36 },
+    { label:"Snack",     desc:"String Cheese & Bell Pepper", cal:100, protein:9 },
+    { label:"Dinner",    desc:"Turkey & Zucchini Stir-Fry (no rice)", cal:350, protein:32 },
+  ]},
+  { day:"Tuesday", meals:[
+    { label:"Breakfast", desc:"Cottage Cheese Egg Scramble", cal:300, protein:28 },
+    { label:"Lunch",     desc:"Tuna-Stuffed Avocado + 2 rice cakes", cal:360, protein:28 },
+    { label:"Snack",     desc:"Chomps & Cucumber Snack Box", cal:120, protein:10 },
+    { label:"Dinner",    desc:"Air Fryer Salmon + roasted broccoli", cal:320, protein:34 },
+  ]},
+  { day:"Wednesday", meals:[
+    { label:"Breakfast", desc:"Greek Yogurt Parfait with berries & chia", cal:280, protein:22 },
+    { label:"Lunch",     desc:"TJ's salad kit + 4 oz / 115g shredded chicken", cal:360, protein:34 },
+    { label:"Snack",     desc:"Cottage Cheese & Berry Bowl", cal:140, protein:14 },
+    { label:"Dinner",    desc:"Air Fryer Chicken Fajita Bowl (cauli rice)", cal:380, protein:38 },
+  ]},
+  { day:"Thursday", meals:[
+    { label:"Breakfast", desc:"Protein Smoothie (chocolate whey + spinach)", cal:300, protein:32 },
+    { label:"Lunch",     desc:"Turkey Lettuce Wraps (4 pieces)", cal:310, protein:28 },
+    { label:"Snack",     desc:"Rice Cake Stack with Tuna", cal:160, protein:18 },
+    { label:"Dinner",    desc:"Ground Turkey Soup (make extra for Friday)", cal:300, protein:30 },
+  ]},
+  { day:"Friday", meals:[
+    { label:"Breakfast", desc:"Egg White & Mushroom Omelette", cal:180, protein:22 },
+    { label:"Lunch",     desc:"Salmon & Spinach Salad", cal:360, protein:35 },
+    { label:"Snack",     desc:"Hard-Boiled Eggs & Carrots", cal:130, protein:12 },
+    { label:"Dinner",    desc:"Air Fryer Lemon Herb Chicken + asparagus 🥂", cal:320, protein:37 },
+  ]},
+  { day:"Saturday", meals:[
+    { label:"Breakfast", desc:"Air Fryer Asparagus & Eggs (slow morning)", cal:240, protein:20 },
+    { label:"Lunch",     desc:"Tuna-Stuffed Avocado + big side salad", cal:340, protein:28 },
+    { label:"Snack",     desc:"Protein Smoothie (post-walk)", cal:300, protein:32 },
+    { label:"Dinner",    desc:"Date night! Chicken & Broccoli Sheet Pan — or order smart 🍽️", cal:340, protein:40 },
+  ]},
+  { day:"Sunday", meals:[
+    { label:"Breakfast", desc:"Overnight Oats (prep 2 jars — one for Monday!)", cal:360, protein:30 },
+    { label:"Lunch",     desc:"Big Spinach Chicken Salad with batch-cooked chicken", cal:370, protein:36 },
+    { label:"Snack",     desc:"Cottage Cheese & Berry Bowl", cal:140, protein:14 },
+    { label:"Dinner",    desc:"Ground Turkey Soup — cook double batch for the week 🍲", cal:300, protein:30 },
+  ]},
+];
+
+const TRACKING_TIPS = [
+  { icon:"📱", title:"Use MyFitnessPal (Free)", body:"The gold standard for beginners. Scan barcodes from HEB products directly, log everything in under 2 min. Set goal to 1,350 kcal and track protein, carbs, fat, and sugar. Don't trust \"net calories after exercise\" — eat to your base target regardless.", badge:"Best App for Beginners" },
+  { icon:"⚖️", title:"Weigh your food — at least at first", body:"A $12 kitchen scale changes everything. A \"tablespoon\" of peanut butter eyeballed is usually 2–3x. Two weeks of weighing trains your eye permanently. You don't have to do it forever — just long enough to calibrate." },
+  { icon:"🌅", title:"Log before you eat, not after", body:"Pre-logging in the morning forces you to plan ahead and spot issues before they happen. 5 minutes of planning saves you from afternoon impulsive decisions." },
+  { icon:"🚫", title:"Hidden calorie traps to watch", body:"Oils & dressings (1 tbsp / 15ml olive oil = 120 kcal), nut butters, cheese portions, coffee drinks, \"healthy\" granola bars, and alcohol. This is where most people's deficits silently disappear.", badge:"Most Common Mistake" },
+  { icon:"📅", title:"Weigh yourself weekly, not daily", body:"Daily weight fluctuates 1–2 kg from water, hormones, and food volume. Weigh every Monday morning, same time, after the bathroom. Track the trend over weeks — not individual days." },
+  { icon:"💧", title:"Drink water before every meal", body:"Aim for 2L+ per day. Often what feels like hunger is dehydration. A big glass of water 20 min before eating meaningfully reduces how much you eat." },
+];
+
+const PCOS_GREAT = ["Air Fryer Lemon Herb Chicken","Air Fryer Salmon with Lemon","Salmon & Spinach Salad","Spicy Shrimp & Spinach Bowl","Air Fryer Garlic Shrimp","Shrimp & Zucchini Stir-Fry","Big Spinach Chicken Salad","Cottage Cheese Egg Scramble","Egg White & Mushroom Omelette","Air Fryer Asparagus & Eggs","Tuna-Stuffed Avocado","Turkey & Zucchini Stir-Fry","Turkey-Stuffed Baby Bell Peppers","Vanilla Chia Pudding","Chocolate Chia Pudding","Banana Blueberry Chia Pudding","Greek Yogurt Parfait","Air Fryer Chicken Fajita Bowl","Chicken & Broccoli Sheet Pan","Juicy Lemon Garlic Chicken Breast","Juicy French Mustard & Thyme Chicken","Hard-Boiled Eggs & Carrots","Soft-Boiled Egg with Fleur de Sel","Egg Bites — Spinach & Feta","Egg Bites — Turkey & Bell Pepper","Spicy Shrimp & Spinach Bowl","Shrimp Taco Lettuce Cups"];
+
+const PCOS_CAUTION = ["Lighter Gnocchi Carbonara","High-Protein Beef Fried Rice","High-Protein Chicken Fried Rice","Beef Fried Rice (Half & Half)","Chicken Fried Rice (Half & Half)","Ground Turkey Soup","Overnight Protein Oats","Banana Protein Pancakes","Banana Oat Breakfast Cookies","No-Bake Energy Balls","Protein Brownies","Classic Brownies (Naturally Healthy)","Blondies Beurre & Miel","Protein Blondies","Honey Butter Cookies","Madeleines Classiques (La vraie recette)"];
+
+const MEAL_TYPES = ["All","Breakfast","Lunch","Snack","Dinner","Wrap"];
+
+const PCOS_MEAL_PLAN = [
+  { day:"Monday", theme:"🐟 Omega-3 Day", meals:[
+    { label:"Breakfast", desc:"Vanilla Chia Pudding + 1 tbsp ground flaxseed + frozen blueberries", note:"🌸 Low GI, omega-3s, fibre — ideal PCOS start", cal:320 },
+    { label:"Spearmint Tea", desc:"2 cups throughout the morning", note:"🌸 Daily androgen reduction", cal:0 },
+    { label:"Lunch", desc:"Salmon & Spinach Salad + ¼ avocado", note:"🌸 Omega-3 + magnesium + healthy fat", cal:400 },
+    { label:"Goûter", desc:"Apple Slices with Cottage Cheese + cinnamon", note:"🌸 Cinnamon improves insulin sensitivity", cal:110 },
+    { label:"Dinner", desc:"Air Fryer Salmon + asparagus + turmeric drizzle", note:"🌸 Double omega-3, anti-inflammatory dinner", cal:340 },
+    { label:"After dinner", desc:"Peppermint tea + fennel seeds", note:"Bloating prevention", cal:0 },
+  ]},
+  { day:"Tuesday", theme:"🥬 Anti-Inflammatory Day", meals:[
+    { label:"Breakfast", desc:"Protein Smoothie + 1 tbsp ground flaxseed + frozen blueberries", note:"🌸 Flaxseed balances estrogen daily", cal:330 },
+    { label:"Spearmint Tea", desc:"2 cups throughout the morning", note:"🌸 Daily androgen support", cal:0 },
+    { label:"Lunch", desc:"Big Spinach & Arugula Chicken Salad + lemon olive oil dressing", note:"🌸 Two PCOS leafy greens in one meal", cal:370 },
+    { label:"Goûter", desc:"Cucumber & Feta Bites + turmeric ginger tea", note:"🌸 Anti-inflammatory snack + tea", cal:90 },
+    { label:"Dinner", desc:"Turkey & Zucchini Stir-Fry with turmeric + ginger added to sauce", note:"🌸 Add ½ tsp turmeric to any stir-fry for PCOS benefit", cal:350 },
+    { label:"After dinner", desc:"Peppermint tea", note:"Post-meal bloating remedy", cal:0 },
+  ]},
+  { day:"Wednesday", theme:"🥚 Hormone Reset Day", meals:[
+    { label:"Breakfast", desc:"Egg Bites — Spinach & Feta (3 bites) + spearmint tea", note:"🌸 Eggs = choline for hormone production", cal:330 },
+    { label:"Lunch", desc:"Tuna Avocado Wrap + side of arugula", note:"🌸 Omega-3 tuna + hormone-balancing avocado", cal:360 },
+    { label:"Goûter", desc:"Greek Yogurt with Honey & Cinnamon + 1 tbsp ground flaxseed", note:"🌸 Cinnamon + flaxseed PCOS combo", cal:140 },
+    { label:"Dinner", desc:"Air Fryer Crispy Drumsticks + roasted asparagus + lemon", note:"High protein, gentle on digestion", cal:410 },
+    { label:"After dinner", desc:"Turmeric ginger tea", note:"🌸 Anti-inflammatory wind-down", cal:0 },
+  ]},
+  { day:"Thursday", theme:"🌿 Gut Health Day", meals:[
+    { label:"Breakfast", desc:"Banana Blueberry Chia Pudding + 1 tbsp ground flaxseed", note:"🌸 Fibre + flaxseed + antioxidants for gut & hormones", cal:300 },
+    { label:"Spearmint Tea", desc:"2 cups morning", note:"🌸 Daily routine — keep it consistent", cal:0 },
+    { label:"Lunch", desc:"Spicy Shrimp & Spinach Bowl + ¼ avocado", note:"🌸 Shrimp = lean protein + zinc for PCOS", cal:320 },
+    { label:"Goûter", desc:"Soft-Boiled Egg with Fleur de Sel + baby carrots", note:"High protein, very easy on digestion", cal:115 },
+    { label:"Dinner", desc:"Ground Turkey Soup with extra ginger + turmeric stirred in", note:"🌸 Gut-healing, add spices freely", cal:300 },
+    { label:"After dinner", desc:"Fennel seed chew + peppermint tea", note:"Double bloating defence", cal:0 },
+  ]},
+  { day:"Friday", theme:"💪 High Protein Day", meals:[
+    { label:"Breakfast", desc:"Egg White & Mushroom Omelette + arugula + lemon", note:"🌸 High protein, zero GI spike — ideal PCOS breakfast", cal:210 },
+    { label:"Spearmint Tea", desc:"2 cups morning", note:"🌸 Consistent daily habit", cal:0 },
+    { label:"Lunch", desc:"Egg Bites — Turkey & Bell Pepper (3) + big spinach salad", note:"🌸 13g protein per bite — highest protein egg bite", cal:385 },
+    { label:"Goûter", desc:"Chomps beef stick + cucumber + spearmint tea", note:"Zero sugar, high protein, no bloating", cal:90 },
+    { label:"Dinner", desc:"Air Fryer Garlic Shrimp over cauliflower rice + lemon drizzle", note:"🌸 Very low carb, very high protein — best PCOS weight loss combo", cal:305 },
+    { label:"After dinner", desc:"Peppermint tea 🥂", note:"It's Friday — you did great this week", cal:0 },
+  ]},
+  { day:"Saturday", theme:"🌸 Nourish Day", meals:[
+    { label:"Breakfast", desc:"Air Fryer Asparagus & Eggs + turmeric sprinkle + spearmint tea", note:"🌸 Leisurely PCOS-optimised morning", cal:240 },
+    { label:"Lunch", desc:"Salmon & Spinach Salad (second omega-3 meal this week)", note:"🌸 Aim for salmon 3x/week for PCOS", cal:400 },
+    { label:"Goûter", desc:"Frozen Banana Bites (5 pieces) + spearmint tea", note:"🌸 Post-walk treat — anti-inflammatory dark chocolate", cal:130 },
+    { label:"Dinner", desc:"Date night 🍽️ — grilled fish or chicken + vegetables, skip the bread", note:"Protein anchor + veg, avoid refined carbs", cal:450 },
+    { label:"After dinner", desc:"Walk 15 min — best post-dinner bloating remedy", note:"Your digestion will thank you", cal:0 },
+  ]},
+  { day:"Sunday", theme:"🍳 Prep Day", meals:[
+    { label:"Breakfast", desc:"Overnight Protein Oats (prep 2–3 jars) + 1 tbsp flaxseed each", note:"🌸 Make Mon & Tue breakfasts now", cal:380 },
+    { label:"Spearmint Tea", desc:"2 cups while prepping", note:"🌸 Make it a ritual", cal:0 },
+    { label:"Lunch", desc:"Big Spinach Chicken Salad — use batch-cooked chicken", note:"Cook 6 breasts + a big pot of soup today", cal:370 },
+    { label:"Goûter", desc:"Apple with cottage cheese + cinnamon + turmeric ginger tea", note:"🌸 PCOS triple — cinnamon, ginger, turmeric", cal:150 },
+    { label:"Dinner", desc:"Ground Turkey Soup (double batch — Mon + Tue lunches)", note:"🌸 Cook once, eat 4 times — the PCOS prep strategy", cal:300 },
+    { label:"Evening", desc:"Prep chia pudding jars for Mon–Wed + lay out supplements", note:"5 min prep = 3 days of optimal PCOS breakfasts", cal:0 },
+  ]},
+];
+
+// ─────────────────────────────────────────────────────────────
+// SMALL COMPONENTS
+// ─────────────────────────────────────────────────────────────
+function MacroBar({ label, value, max, color, unit }) {
+  return (
+    <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:10 }}>
+      <span style={{ width:60, fontSize:11, color:"rgba(255,255,255,0.6)", textAlign:"right" }}>{label}</span>
+      <div style={{ flex:1, height:8, background:"rgba(255,255,255,0.15)", borderRadius:4, overflow:"hidden" }}>
+        <div style={{ width:`${Math.min((value/max)*100,100)}%`, height:"100%", background:color, borderRadius:4 }} />
+      </div>
+      <span style={{ width:55, fontSize:11, color:"rgba(255,255,255,0.65)" }}>{unit}</span>
+    </div>
+  );
+}
+
+function GroceryItem({ item }) {
+  const [checked, setChecked] = useState(false);
+  return (
+    <div onClick={() => setChecked(!checked)} style={{ display:"flex", gap:12, padding:"11px 0", borderBottom:"1px solid #f0f0f0", cursor:"pointer", opacity:checked?0.45:1, transition:"opacity 0.2s" }}>
+      <div style={{ width:20, height:20, borderRadius:5, flexShrink:0, marginTop:2, border:checked?"none":"2px solid #ccc", background:checked?C.sage:"transparent", display:"flex", alignItems:"center", justifyContent:"center", transition:"all 0.2s" }}>
+        {checked && <span style={{ color:"white", fontSize:12, fontWeight:700 }}>✓</span>}
+      </div>
+      <div style={{ flex:1 }}>
+        <div style={{ fontSize:14, fontWeight:500, textDecoration:checked?"line-through":"none", color:C.charcoal, marginBottom:2 }}>{item.name}</div>
+        <div style={{ fontSize:12, color:C.muted, marginBottom:4 }}>{item.brand}</div>
+        <span style={{ fontSize:11, background:C.sageLight, color:C.sageDark, padding:"2px 8px", borderRadius:10, fontWeight:500 }}>{item.why}</span>
+      </div>
+    </div>
+  );
+}
+
+function RecipeCard({ recipe, unit }) {
+  const [open, setOpen] = useState(false);
+  const [portions, setPortions] = useState(1); // 1 = Eloise only, 2 = both
+  const cs = CAT[recipe.category] || { bg:"#eee", fg:"#333" };
+  const ingredients = unit === "metric" ? recipe.metric : recipe.imperial;
+
+  // Scale multipliers: Eloise = 1x, Boyfriend = 1.4x (his portions are ~40% larger)
+  const SCALES = {
+    1: { label:"🌿 Eloise", multiplier:1,   cal: recipe.cal,              protein: recipe.protein },
+    2: { label:"🏃 Boyfriend", multiplier:1.4, cal: Math.round(recipe.cal*1.4), protein: Math.round(recipe.protein*1.4) },
+    3: { label:"🍽️ Both", multiplier:null, cal: Math.round(recipe.cal + recipe.cal*1.4), protein: Math.round(recipe.protein + recipe.protein*1.4) },
+  };
+  const S = SCALES[portions];
+
+  // Scale a single ingredient string — finds leading numbers and multiplies them
+  const scaleIngredient = (ing, mult) => {
+    if (!mult || mult === 1) return ing;
+    return ing.replace(/(\d+(\.\d+)?)/g, (match) => {
+      const n = parseFloat(match);
+      const scaled = n * mult;
+      // Round nicely
+      if (scaled % 1 === 0) return String(Math.round(scaled));
+      if (scaled < 10) return parseFloat(scaled.toFixed(1)).toString();
+      return String(Math.round(scaled));
+    });
+  };
+
+  return (
+    <div style={{ background:"white", borderRadius:16, marginBottom:14, boxShadow:"0 2px 12px rgba(0,0,0,0.06)", overflow:"hidden" }}>
+      <div onClick={() => setOpen(!open)} style={{ padding:"18px 20px 14px", background:C.warm, cursor:"pointer", display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
+        <div style={{ flex:1 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:7, flexWrap:"wrap" }}>
+            <span style={{ background:cs.bg, color:cs.fg, fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>{recipe.category}</span>
+            {recipe.airfryer && <span style={{ background:C.accentLight, color:C.accent, fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>🌀 Air Fryer</span>}
+            {recipe.pcos === "great" && <span style={{ background:"#e8f5e9", color:"#2e7d32", fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>🌸 PCOS Friendly</span>}
+            {recipe.pcos === "caution" && <span style={{ background:"#fff3e0", color:"#e65100", fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>⚠️ PCOS Caution</span>}
+            {recipe.bloat === "medium" && <span style={{ background:"#fff8e1", color:"#f57f17", fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>💨 Mild Bloating</span>}
+            {recipe.bloat === "high" && <span style={{ background:"#fce4ec", color:"#c62828", fontSize:10, fontWeight:700, padding:"2px 9px", borderRadius:20 }}>💨 Bloating Risk</span>}
+          </div>
+          <div style={{ fontFamily:"Georgia, serif", fontSize:18, marginBottom:8 }}>{recipe.title}</div>
+          <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+            <span style={{ background:"#fde8d8", color:"#b05e20", fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>~{S.cal} kcal</span>
+            <span style={{ background:C.sageLight, color:C.sageDark, fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>{S.protein}g protein</span>
+            <span style={{ background:"#e8eaf6", color:"#3949ab", fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>⏱ {recipe.time}</span>
+          </div>
+        </div>
+        <span style={{ fontSize:18, color:C.muted, transform:open?"rotate(180deg)":"none", transition:"transform 0.3s", marginLeft:10, flexShrink:0 }}>▾</span>
+      </div>
+      {open && (
+        <div style={{ padding:20 }}>
+
+          {/* Portion scaler */}
+          <div style={{ marginBottom:20 }}>
+            <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:C.accent, marginBottom:10 }}>Portion For</div>
+            <div style={{ display:"flex", background:"#f5f5f5", borderRadius:12, padding:4, gap:3 }}>
+              {Object.entries(SCALES).map(([key, s]) => (
+                <button key={key} onClick={e => { e.stopPropagation(); setPortions(Number(key)); }} style={{ flex:1, padding:"8px 6px", borderRadius:9, border:"none", cursor:"pointer", background:portions===Number(key)?"white":"transparent", color:portions===Number(key)?C.sageDark:C.muted, fontFamily:"inherit", fontSize:12, fontWeight:700, transition:"all 0.2s", boxShadow:portions===Number(key)?"0 1px 4px rgba(0,0,0,0.1)":"none" }}>{s.label}</button>
+              ))}
+            </div>
+            <div style={{ display:"flex", gap:12, marginTop:10 }}>
+              <div style={{ flex:1, background:C.sageLight, borderRadius:10, padding:"10px 14px", textAlign:"center" }}>
+                <div style={{ fontSize:18, fontWeight:700, color:C.sageDark }}>{S.cal}</div>
+                <div style={{ fontSize:11, color:C.muted }}>kcal</div>
+              </div>
+              <div style={{ flex:1, background:C.sageLight, borderRadius:10, padding:"10px 14px", textAlign:"center" }}>
+                <div style={{ fontSize:18, fontWeight:700, color:C.sageDark }}>{S.protein}g</div>
+                <div style={{ fontSize:11, color:C.muted }}>protein</div>
+              </div>
+              {portions === 3 && (
+                <div style={{ flex:1, background:"#fff8e1", borderRadius:10, padding:"10px 14px", textAlign:"center" }}>
+                  <div style={{ fontSize:11, fontWeight:600, color:"#7a5c00", lineHeight:1.4 }}>Cook for 2 — portions split above</div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:C.accent, marginBottom:10 }}>Ingredients {portions===3?"(for both)":portions===2?"(🏃 Boyfriend)":"(🌿 Eloise)"}</div>
+          <ul style={{ listStyle:"none", marginBottom:20 }}>
+            {ingredients.map((ing,i) => {
+              const scaled = portions === 3
+                ? `Eloise: ${ing}  |  Boyfriend: ${scaleIngredient(ing, 1.4)}`
+                : scaleIngredient(ing, S.multiplier);
+              return (
+                <li key={i} style={{ fontSize:13, padding:"6px 0", borderBottom:"1px solid #f5f5f5", color:C.charcoal, lineHeight:1.5 }}>
+                  <span style={{ color:C.sage, fontWeight:700 }}>· </span>
+                  {portions === 3 ? (
+                    <span>
+                      <span style={{ color:C.sageDark, fontWeight:600 }}>Eloise:</span> {ing}
+                      <span style={{ display:"block", paddingLeft:10, marginTop:2 }}>
+                        <span style={{ color:C.accent, fontWeight:600 }}>Boyfriend:</span> {scaleIngredient(ing, 1.4)}
+                      </span>
+                    </span>
+                  ) : scaled}
+                </li>
+              );
+            })}
+          </ul>
+
+          <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:C.accent, marginBottom:10 }}>Steps</div>
+          <ol style={{ listStyle:"none" }}>
+            {recipe.steps.map((step,i) => (
+              <li key={i} style={{ display:"flex", gap:12, padding:"8px 0", borderBottom:"1px solid #f5f5f5", alignItems:"flex-start" }}>
+                <span style={{ width:22, height:22, background:C.sage, color:"white", borderRadius:"50%", fontSize:11, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>{i+1}</span>
+                <span style={{ fontSize:13, lineHeight:1.6, color:C.charcoal }}>{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MealDay({ day, mealFilter }) {
+  const meals = mealFilter === "All" ? day.meals : day.meals.filter(m => m.label === mealFilter);
+  if (meals.length === 0) return null;
+  const total = day.meals.reduce((s,m) => s+m.cal, 0);
+  const totalP = day.meals.reduce((s,m) => s+m.protein, 0);
+  return (
+    <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+      <div style={{ fontFamily:"Georgia, serif", fontSize:18, color:C.sageDark, marginBottom:12, paddingBottom:10, borderBottom:`1px solid ${C.sageLight}`, display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
+        <span>{day.day}</span>
+        {mealFilter==="All" && <span style={{ fontSize:12, color:C.muted, fontStyle:"italic" }}>{total} kcal · {totalP}g protein</span>}
+      </div>
+      {meals.map((meal,i) => {
+        const cs = CAT[meal.label] || { bg:"#eee", fg:"#333" };
+        return (
+          <div key={i} style={{ display:"flex", gap:12, padding:"9px 0", borderBottom:i<meals.length-1?"1px solid #f5f5f5":"none", alignItems:"flex-start" }}>
+            <span style={{ background:cs.bg, color:cs.fg, fontSize:10, fontWeight:700, padding:"3px 9px", borderRadius:20, whiteSpace:"nowrap", marginTop:2 }}>{meal.label}</span>
+            <span style={{ fontSize:13, flex:1, lineHeight:1.5, color:C.charcoal }}>{meal.desc}</span>
+            <div style={{ textAlign:"right", flexShrink:0 }}>
+              <div style={{ fontSize:12, color:C.accent, fontWeight:600 }}>{meal.cal} kcal</div>
+              <div style={{ fontSize:11, color:C.sage }}>{meal.protein}g pro</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function Pill({ value, current, setter }) {
+  const active = current === value;
+  const cs = CAT[value] || null;
+  return (
+    <button onClick={() => setter(value)} style={{ padding:"7px 15px", borderRadius:20, border:"none", cursor:"pointer", background:active?(cs?cs.bg:C.sageDark):"#efefef", color:active?(cs?cs.fg:"white"):C.muted, fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s", outline:active&&cs?`2px solid ${cs.fg}`:"none" }}>{value}</button>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// MAIN APP
+// ─────────────────────────────────────────────────────────────
+function App() {
+  const [tab, setTab]           = useState("tracking");
+  const [store, setStore]       = useState("heb");
+  const [recipeFilter, setRF]   = useState("All");
+  const [mealFilter, setMF]     = useState("All");
+  const [unit, setUnit]         = useState("imperial");
+  const [search, setSearch]     = useState("");
+  const [pcosFilter, setPcosFilter] = useState(false);
+  const [mealPlanView, setMealPlanView] = useState("standard");
+  const [person, setPerson]     = useState("eloise");
+  const [copied, setCopied]     = useState(false);
+
+  const PROFILES = {
+    eloise: {
+      name: "Eloise 🌿",
+      current_lbs: 152, goal_lbs: 130, height: "5'3\"",
+      current_kg: 69, goal_kg: 59,
+      cal: 1350, protein: "100–110g", carbs: "80–100g", fat: "40–50g", sugar: "< 30g",
+      activity: "~10,000 steps/day, walking",
+      timeline: "~5–6 months",
+      tolose_lbs: 22, tolose_kg: 10,
+      tips: ["Your calorie deficit is moderate — sustainable over 5–6 months without tanking energy.", "Walking 10K steps burns an extra ~150–200 kcal/day — keep this your daily non-negotiable.", "Protein at 100–110g protects your muscle while you lose fat — hit this every day.", "Weigh yourself Monday mornings only — daily fluctuations will mess with your head."],
+      macros: [
+        { label:"Protein", value:105, max:150, color:"#9dcfa1", unit:"100–110g" },
+        { label:"Carbs",   value:90,  max:200, color:"#f5c842", unit:"80–100g" },
+        { label:"Fat",     value:45,  max:100, color:"#f5a07a", unit:"40–50g" },
+        { label:"Sugar",   value:25,  max:100, color:"#f57a7a", unit:"< 30g" },
+      ],
+    },
+    boyfriend: {
+      name: "Boyfriend 🏃",
+      current_lbs: 194, goal_lbs: 170, height: "5'10\"",
+      current_kg: 88, goal_kg: 77,
+      cal: 2050, protein: "155–165g", carbs: "150–180g", fat: "55–65g", sugar: "< 40g",
+      activity: "Running 3.5 mi / 5.6km, 3–4x/week",
+      timeline: "~4–5 months",
+      tolose_lbs: 24, tolose_kg: 11,
+      tips: ["His deficit is conservative — important because he's running. Too aggressive = no energy for training.", "Running 3.5 miles burns ~350–400 kcal. On run days he can eat up to his maintenance (~2,500 kcal) if needed.", "Protein at 155–165g is critical — running breaks down muscle, protein rebuilds it.", "He'll likely lose weight faster than you at first — don't compare progress. Different bodies, different rates."],
+      macros: [
+        { label:"Protein", value:160, max:200, color:"#9dcfa1", unit:"155–165g" },
+        { label:"Carbs",   value:165, max:250, color:"#f5c842", unit:"150–180g" },
+        { label:"Fat",     value:60,  max:120, color:"#f5a07a", unit:"55–65g" },
+        { label:"Sugar",   value:35,  max:100, color:"#f57a7a", unit:"< 40g" },
+      ],
+    },
+  };
+  const P = PROFILES[person];
+
+  // metrics
+  const today = new Date().toISOString().split("T")[0];
+  const [logs, setLogsRaw] = useState(() => { try { const s = localStorage.getItem('wellness_logs'); return s ? JSON.parse(s) : { eloise:{}, boyfriend:{} }; } catch { return { eloise:{}, boyfriend:{} }; } });
+  const setLogs = (u) => { setLogsRaw(p => { const n = typeof u === 'function' ? u(p) : u; try { localStorage.setItem('wellness_logs', JSON.stringify(n)); } catch {} return n; }); };
+  const [form, setForm]         = useState({ weight:"", waist:"", hips:"", steps:"", calories:"", water:"", workout:false });
+  const [mView, setMView]       = useState("log");
+  const [cKey, setCKey]         = useState("weight");
+
+  const saveLog = () => {
+    if (Object.values(form).every(v => v===""||v===false)) return;
+    setLogs(p => ({ ...p, [person]:{ ...p[person], [today]:{ ...form } } }));
+    setForm({ weight:"", waist:"", hips:"", steps:"", calories:"", water:"", workout:false });
+    alert(`✅ ${P.name}'s log saved!`);
+  };
+
+  const personLogs = logs[person] || {};
+  const loggedDays = Object.keys(personLogs).sort();
+  const CMETA = [
+    { key:"weight", label:"Weight (kg)", color:"#5c8a60", unit:"kg" },
+    { key:"waist",  label:"Waist (cm)",  color:"#c4773b", unit:"cm" },
+    { key:"hips",   label:"Hips (cm)",   color:"#9b1b2a", unit:"cm" },
+    { key:"steps",  label:"Steps",       color:"#3949ab", unit:"" },
+    { key:"calories",label:"Calories",   color:"#e8192c", unit:"kcal" },
+    { key:"water",  label:"Water (L)",   color:"#00897b", unit:"L" },
+  ];
+  const cm = CMETA.find(m => m.key===cKey)||CMETA[0];
+  const chartData = loggedDays.filter(d => personLogs[d][cKey]!=="").map(d => ({ date:d.slice(5), value:parseFloat(personLogs[d][cKey]) }));
+
+  const MiniChart = ({ data, color }) => {
+    if (data.length<2) return <div style={{ textAlign:"center", padding:"30px 0", color:C.muted, fontSize:13 }}>Log at least 2 days to see your trend 📈</div>;
+    const vals=data.map(d=>d.value), mn=Math.min(...vals)*0.97, mx=Math.max(...vals)*1.03;
+    const W=320,H=120,x=i=>(i/(data.length-1))*(W-40)+20,y=v=>H-20-((v-mn)/(mx-mn||1))*(H-40);
+    const pts=data.map((d,i)=>`${x(i)},${y(d.value)}`).join(" ");
+    return (
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width:"100%", height:120 }}>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity="0.25"/><stop offset="100%" stopColor={color} stopOpacity="0.02"/></linearGradient></defs>
+        <polygon points={`20,${H-20} ${pts} ${x(data.length-1)},${H-20}`} fill="url(#g)"/>
+        <polyline points={pts} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        {data.map((d,i) => <g key={i}><circle cx={x(i)} cy={y(d.value)} r="4" fill={color}/><text x={x(i)} y={H-4} textAnchor="middle" fontSize="9" fill={C.muted}>{d.date}</text>{i===data.length-1&&<text x={x(i)} y={y(d.value)-8} textAnchor="middle" fontSize="10" fontWeight="700" fill={color}>{d.value}</text>}</g>)}
+      </svg>
+    );
+  };
+
+  const filtered = RECIPES.filter(r => {
+    const isCatFilter = recipeFilter !== "All" && recipeFilter !== "PCOS";
+    const matchesCategory = !isCatFilter || r.category === recipeFilter;
+    const matchesPCOS = recipeFilter !== "PCOS" || r.pcos === "great";
+    const matchesPcosToggle = !pcosFilter || r.pcos === "great";
+    const q = search.toLowerCase().trim();
+    const matchesSearch = q === "" ||
+      r.title.toLowerCase().includes(q) ||
+      r.category.toLowerCase().includes(q) ||
+      r.imperial.some(i => i.toLowerCase().includes(q)) ||
+      r.steps.some(s => s.toLowerCase().includes(q));
+    return matchesCategory && matchesPCOS && matchesPcosToggle && matchesSearch;
+  });
+  const storeData = GROCERY[store];
+  const TABS = [
+    { id:"tracking", label:"📊 Tracking" },
+    { id:"grocery",  label:"🛒 Groceries" },
+    { id:"recipes",  label:"🍳 Recipes" },
+    { id:"mealplan", label:"📅 Meal Plan" },
+    { id:"metrics",  label:"📈 Metrics" },
+    { id:"pcos",     label:"🌸 PCOS" },
+  ];
+
+  return (
+    <div style={{ fontFamily:"system-ui,sans-serif", background:C.cream, minHeight:"100vh", color:C.charcoal }}>
+
+      {/* HERO */}
+      <div style={{ background:`linear-gradient(135deg,${C.sageDark} 0%,#2d4f31 100%)`, color:"white", padding:"44px 24px 38px", position:"relative", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:-50, right:-50, width:220, height:220, borderRadius:"50%", background:"rgba(255,255,255,0.04)" }}/>
+        <div style={{ fontSize:11, fontWeight:600, letterSpacing:3, textTransform:"uppercase", color:"rgba(255,255,255,0.5)", marginBottom:12 }}>Your Personal Plan · May 2026</div>
+        <div style={{ fontFamily:"Georgia,serif", fontSize:32, lineHeight:1.25, marginBottom:12, fontWeight:400 }}>
+          Eat well. <em style={{ color:"#9dcfa1" }}>Move daily.</em> Feel strong.
+        </div>
+        <p style={{ fontSize:14, color:"rgba(255,255,255,0.7)", maxWidth:420, lineHeight:1.7, marginBottom:20 }}>
+          Grocery lists, {RECIPES.length} recipes, calorie tracking, and a full 7-day meal plan — personalised for both of you.
+        </p>
+
+        {/* Person toggle */}
+        <div style={{ display:"flex", background:"rgba(255,255,255,0.12)", borderRadius:24, padding:4, gap:4, marginBottom:24, width:"fit-content" }}>
+          {[["eloise","Eloise 🌿"],["boyfriend","Boyfriend 🏃"]].map(([id,label])=>(
+            <button key={id} onClick={()=>setPerson(id)} style={{ padding:"8px 20px", borderRadius:20, border:"none", cursor:"pointer", background:person===id?"white":"transparent", color:person===id?C.sageDark:"rgba(255,255,255,0.7)", fontFamily:"inherit", fontSize:13, fontWeight:700, transition:"all 0.2s" }}>{label}</button>
+          ))}
+        </div>
+
+        <div style={{ display:"flex", gap:24, flexWrap:"wrap" }}>
+          {[[String(P.cal),"kcal / Day"],[P.protein,"Protein Goal"],[`-${P.tolose_lbs} lbs`,`Goal (-${P.tolose_kg}kg)`],[String(RECIPES.length),"Recipes"]].map(([n,l])=>(
+            <div key={l} style={{ textAlign:"center" }}>
+              <span style={{ display:"block", fontFamily:"Georgia,serif", fontSize:22, color:"#9dcfa1" }}>{n}</span>
+              <span style={{ fontSize:10, textTransform:"uppercase", letterSpacing:1.5, color:"rgba(255,255,255,0.5)" }}>{l}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* TABS */}
+      <div style={{ background:"white", display:"flex", overflowX:"auto", borderBottom:"1px solid #e8e8e8", position:"sticky", top:0, zIndex:100, boxShadow:"0 2px 12px rgba(0,0,0,0.07)" }}>
+        {TABS.map(t=>(
+          <button key={t.id} onClick={()=>setTab(t.id)} style={{ padding:"14px 18px", border:"none", background:"none", fontFamily:"inherit", fontSize:13, fontWeight:500, color:tab===t.id?C.sageDark:C.muted, cursor:"pointer", borderBottom:`2px solid ${tab===t.id?C.sageDark:"transparent"}`, whiteSpace:"nowrap", transition:"all 0.2s" }}>{t.label}</button>
+        ))}
+      </div>
+
+      {/* CONTENT */}
+      <div style={{ maxWidth:680, margin:"0 auto", padding:"28px 18px 48px" }}>
+
+        {/* ── TRACKING ── */}
+        {tab==="tracking" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>Calorie Tracking</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:24 }}>Personalised targets for <strong>{P.name}</strong> — switch profiles in the header anytime.</p>
+
+            {/* Profile card */}
+            <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:20, boxShadow:"0 2px 8px rgba(0,0,0,0.05)", display:"flex", gap:16, flexWrap:"wrap" }}>
+              <div style={{ flex:1, minWidth:140 }}>
+                <div style={{ fontSize:11, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:C.muted, marginBottom:8 }}>Profile</div>
+                {[["Current weight", `${P.current_lbs} lbs / ${P.current_kg} kg`], ["Height", P.height], ["Goal weight", `${P.goal_lbs} lbs / ${P.goal_kg} kg`], ["To lose", `${P.tolose_lbs} lbs / ${P.tolose_kg} kg`], ["Activity", P.activity], ["Timeline", P.timeline]].map(([l,v])=>(
+                  <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"5px 0", borderBottom:"1px solid #f5f5f5", fontSize:13 }}>
+                    <span style={{ color:C.muted }}>{l}</span>
+                    <span style={{ fontWeight:500, color:C.charcoal, textAlign:"right", maxWidth:"55%" }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Calorie target */}
+            <div style={{ background:`linear-gradient(135deg,${C.sageDark},#2d4f31)`, borderRadius:18, padding:26, marginBottom:22, color:"white" }}>
+              <div style={{ fontFamily:"Georgia,serif", fontSize:17, color:"#9dcfa1", marginBottom:18 }}>Daily Targets — {P.name}</div>
+              <div style={{ textAlign:"center", marginBottom:22 }}>
+                <span style={{ fontFamily:"Georgia,serif", fontSize:50, display:"block", lineHeight:1 }}>{P.cal.toLocaleString()}</span>
+                <span style={{ fontSize:11, letterSpacing:2, color:"rgba(255,255,255,0.5)", textTransform:"uppercase" }}>kcal / Day</span>
+              </div>
+              {P.macros.map((m,i)=>(
+                <MacroBar key={i} label={m.label} value={m.value} max={m.max} color={m.color} unit={m.unit}/>
+              ))}
+            </div>
+
+            {/* Personal tips */}
+            <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12, fontWeight:400 }}>Tips for {P.name}</div>
+            {P.tips.map((tip,i)=>(
+              <div key={i} style={{ background:"white", borderRadius:12, padding:"14px 18px", marginBottom:10, borderLeft:`3px solid ${C.sage}`, boxShadow:"0 2px 8px rgba(0,0,0,0.04)", fontSize:13, color:C.charcoal, lineHeight:1.65 }}>
+                {tip}
+              </div>
+            ))}
+
+            <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12, marginTop:24, fontWeight:400 }}>General Tracking Tips</div>
+            {TRACKING_TIPS.map((tip,i)=>(
+              <div key={i} style={{ background:"white", borderRadius:12, padding:18, marginBottom:12, borderLeft:`3px solid ${C.sage}`, boxShadow:"0 2px 8px rgba(0,0,0,0.04)" }}>
+                <div style={{ display:"flex", alignItems:"flex-start", gap:12 }}>
+                  <span style={{ fontSize:20 }}>{tip.icon}</span>
+                  <div>
+                    <div style={{ fontSize:14, fontWeight:600, color:C.sageDark, marginBottom:5 }}>{tip.title}</div>
+                    <p style={{ fontSize:13, color:C.muted, lineHeight:1.65 }}>{tip.body}</p>
+                    {tip.badge && <span style={{ display:"inline-block", marginTop:8, background:C.sageLight, color:C.sageDark, fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:20 }}>{tip.badge}</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* PCOS SECTION — only show for Eloise */}
+            {person === "eloise" && (
+              <>
+                <div style={{ fontFamily:"Georgia,serif", fontSize:22, marginBottom:4, marginTop:32, fontWeight:400, color:C.charcoal }}>🌸 Your PCOS Guide</div>
+                <p style={{ fontSize:14, color:C.muted, marginBottom:20 }}>Personalised guidance based on your diagnosis. PCOS affects weight, hormones, and digestion — your plan already accounts for this.</p>
+
+                {/* PCOS calorie note */}
+                <div style={{ background:"linear-gradient(135deg,#f8bbd0,#f48fb1)", borderRadius:16, padding:22, marginBottom:20, color:"#4a0020" }}>
+                  <div style={{ fontFamily:"Georgia,serif", fontSize:17, marginBottom:12 }}>Why your plan is already PCOS-optimised</div>
+                  {["Low carb + high protein = directly targets insulin resistance, the core PCOS mechanism.","Walking daily reduces cortisol (stress hormone) which worsens PCOS symptoms.","High protein keeps you full longer — important because PCOS often causes stronger hunger signals.","Your 1,350 kcal target is a gentle deficit — aggressive restriction worsens hormonal imbalance in PCOS.","Strength training 2x/week improves insulin sensitivity — this is as important as the diet."].map((t,i)=>(
+                    <div key={i} style={{ display:"flex", gap:10, padding:"6px 0", borderBottom:"1px solid rgba(255,255,255,0.3)", fontSize:13, lineHeight:1.6 }}>
+                      <span style={{ flexShrink:0 }}>✓</span><span>{t}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Foods to prioritise */}
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:13, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:"#2e7d32", marginBottom:14 }}>✅ Prioritise These</div>
+                  {[["🐟 Fatty fish (salmon, tuna)","Anti-inflammatory omega-3s — eat 3x/week minimum"],["🥬 Leafy greens (spinach, arugula)","Low glycemic, high magnesium — helps insulin sensitivity"],["🫐 Berries","Low sugar, high antioxidants — reduce PCOS inflammation"],["🥚 Eggs","Hormone-balancing choline, high protein, low GI"],["🫚 Olive oil","Anti-inflammatory healthy fat — use as your main cooking fat"],["🌿 Cinnamon","Clinically shown to improve insulin sensitivity — add to everything"],["🫚 Flaxseed (add to oats/yogurt)","Balances estrogen levels — 1 tbsp daily is ideal"],["🍵 Spearmint tea","Evidence-backed for reducing androgens in PCOS — 2 cups/day"],["🫚 Turmeric & ginger","Powerful anti-inflammatories — already in several recipes"]].map(([food,why],i)=>(
+                    <div key={i} style={{ display:"flex", gap:12, padding:"8px 0", borderBottom:"1px solid #f5f5f5" }}>
+                      <div style={{ flex:1 }}>
+                        <div style={{ fontSize:13, fontWeight:600, color:C.charcoal }}>{food}</div>
+                        <div style={{ fontSize:12, color:C.muted, marginTop:2 }}>{why}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Foods to limit */}
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:13, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:"#e65100", marginBottom:14 }}>⚠️ Limit These</div>
+                  {[["🍞 Refined carbs (white bread, pasta, pastries)","Spike insulin rapidly — already mostly out of your plan ✅"],["🥛 Excess dairy","Fine in moderate amounts — watch total daily dairy intake"],["🧅 Raw onion & garlic","Major bloating triggers — always cook them"],["🥦 Large amounts of raw cruciferous veg","Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"],["🫘 Large portions of legumes","Black beans, chickpeas — fine in small amounts, known bloating trigger"],["🍬 Sugar alcohols","Found in many protein bars — read labels carefully"],["🧂 Excess salt","Worsens water retention which PCOS already promotes"],["🍺 Alcohol","Disrupts hormones and worsens insulin resistance — minimise"]].map(([food,why],i)=>(
+                    <div key={i} style={{ display:"flex", gap:12, padding:"8px 0", borderBottom:"1px solid #f5f5f5" }}>
+                      <div style={{ flex:1 }}>
+                        <div style={{ fontSize:13, fontWeight:600, color:C.charcoal }}>{food}</div>
+                        <div style={{ fontSize:12, color:C.muted, marginTop:2 }}>{why}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bloating remedies */}
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:13, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:"#7b1fa2", marginBottom:14 }}>💨 Bloating Remedies</div>
+                  {[["🍵 Peppermint tea after meals","Most effective natural remedy for post-meal bloating"],["🌿 Fennel seeds","Chew a small pinch after meals — très français, genuinely works"],["🚶 Walk after eating","Even 10 minutes significantly helps digestion — fits your step goal"],["🥄 Eat slowly, chew thoroughly","Rushing meals is a major bloating cause — give yourself 20 min"],["💧 Warm water with lemon","Supports digestion, gentle on the gut, anti-inflammatory"],["🧘 Manage stress","Cortisol directly worsens bloating in PCOS — prioritise sleep & calm"]].map(([remedy,why],i)=>(
+                    <div key={i} style={{ display:"flex", gap:12, padding:"8px 0", borderBottom:"1px solid #f5f5f5" }}>
+                      <div style={{ flex:1 }}>
+                        <div style={{ fontSize:13, fontWeight:600, color:C.charcoal }}>{remedy}</div>
+                        <div style={{ fontSize:12, color:C.muted, marginTop:2 }}>{why}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Important note */}
+                <div style={{ background:"#e8f5e9", borderRadius:12, padding:"14px 18px", borderLeft:"3px solid #2e7d32", marginBottom:16 }}>
+                  <p style={{ fontSize:13, color:"#1b5e20", lineHeight:1.7 }}>
+                    <strong>Weight loss with PCOS is slower than average</strong> — this is normal and not your fault. Hormonal fluctuations can cause 1–3 kg of water weight variation week to week. Judge progress monthly, not weekly. The scale is not the full picture — how your clothes fit and your energy levels matter just as much.
+                  </p>
+                </div>
+
+                <div style={{ background:"#fce4ec", borderRadius:12, padding:"14px 18px", borderLeft:"3px solid #c2185b" }}>
+                  <p style={{ fontSize:13, color:"#880e4f", lineHeight:1.7 }}>
+                    <strong>Consider speaking to your doctor about:</strong> Inositol (Myo-inositol + D-chiro inositol) — a supplement with strong clinical evidence for improving PCOS symptoms, insulin sensitivity, and weight loss. It's not a drug, widely available, and many PCOS doctors recommend it. Not medical advice — just worth asking about at your next appointment.
+                  </p>
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {/* ── GROCERY ── */}
+        {tab==="grocery" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>Grocery Lists</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:18 }}>Tap items to check them off. Copy the full list to paste into the HEB app.</p>
+
+            {/* Store switcher */}
+            <div style={{ display:"flex", gap:10, marginBottom:20, flexWrap:"wrap" }}>
+              {[["heb","H-E-B",C.heb],["tj","Trader Joe's",C.tj],["wf","Whole Foods",C.wf]].map(([id,label,color])=>(
+                <button key={id} onClick={()=>setStore(id)} style={{ padding:"8px 18px", borderRadius:20, border:"none", cursor:"pointer", background:store===id?color:"#efefef", color:store===id?"white":C.muted, fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s" }}>{label}</button>
+              ))}
+            </div>
+
+            {/* Store header + copy button */}
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:18, flexWrap:"wrap", gap:10 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                <span style={{ background:storeData.color, color:"white", fontSize:13, fontWeight:700, padding:"5px 15px", borderRadius:20 }}>{storeData.label}</span>
+                <span style={{ fontSize:12, color:C.muted, fontStyle:"italic" }}>{storeData.note}</span>
+              </div>
+              <button
+                onClick={() => {
+                  const lines = [`🛒 ${storeData.label} Shopping List\n`];
+                  storeData.categories.forEach(cat => {
+                    lines.push(`\n${cat.name}`);
+                    cat.items.forEach(item => {
+                      lines.push(`• ${item.name}`);
+                    });
+                  });
+                  lines.push(`\n—\nGenerated from Our Wellness Plan`);
+                  navigator.clipboard.writeText(lines.join("\n")).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2500);
+                  }).catch(() => {
+                    // Fallback for older browsers
+                    const ta = document.createElement("textarea");
+                    ta.value = lines.join("\n");
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(ta);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2500);
+                  });
+                }}
+                style={{ display:"flex", alignItems:"center", gap:8, padding:"9px 18px", borderRadius:20, border:"none", cursor:"pointer", background:copied?"#e6f0e7":C.sageDark, color:"white", fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.3s", flexShrink:0 }}
+              >
+                {copied ? "✓ Copied!" : "📋 Copy List"}
+              </button>
+            </div>
+
+            {/* Tip box */}
+            <div style={{ background:C.sageLight, borderRadius:12, padding:"12px 16px", marginBottom:20, borderLeft:`3px solid ${C.sage}` }}>
+              <p style={{ fontSize:13, color:C.sageDark, lineHeight:1.6 }}>
+                <strong>How to use:</strong> Tap <strong>Copy List</strong> → open the <strong>HEB app</strong> → go to your list → paste. All items appear instantly. Check them off here as you add them to your cart.
+              </p>
+            </div>
+
+            {storeData.categories.map((cat,ci)=>(
+              <div key={ci} style={{ marginBottom:26 }}>
+                <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, textTransform:"uppercase", color:C.sageDark, marginBottom:10, paddingBottom:6, borderBottom:`1px solid ${C.sageLight}` }}>{cat.name}</div>
+                {cat.items.map((item,ii)=><GroceryItem key={`${store}-${ci}-${ii}`} item={item}/>)}
+              </div>
+            ))}
+          </>
+        )}
+
+        {/* ── RECIPES ── */}
+        {tab==="recipes" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>Recipes</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:14 }}>{RECIPES.length} recipes, all under 30 min, all high protein.</p>
+
+            {/* Search bar */}
+            <div style={{ position:"relative", marginBottom:16 }}>
+              <span style={{ position:"absolute", left:14, top:"50%", transform:"translateY(-50%)", fontSize:16, pointerEvents:"none" }}>🔍</span>
+              <input
+                type="text"
+                placeholder="Search by name, ingredient, or keyword..."
+                value={search}
+                onChange={e => { setSearch(e.target.value); setRF("All"); }}
+                style={{ width:"100%", padding:"12px 16px 12px 42px", borderRadius:12, border:`1.5px solid ${search ? C.sage : "#e0e0e0"}`, fontFamily:"inherit", fontSize:14, outline:"none", boxSizing:"border-box", background:"white", transition:"border-color 0.2s" }}
+              />
+              {search && (
+                <button onClick={() => setSearch("")} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", fontSize:16, color:C.muted, padding:4 }}>✕</button>
+              )}
+            </div>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:16, flexWrap:"wrap", gap:10 }}>
+              <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+                {MEAL_TYPES.map(c=><Pill key={c} value={c} current={recipeFilter} setter={setRF}/>)}
+                <button onClick={()=>{ setRF("PCOS"); setSearch(""); }} style={{ padding:"7px 15px", borderRadius:20, border:"none", cursor:"pointer", background:recipeFilter==="PCOS"?"#c2185b":"#fce4ec", color:recipeFilter==="PCOS"?"white":"#c2185b", fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s" }}>🌸 PCOS ✓</button>
+              </div>
+              <div style={{ display:"flex", background:"#efefef", borderRadius:20, padding:3, gap:2, flexShrink:0 }}>
+                {[["imperial","🇺🇸 Imperial"],["metric","🇫🇷 Metric"]].map(([id,label])=>(
+                  <button key={id} onClick={()=>setUnit(id)} style={{ padding:"6px 14px", borderRadius:18, border:"none", cursor:"pointer", background:unit===id?C.sageDark:"transparent", color:unit===id?"white":C.muted, fontFamily:"inherit", fontSize:12, fontWeight:600, transition:"all 0.2s" }}>{label}</button>
+                ))}
+              </div>
+            </div>
+            <p style={{ fontSize:12, color:C.muted, marginBottom:18 }}>
+              {filtered.length} recipe{filtered.length!==1?"s":""} 
+              {search && <span> matching <strong>"{search}"</strong></span>}
+              {!search && <span> · {unit==="metric"?"Metric (g, ml, °C)":"Imperial (oz, cups, °F)"}</span>}
+              {filtered.length === 0 && " — try a different search"}
+            </p>
+            {filtered.length === 0 && (
+              <div style={{ background:"white", borderRadius:14, padding:"40px 20px", textAlign:"center", boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                <div style={{ fontSize:36, marginBottom:12 }}>🍳</div>
+                <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:8, color:C.charcoal }}>No recipes found</div>
+                <p style={{ fontSize:13, color:C.muted, marginBottom:16 }}>No recipes match "{search}". Try searching for an ingredient, protein, or cooking method.</p>
+                <button onClick={() => setSearch("")} style={{ padding:"8px 20px", borderRadius:20, border:"none", background:C.sageDark, color:"white", fontFamily:"inherit", fontSize:13, fontWeight:600, cursor:"pointer" }}>Clear search</button>
+              </div>
+            )}
+            {filtered.map((r,i)=><RecipeCard key={i} recipe={r} unit={unit}/>)}
+          </>
+        )}
+
+        {/* ── MEAL PLAN ── */}
+        {tab==="mealplan" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>Meal Plans</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:18 }}>Switch between the standard plan and Eloise's PCOS-optimised week.</p>
+
+            {/* Plan toggle */}
+            <div style={{ display:"flex", background:"#efefef", borderRadius:24, padding:4, gap:3, marginBottom:24, width:"fit-content" }}>
+              {[["standard","📅 Standard Plan"],["pcos","🌸 PCOS Plan"]].map(([id,label])=>(
+                <button key={id} onClick={()=>setMealPlanView(id)} style={{ padding:"8px 18px", borderRadius:20, border:"none", cursor:"pointer", background:mealPlanView===id?(id==="pcos"?"#c2185b":C.sageDark):"transparent", color:mealPlanView===id?"white":C.muted, fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s" }}>{label}</button>
+              ))}
+            </div>
+
+            {/* STANDARD PLAN */}
+            {mealPlanView==="standard" && (
+              <>
+                <p style={{ fontSize:14, color:C.muted, marginBottom:18 }}>Full week, ~1,350 kcal/day. Filter by meal type to compare across days.</p>
+                <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
+                  {MEAL_TYPES.map(c=><Pill key={c} value={c} current={mealFilter} setter={setMF}/>)}
+                </div>
+                {mealFilter!=="All" && <div style={{ background:C.sageLight, borderRadius:10, padding:"10px 16px", marginBottom:18 }}><p style={{ fontSize:13, color:C.sageDark }}>Showing <strong>{mealFilter}</strong> ideas across all 7 days.</p></div>}
+                {mealFilter==="All" && (
+                  <div style={{ background:C.sageLight, borderRadius:12, padding:"14px 18px", marginBottom:20, borderLeft:`3px solid ${C.sage}` }}>
+                    <p style={{ fontSize:13, color:C.sageDark, lineHeight:1.6 }}><strong>Sunday prep tip:</strong> Batch cook chicken + a big pot of turkey soup on Sunday. It cuts daily cook time in half and kills the "I don't know what to eat" excuse.</p>
+                  </div>
+                )}
+                {MEAL_PLAN.map((day,i)=><MealDay key={i} day={day} mealFilter={mealFilter}/>)}
+              </>
+            )}
+
+            {/* PCOS PLAN */}
+            {mealPlanView==="pcos" && (
+              <>
+                <div style={{ background:"linear-gradient(135deg,#f8bbd0,#f48fb1)", borderRadius:14, padding:"14px 18px", marginBottom:20, color:"#4a0020" }}>
+                  <p style={{ fontSize:13, lineHeight:1.7 }}>
+                    <strong>🌸 Eloise's PCOS Week</strong> — anti-inflammatory, low glycemic, hormone-supporting. Built around your 1,350 kcal target with daily spearmint tea, flaxseed, and gut-healing rituals.
+                  </p>
+                </div>
+                {PCOS_MEAL_PLAN.map((day, di) => {
+                  const labelStyle = (label) => {
+                    const bg = label==="Breakfast"?"#fff8e1":label==="Lunch"?"#e0f2f1":label==="Dinner"?"#fde8d8":label==="Goûter"?"#e6f0e7":"#f3e5f5";
+                    const fg = label==="Breakfast"?"#7a5c00":label==="Lunch"?"#00574b":label==="Dinner"?"#b05e20":label==="Goûter"?"#3d6142":"#6a1b9a";
+                    return { background:bg, color:fg };
+                  };
+                  return (
+                    <div key={di} style={{ background:"white", borderRadius:14, padding:20, marginBottom:14, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:4 }}>
+                        <div style={{ fontFamily:"Georgia,serif", fontSize:17, color:"#c2185b" }}>{day.day}</div>
+                        <div style={{ fontSize:11, color:"#c2185b", fontWeight:700 }}>~{day.meals.reduce((s,m)=>s+m.cal,0)} kcal</div>
+                      </div>
+                      <div style={{ fontSize:12, color:C.muted, marginBottom:12, fontStyle:"italic" }}>{day.theme}</div>
+                      {day.meals.map((meal, mi) => (
+                        <div key={mi} style={{ display:"flex", gap:10, padding:"8px 0", borderBottom:mi<day.meals.length-1?"1px solid #f5f5f5":"none", alignItems:"flex-start" }}>
+                          <span style={{ ...labelStyle(meal.label), fontSize:10, fontWeight:700, padding:"3px 8px", borderRadius:20, whiteSpace:"nowrap", marginTop:2, flexShrink:0 }}>{meal.label}</span>
+                          <div style={{ flex:1 }}>
+                            <div style={{ fontSize:13, color:C.charcoal, marginBottom:2 }}>{meal.desc}</div>
+                            <div style={{ fontSize:11, color:"#c2185b" }}>{meal.note}</div>
+                          </div>
+                          {meal.cal > 0 && <span style={{ fontSize:12, color:C.accent, fontWeight:600, flexShrink:0 }}>{meal.cal}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </>
+        )}
+
+        {/* ── METRICS ── */}
+        {tab==="metrics" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>Daily Metrics — {P.name}</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:20 }}>Each profile has its own separate log. Switch profiles in the header to see the other person's data.</p>
+            <div style={{ display:"flex", gap:8, marginBottom:24 }}>
+              {[["log","📝 Log Today"],["history","📈 Progress Charts"]].map(([id,label])=>(
+                <button key={id} onClick={()=>setMView(id)} style={{ padding:"8px 18px", borderRadius:20, border:"none", cursor:"pointer", background:mView===id?C.sageDark:"#efefef", color:mView===id?"white":C.muted, fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s" }}>{label}</button>
+              ))}
+            </div>
+
+            {mView==="log" && (
+              <>
+                <div style={{ background:C.sageLight, borderRadius:12, padding:"12px 16px", marginBottom:20, borderLeft:`3px solid ${C.sage}` }}>
+                  <p style={{ fontSize:13, color:C.sageDark }}><strong>Today:</strong> {new Date().toLocaleDateString("en-US",{ weekday:"long", month:"long", day:"numeric" })}{personLogs[today]&&` ✅ ${P.name} already logged!`}</p>
+                </div>
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:12, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:12, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:C.sage, marginBottom:12 }}>⚖️ Body Measurements</div>
+                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:12 }}>
+                    {[["weight","Weight","kg"],["waist","Waist","cm"],["hips","Hips","cm"]].map(([key,label,u])=>(
+                      <div key={key}>
+                        <label style={{ fontSize:11, color:C.muted, display:"block", marginBottom:4 }}>{label} ({u})</label>
+                        <input type="number" step="0.1" placeholder="—" value={form[key]} onChange={e=>setForm(p=>({...p,[key]:e.target.value}))} style={{ width:"100%", padding:"10px", borderRadius:8, border:"1.5px solid #e0e0e0", fontFamily:"inherit", fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:12, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:12, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:C.sage, marginBottom:12 }}>🏃 Activity</div>
+                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:14 }}>
+                    {[["steps","Steps walked","e.g. 8500"],["calories","Calories eaten","e.g. 1340"]].map(([key,label,ph])=>(
+                      <div key={key}>
+                        <label style={{ fontSize:11, color:C.muted, display:"block", marginBottom:4 }}>{label}</label>
+                        <input type="number" placeholder={ph} value={form[key]} onChange={e=>setForm(p=>({...p,[key]:e.target.value}))} style={{ width:"100%", padding:"10px", borderRadius:8, border:"1.5px solid #e0e0e0", fontFamily:"inherit", fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+                      </div>
+                    ))}
+                  </div>
+                  <div onClick={()=>setForm(p=>({...p,workout:!p.workout}))} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"12px 14px", background:form.workout?C.sageLight:"#f9f9f9", borderRadius:10, border:`1.5px solid ${form.workout?C.sage:"#e0e0e0"}`, cursor:"pointer", transition:"all 0.2s" }}>
+                    <span style={{ fontSize:14, fontWeight:500, color:form.workout?C.sageDark:C.muted }}>💪 Completed a workout today</span>
+                    <div style={{ width:42, height:24, borderRadius:12, background:form.workout?C.sage:"#ddd", position:"relative", transition:"all 0.2s" }}>
+                      <div style={{ width:18, height:18, borderRadius:"50%", background:"white", position:"absolute", top:3, left:form.workout?21:3, transition:"left 0.2s", boxShadow:"0 1px 3px rgba(0,0,0,0.2)" }}/>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:20, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                  <div style={{ fontSize:12, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", color:C.sage, marginBottom:12 }}>💧 Water Intake</div>
+                  <div style={{ display:"flex", alignItems:"center", gap:12, flexWrap:"wrap" }}>
+                    <div style={{ display:"flex", gap:6 }}>
+                      {[0.25,0.5,0.75,1,1.25,1.5,1.75,2].map(n=>(
+                        <div key={n} onClick={()=>setForm(p=>({...p,water:String(n)}))} style={{ width:32, height:40, borderRadius:6, cursor:"pointer", display:"flex", alignItems:"flex-end", justifyContent:"center", fontSize:18, border:`2px solid ${parseFloat(form.water)>=n?"#00897b":"#e0e0e0"}`, background:parseFloat(form.water)>=n?"#e0f2f1":"#fafafa", transition:"all 0.15s" }}>💧</div>
+                      ))}
+                    </div>
+                    <span style={{ fontSize:13, color:C.muted }}>{form.water?`${form.water} L`:"Tap to log"}</span>
+                  </div>
+                  <p style={{ fontSize:11, color:C.muted, marginTop:10 }}>Goal: 2L per day — each 💧 = 250ml</p>
+                </div>
+                <button onClick={saveLog} style={{ width:"100%", padding:"16px", borderRadius:14, border:"none", background:`linear-gradient(135deg,${C.sageDark},#2d4f31)`, color:"white", fontFamily:"inherit", fontSize:15, fontWeight:700, cursor:"pointer" }}>Save Today's Log ✓</button>
+
+                {/* PCOS symptom log — Eloise only */}
+                {person === "eloise" && (
+                  <div style={{ marginTop:24 }}>
+                    <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:4, fontWeight:400 }}>🌸 PCOS & Health Symptom Log</div>
+                    <p style={{ fontSize:13, color:C.muted, marginBottom:16 }}>Track patterns over time to identify your triggers. This saves with your daily log.</p>
+                    <div style={{ background:"white", borderRadius:14, padding:20, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                      {[
+                        ["Bloating","💨","severity"],
+                        ["Energy level (1–5)","⚡","scale"],
+                        ["Mood (1–5)","😊","scale"],
+                        ["Cramps","🌡️","severity"],
+                        ["Skin breakouts","✨","severity"],
+                        ["Headache / Migraine","🤕","migraine"],
+                        ["Migraine intensity (1–5)","📊","migrainescale"],
+                      ].map(([label,icon,type])=>(
+                        <div key={label} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid #f5f5f5", flexWrap:"wrap", gap:8 }}>
+                          <span style={{ fontSize:13, color:C.charcoal }}>{icon} {label}</span>
+                          <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+                            {type === "scale" || type === "migrainescale"
+                              ? [1,2,3,4,5].map(n=>(
+                                  <button key={n} onClick={()=>setForm(p=>({...p,[`pcos_${label.split(" ")[0].toLowerCase()}`]:n}))} style={{ width:32, height:32, borderRadius:"50%", border:"none", cursor:"pointer", background:form[`pcos_${label.split(" ")[0].toLowerCase()}`]===n?(type==="migrainescale"?"#c62828":C.sageDark):"#efefef", color:form[`pcos_${label.split(" ")[0].toLowerCase()}`]===n?"white":C.muted, fontFamily:"inherit", fontSize:13, fontWeight:600, transition:"all 0.2s" }}>{n}</button>
+                                ))
+                              : type === "migraine"
+                              ? ["No","Yes — Headache","Yes — Migraine"].map(v=>(
+                                  <button key={v} onClick={()=>setForm(p=>({...p, pcos_headache:v}))} style={{ padding:"4px 10px", borderRadius:20, border:"none", cursor:"pointer", background:form.pcos_headache===v?(v==="No"?C.sageDark:"#c62828"):"#efefef", color:form.pcos_headache===v?"white":C.muted, fontFamily:"inherit", fontSize:11, fontWeight:600, transition:"all 0.2s" }}>{v}</button>
+                                ))
+                              : ["None","Mild","Moderate","Severe"].map(v=>(
+                                  <button key={v} onClick={()=>setForm(p=>({...p,[`pcos_${label.toLowerCase().replace(/[\s/]+/g,"_")}`]:v}))} style={{ padding:"4px 10px", borderRadius:20, border:"none", cursor:"pointer", background:form[`pcos_${label.toLowerCase().replace(/[\s/]+/g,"_")}`]===v?C.sageDark:"#efefef", color:form[`pcos_${label.toLowerCase().replace(/[\s/]+/g,"_")}`]===v?"white":C.muted, fontFamily:"inherit", fontSize:11, fontWeight:600, transition:"all 0.2s" }}>{v}</button>
+                                ))
+                            }
+                          </div>
+                        </div>
+                      ))}
+                      <div style={{ marginTop:14, padding:"12px 14px", background:"#fff3e0", borderRadius:10, fontSize:12, color:"#e65100", lineHeight:1.6 }}>
+                        <strong>Migraine tip:</strong> Common PCOS migraine triggers include blood sugar spikes (skip meals → migraine), hormonal fluctuations, dehydration, and poor sleep. Log consistently for 4 weeks to spot your personal pattern.
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {mView==="history" && (
+              loggedDays.length===0
+                ? <div style={{ background:"white", borderRadius:14, padding:40, textAlign:"center", boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}><div style={{ fontSize:36, marginBottom:12 }}>📝</div><div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:8 }}>No data yet for {P.name}</div><p style={{ fontSize:13, color:C.muted }}>Start logging daily and the progress charts will appear here.</p></div>
+                : <>
+                    <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
+                      {CMETA.map(m=>(
+                        <button key={m.key} onClick={()=>setCKey(m.key)} style={{ padding:"6px 14px", borderRadius:20, border:`2px solid ${cKey===m.key?m.color:"#e0e0e0"}`, background:cKey===m.key?m.color:"white", color:cKey===m.key?"white":C.muted, fontFamily:"inherit", fontSize:12, fontWeight:600, cursor:"pointer", transition:"all 0.2s" }}>{m.label}</button>
+                      ))}
+                    </div>
+                    <div style={{ background:"white", borderRadius:14, padding:20, marginBottom:20, boxShadow:"0 2px 8px rgba(0,0,0,0.05)" }}>
+                      <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12 }}>{cm.label}</div>
+                      {chartData.length>=2 && (
+                        <div style={{ display:"flex", gap:20, marginBottom:16, flexWrap:"wrap" }}>
+                          {[["Start",chartData[0].value],["Latest",chartData[chartData.length-1].value],["Change",+(chartData[chartData.length-1].value-chartData[0].value).toFixed(1)]].map(([l,v],i)=>(
+                            <div key={l}><span style={{ fontSize:11, color:C.muted, textTransform:"uppercase", letterSpacing:1 }}>{l}</span><div style={{ fontSize:18, fontWeight:700, color:i===2?(v<=0?C.sage:"#e8192c"):i===1?cm.color:C.charcoal }}>{i===2&&v>0?"+":""}{v} <span style={{ fontSize:12, fontWeight:400, color:C.muted }}>{cm.unit}</span></div></div>
+                          ))}
+                        </div>
+                      )}
+                      <MiniChart data={chartData} color={cm.color}/>
+                    </div>
+                    <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12 }}>Log History — {P.name}</div>
+                    {[...loggedDays].reverse().map(date=>{
+                      const log=personLogs[date];
+                      return (
+                        <div key={date} style={{ background:"white", borderRadius:12, padding:16, marginBottom:10, boxShadow:"0 2px 6px rgba(0,0,0,0.04)" }}>
+                          <div style={{ fontWeight:600, fontSize:14, color:C.sageDark, marginBottom:10 }}>
+                            {new Date(date+"T12:00:00").toLocaleDateString("en-US",{ weekday:"short", month:"short", day:"numeric" })}
+                            {log.workout&&<span style={{ marginLeft:8, background:C.sageLight, color:C.sageDark, fontSize:10, fontWeight:700, padding:"2px 8px", borderRadius:10 }}>💪 Workout</span>}
+                          </div>
+                          <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+                            {[["weight","kg"],["waist","cm"],["hips","cm"],["steps","steps"],["calories","kcal"],["water","L"]].map(([key,u])=>
+                              log[key]?<span key={key} style={{ background:"#f5f5f5", fontSize:12, padding:"4px 10px", borderRadius:20, color:C.charcoal }}><span style={{ color:C.muted }}>{key}: </span><strong>{log[key]}</strong> {u}</span>:null
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+            )}
+          </>
+        )}
+
+        {/* ── PCOS ── */}
+        {tab==="pcos" && (
+          <>
+            <div style={{ fontFamily:"Georgia,serif", fontSize:26, marginBottom:4, fontWeight:400 }}>🌸 PCOS Guide</div>
+            <p style={{ fontSize:14, color:C.muted, marginBottom:24 }}>Personalised guidance for managing PCOS through food, movement, and daily habits.</p>
+
+            <div style={{ background:`linear-gradient(135deg,#c2185b,#ad1457)`, borderRadius:18, padding:24, marginBottom:20, color:"white" }}>
+              <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12 }}>What PCOS means for your plan</div>
+              <p style={{ fontSize:13, lineHeight:1.7, color:"rgba(255,255,255,0.85)" }}>PCOS causes insulin resistance in most cases — your body processes carbohydrates less efficiently than average. The good news: your current plan (low-carb, high-protein, daily walking) is already one of the most evidence-backed approaches for managing PCOS naturally. You're already doing the right things.</p>
+            </div>
+
+            <div style={{ fontFamily:"Georgia,serif", fontSize:20, marginBottom:14, fontWeight:400 }}>✅ Foods that help PCOS</div>
+            {[
+              { icon:"🐟", title:"Fatty fish (salmon, sardines)", body:"High in omega-3s which reduce inflammation — one of the main drivers of PCOS symptoms. Aim for salmon 2–3x/week. Already in your plan." },
+              { icon:"🥬", title:"Leafy greens (spinach, arugula)", body:"Low glycemic, anti-inflammatory, high in magnesium which many PCOS women are deficient in. Make spinach your go-to base for everything." },
+              { icon:"🫐", title:"Berries (blueberries, strawberries)", body:"Low sugar, high antioxidants, low glycemic index. Perfect sweet fix without the insulin spike. Already in your chia puddings and parfaits." },
+              { icon:"🥚", title:"Eggs", body:"High protein, help stabilise blood sugar throughout the morning. Your egg scrambles and egg bites are genuinely ideal PCOS breakfasts." },
+              { icon:"🫚", title:"Healthy fats (avocado, olive oil)", body:"Help with hormone production and reduce inflammation. Don't fear these fats — they're your allies with PCOS." },
+              { icon:"🌿", title:"Anti-inflammatory spices", body:"Cinnamon improves insulin sensitivity — add to everything. Turmeric, ginger also help. Already in many of your recipes." },
+              { icon:"🌰", title:"Flaxseed (1 tbsp/day)", body:"Helps with hormone balance by reducing excess androgens. Add to your overnight oats, smoothies or chia puddings daily." },
+              { icon:"🍵", title:"Spearmint tea (2 cups/day)", body:"Evidence-backed for reducing androgen levels in PCOS. Easy to find at HEB or Whole Foods." },
+              { icon:"🫖", title:"Peppermint tea after meals", body:"Very effective for bloating and digestive discomfort. Make this your after-dinner habit." },
+            ].map((item,i)=>(
+              <div key={i} style={{ background:"white", borderRadius:12, padding:"14px 18px", marginBottom:10, borderLeft:"3px solid #c2185b", boxShadow:"0 2px 6px rgba(0,0,0,0.04)", display:"flex", gap:12 }}>
+                <span style={{ fontSize:22, flexShrink:0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize:14, fontWeight:600, color:"#c2185b", marginBottom:4 }}>{item.title}</div>
+                  <p style={{ fontSize:13, color:C.muted, lineHeight:1.6 }}>{item.body}</p>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ fontFamily:"Georgia,serif", fontSize:20, marginBottom:14, marginTop:28, fontWeight:400 }}>⚠️ Foods to limit or watch</div>
+            {[
+              { icon:"🍞", title:"Refined carbs", body:"White bread, regular pasta, pastries spike insulin fast — the worst thing for PCOS. Your plan is already mostly clear of these. Carbonara and fried rice are occasional treats, not daily staples." },
+              { icon:"🥦", title:"Raw cruciferous veg in large amounts", body:"Broccoli and cauliflower cause bloating when raw. Always cook them — roasting or steaming dramatically reduces the effect. Your air fryer broccoli is already the right approach." },
+              { icon:"🫘", title:"Legumes in large quantities", body:"Black beans, chickpeas — nutritious but a known bloating trigger. Keep portions small (¼ cup / 60g max) and always rinse canned beans thoroughly." },
+              { icon:"🧅", title:"Raw onion and garlic", body:"Major bloating triggers. Always cook them — cooked garlic and onion are fine and much gentler on digestion." },
+              { icon:"🥛", title:"Excess dairy", body:"Moderate amounts are fine — Greek yogurt, cottage cheese, feta in your plan are okay. Large daily quantities can worsen inflammation in some PCOS women. Monitor how you feel." },
+              { icon:"🍬", title:"Sugar and hidden sugars", body:"Drives insulin spikes. Check protein bars, flavoured yogurts, sauces. Your < 30g sugar/day target is already well-calibrated for PCOS." },
+              { icon:"🍺", title:"Alcohol", body:"Disrupts hormones, stresses the liver which processes your hormones, and adds empty calories. Limit as much as possible." },
+            ].map((item,i)=>(
+              <div key={i} style={{ background:"white", borderRadius:12, padding:"14px 18px", marginBottom:10, borderLeft:"3px solid #e65100", boxShadow:"0 2px 6px rgba(0,0,0,0.04)", display:"flex", gap:12 }}>
+                <span style={{ fontSize:22, flexShrink:0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize:14, fontWeight:600, color:"#e65100", marginBottom:4 }}>{item.title}</div>
+                  <p style={{ fontSize:13, color:C.muted, lineHeight:1.6 }}>{item.body}</p>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ fontFamily:"Georgia,serif", fontSize:20, marginBottom:14, marginTop:28, fontWeight:400 }}>💨 Managing Bloating Daily</div>
+            {[
+              { icon:"🐢", title:"Eat slowly, chew thoroughly", body:"Eating fast introduces excess air into your digestive system. 20 minutes minimum per meal. Put the fork down between bites." },
+              { icon:"🚶", title:"Walk after every meal", body:"Even 10 minutes. Your daily walking habit already helps — try to time some steps after meals specifically." },
+              { icon:"🌱", title:"Fennel seeds after meals", body:"Chew a small pinch of fennel seeds after eating — a classic French digestif remedy that genuinely works. Find them in the spice aisle at HEB." },
+              { icon:"🌡️", title:"Warm drinks over cold", body:"Cold drinks with meals slow digestion. Warm water or herbal tea is gentler on your gut, especially with PCOS." },
+              { icon:"📝", title:"Track your triggers", body:"Keep a simple note of what you ate when bloating is bad. Patterns emerge within 1–2 weeks — usually one or two specific foods, not everything." },
+              { icon:"⏰", title:"Stop eating by 7–8pm", body:"PCOS affects insulin sensitivity particularly at night. Give your gut time to rest. This alone can significantly reduce morning bloating." },
+            ].map((item,i)=>(
+              <div key={i} style={{ background:"white", borderRadius:12, padding:"14px 18px", marginBottom:10, borderLeft:`3px solid ${C.sage}`, boxShadow:"0 2px 6px rgba(0,0,0,0.04)", display:"flex", gap:12 }}>
+                <span style={{ fontSize:22, flexShrink:0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize:14, fontWeight:600, color:C.sageDark, marginBottom:4 }}>{item.title}</div>
+                  <p style={{ fontSize:13, color:C.muted, lineHeight:1.6 }}>{item.body}</p>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ background:C.sageLight, borderRadius:14, padding:20, marginTop:24, borderLeft:`3px solid ${C.sage}` }}>
+              <div style={{ fontFamily:"Georgia,serif", fontSize:18, marginBottom:12 }}>🛒 Add to your HEB list for PCOS</div>
+              {["Ground flaxseed — 1 tbsp/day in oats or smoothies","Spearmint tea bags — 2 cups/day","Peppermint tea bags — after dinner","Fennel seeds (spice aisle) — after meals","Turmeric powder — add to eggs, soups, smoothies","Ceylon cinnamon (more effective than cassia for insulin)","Magnesium supplement 200–400mg (check with your doctor first)"].map((item,i)=>(
+                <div key={i} style={{ fontSize:13, padding:"6px 0", borderBottom:"1px solid #d4e8d6", color:C.charcoal, display:"flex", gap:8 }}>
+                  <span style={{ color:C.sage, fontWeight:700 }}>·</span>{item}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ background:"#fff3e0", borderRadius:12, padding:"14px 18px", marginTop:16 }}>
+              <p style={{ fontSize:12, color:"#bf360c", lineHeight:1.7 }}><strong>Important:</strong> This is based on general PCOS nutrition research — not medical advice. Every case of PCOS is different. Work with your doctor or a PCOS-specialist dietitian for personalised guidance. Ask your doctor about checking your vitamin D, magnesium, and insulin levels if you haven't already.</p>
+            </div>
+          </>
+        )}
+
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
