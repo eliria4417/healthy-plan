@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Wellness Plan">
+<meta name="apple-mobile-web-app-title" content="Healthy Plan">
 <meta name="theme-color" content="#3d6142">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.png">
-<title>🌿 Our Wellness Plan</title>
+<title>🌿 Healthy Plan</title>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
@@ -29,7 +29,7 @@
 <div id="root">
   <div class="splash">
     <div style="font-size:48px">🌿</div>
-    <div class="splash-title">Our Wellness Plan</div>
+    <div class="splash-title">Healthy Plan</div>
     <div class="splash-sub">Loading...</div>
   </div>
 </div>
@@ -1227,7 +1227,7 @@ function App() {
                       lines.push(`• ${item.name}`);
                     });
                   });
-                  lines.push(`\n—\nGenerated from Our Wellness Plan`);
+                  lines.push(`\n—\nGenerated from Healthy Plan`);
                   navigator.clipboard.writeText(lines.join("\n")).then(() => {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2500);
