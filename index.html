@@ -1,4 +1,38 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wellness Plan">
+<meta name="theme-color" content="#3d6142">
+<title>🌿 Our Wellness Plan</title>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:'DM Sans',sans-serif;background:#faf8f4;overscroll-behavior:none}
+  ::-webkit-scrollbar{display:none}
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+  .splash{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#3d6142,#2d4f31);color:white;gap:16px}
+  .splash-title{font-family:'Lora',serif;font-size:28px;font-style:italic}
+  .splash-sub{font-size:13px;opacity:0.6;letter-spacing:2px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="splash">
+    <div style="font-size:48px">🌿</div>
+    <div class="splash-title">Our Wellness Plan</div>
+    <div class="splash-sub">Loading...</div>
+  </div>
+</div>
+<script type="text/babel">
+const { useState } = React;
 
 const C = {
   sage: "#5c8a60", sageDark: "#3d6142", sageLight: "#e6f0e7",
@@ -883,7 +917,7 @@ function Pill({ value, current, setter }) {
 // ─────────────────────────────────────────────────────────────
 // MAIN APP
 // ─────────────────────────────────────────────────────────────
-export default function App() {
+function App() {
   const [tab, setTab]           = useState("tracking");
   const [store, setStore]       = useState("heb");
   const [recipeFilter, setRF]   = useState("All");
@@ -933,7 +967,8 @@ export default function App() {
 
   // metrics
   const today = new Date().toISOString().split("T")[0];
-  const [logs, setLogs]         = useState({ eloise:{}, boyfriend:{} });
+  const [logs, setLogsRaw] = useState(() => { try { const s = localStorage.getItem('wellness_logs'); return s ? JSON.parse(s) : { eloise:{}, boyfriend:{} }; } catch { return { eloise:{}, boyfriend:{} }; } });
+  const setLogs = (u) => { setLogsRaw(p => { const n = typeof u === 'function' ? u(p) : u; try { localStorage.setItem('wellness_logs', JSON.stringify(n)); } catch {} return n; }); };
   const [form, setForm]         = useState({ weight:"", waist:"", hips:"", steps:"", calories:"", water:"", workout:false });
   const [mView, setMView]       = useState("log");
   const [cKey, setCKey]         = useState("weight");
@@ -1576,3 +1611,9 @@ export default function App() {
     </div>
   );
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
