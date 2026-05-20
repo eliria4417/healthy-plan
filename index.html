@@ -1149,6 +1149,32 @@ var RECIPES = [
   imperial: ["½ cup all-purpose flour", "1 scoop vanilla whey protein", "1 egg", "1 cup HEB 2% milk", "1 tbsp melted butter", "½ tsp vanilla extract", "Pinch of salt", "Butter for the pan"],
   metric: ["65g all-purpose flour", "1 scoop vanilla whey protein", "1 egg", "240ml HEB 2% milk", "15g melted butter", "2.5ml vanilla extract", "Pinch of salt", "Butter for the pan"],
   steps: ["Protein crêpes are thicker than classic ones due to the whey — expect something between a crêpe and a thin American pancake. Still delicious.", "Blend all ingredients 30 seconds until completely smooth. Batter will be slightly thicker than classic crêpe batter.", "Rest 15 minutes minimum — the protein powder needs time to hydrate properly.", "Heat non-stick pan on medium-low. Protein crêpes burn faster than classic ones — lower heat is key.", "Pour ~60ml / ¼ cup batter. Swirl to spread. Cook 90 seconds until edges look set.", "Flip carefully — protein crêpes are more delicate. Cook 45 seconds on the other side.", "Fill with honey + banana, cinnamon-sugar, or melted dark chocolate.", "Makes about 7 crêpes at ~130 kcal / 10g protein each. 4g more protein per crêpe than the classic version — worth it for goûter."]
+},
+// ── GRAIN SALADS ───────────────────────────────────────────
+{
+  title: "Tuna Rice Salad",
+  category: "Lunch",
+  cal: 380,
+  protein: 32,
+  time: "15 min",
+  airfryer: false,
+  pcos: "great",
+  bloat: "low",
+  imperial: ["1 can albacore tuna (~5 oz, drained)", "½ cup cooked white or black rice (day-old is best)", "½ cup corn (canned or frozen, drained)", "4–5 asparagus spears, blanched and chopped", "¼ cup cherry tomatoes, halved", "2 tbsp olive oil", "1 tbsp apple cider vinegar", "1 tsp Dijon mustard", "Salt, pepper, fresh parsley", "Optional: ¼ avocado diced"],
+  metric: ["1 can albacore tuna (~140g, drained)", "90g cooked white or black rice (day-old)", "80g corn (canned or frozen, drained)", "4–5 asparagus spears, blanched and chopped", "40g cherry tomatoes, halved", "30ml olive oil", "15ml apple cider vinegar", "5ml Dijon mustard", "Salt, pepper, fresh parsley", "Optional: ¼ avocado diced"],
+  steps: ["Make the vinaigrette: whisk olive oil, apple cider vinegar, Dijon, salt and pepper. Taste — it should be tangy and bright.", "Blanch asparagus: boiling salted water 2 minutes, then immediately into ice water to stop cooking. Chop into bite-sized pieces.", "Drain tuna well and flake into a large bowl.", "Add rice, corn, asparagus and cherry tomatoes. Toss together.", "Pour vinaigrette over and mix well — every grain of rice should be coated.", "Top with fresh parsley and optional avocado. Eat immediately or refrigerate — tastes even better after 30 minutes as the rice absorbs the vinaigrette.", "🌸 Use black rice for extra antioxidants and a stunning deep purple bowl. Highly recommend."]
+}, {
+  title: "Tuna Pasta Salad",
+  category: "Lunch",
+  cal: 400,
+  protein: 30,
+  time: "20 min",
+  airfryer: false,
+  pcos: "good",
+  bloat: "low",
+  imperial: ["1 can albacore tuna (~5 oz, drained)", "1½ cups cooked short pasta (penne, fusilli or farfalle — cooled)", "½ cup corn (canned or frozen, drained)", "4–5 asparagus spears, blanched and chopped", "¼ cup cherry tomatoes, halved", "2 tbsp olive oil", "1 tbsp apple cider vinegar", "1 tsp Dijon mustard", "Salt, pepper, fresh parsley or basil", "Optional: ¼ cup black olives, 1 tbsp capers"],
+  metric: ["1 can albacore tuna (~140g, drained)", "150g cooked short pasta, cooled", "80g corn (canned or frozen, drained)", "4–5 asparagus spears, blanched and chopped", "40g cherry tomatoes, halved", "30ml olive oil", "15ml apple cider vinegar", "5ml Dijon mustard", "Salt, pepper, fresh parsley or basil", "Optional: 40g black olives, 15g capers"],
+  steps: ["Cook pasta al dente — firm, not soft. Drain and rinse immediately under cold water to stop cooking. Spread on a plate to cool completely.", "Make the vinaigrette: whisk olive oil, apple cider vinegar, Dijon, salt and pepper together.", "Blanch asparagus in boiling salted water 2 minutes then into ice water. Chop into pieces.", "Drain tuna and flake into a large bowl.", "Add cooled pasta, corn, asparagus, tomatoes and optional olives or capers.", "Pour vinaigrette over and toss thoroughly. Season well — pasta absorbs salt.", "Refrigerate 15–30 minutes before eating if possible — the flavours come together beautifully as it rests.", "⚠️ At 400 kcal this is your biggest lunch — pair with a lighter dinner like grilled fish or a big green salad."]
 }];
 var GROCERY = {
   heb: {
@@ -1291,6 +1317,10 @@ var GROCERY = {
         name: "Lundberg Brown Rice Cakes (Lightly Salted)",
         brand: "Lundberg — 8.5 oz / 240g bag",
         why: "35 kcal each, great snack base"
+      }, {
+        name: "Canned Corn (No Salt Added)",
+        brand: "HEB Brand — 15 oz / 425g can x2",
+        why: "Key ingredient for tuna rice & pasta salads, zero prep"
       }, {
         name: "Canned Diced Tomatoes (No Salt Added)",
         brand: "HEB Brand — 14.5 oz / 410g x2",
@@ -1570,9 +1600,9 @@ var MEAL_PLAN = [{
     protein: 32
   }, {
     label: "Lunch",
-    desc: "Turkey Lettuce Wraps (4 pieces)",
-    cal: 310,
-    protein: 28
+    desc: "Tuna Rice Salad (with corn, asparagus & vinaigrette)",
+    cal: 380,
+    protein: 32
   }, {
     label: "Snack",
     desc: "Rice Cake Stack with Tuna",
@@ -1757,14 +1787,14 @@ var PCOS_MEAL_PLAN = [{
   theme: "🥚 Hormone Reset Day",
   meals: [{
     label: "Breakfast",
-    desc: "Egg Bites — Spinach & Feta (3 bites) + spearmint tea 🌸",
+    desc: "Spinach & Feta Egg Bites (3 bites) + spearmint tea 🌸",
     note: "🌸 Eggs = choline for hormone production",
     cal: 330
   }, {
     label: "Lunch",
-    desc: "Tuna Avocado Wrap + side of arugula",
-    note: "🌸 Omega-3 tuna + hormone-balancing avocado",
-    cal: 360
+    desc: "Tuna Rice Salad (black rice + corn + asparagus + vinaigrette)",
+    note: "🌸 Omega-3 tuna + black rice antioxidants + asparagus = PCOS triple win",
+    cal: 380
   }, {
     label: "Goûter",
     desc: "Greek Yogurt with Honey & Cinnamon + 1 tbsp ground flaxseed",
@@ -1830,7 +1860,7 @@ var PCOS_MEAL_PLAN = [{
     cal: 0
   }, {
     label: "Lunch",
-    desc: "Egg Bites — Turkey & Bell Pepper (3) + big spinach salad",
+    desc: "Turkey & Bell Pepper Egg Bites (3) + big spinach salad",
     note: "🌸 13g protein per bite — highest protein egg bite",
     cal: 385
   }, {
@@ -1907,9 +1937,19 @@ var PCOS_MEAL_PLAN = [{
     note: "🌸 Cook once, eat 4 times — the PCOS prep strategy",
     cal: 300
   }, {
-    label: "Evening",
-    desc: "Prep chia pudding jars for Mon–Wed + lay out supplements",
-    note: "5 min prep = 3 days of optimal PCOS breakfasts",
+    label: "Evening prep",
+    desc: "Prep chia pudding jars for Mon–Wed: Vanilla Chia Pudding, Chocolate Chia Pudding, Banana Blueberry Chia Pudding",
+    note: "🌸 Each jar: 30g chia seeds + 240ml milk + flavour — ready in 5 min, add toppings in the morning",
+    cal: 0
+  }, {
+    label: "Evening prep",
+    desc: "Prep egg bites for Mon–Wed: Spinach & Feta Egg Bites (6) + Turkey & Bell Pepper Egg Bites (6)",
+    note: "Bake both batches together — grab 3 each morning Mon–Wed, reheat 30 sec in microwave",
+    cal: 0
+  }, {
+    label: "Supplements",
+    desc: "Lay out weekly supplements: Ovasitol powder (mix into morning water daily), Magnesium Glycinate (take at night before bed), Omega-3 Fish Oil (with biggest meal), Vitamin D3+K2 (with fatty meal for absorption)",
+    note: "🌸 Place them somewhere visible — on the counter or next to your coffee maker so you never forget",
     cal: 0
   }]
 }];
@@ -3943,10 +3983,10 @@ function App() {
         color: fg
       };
     };
-    var findRecipe = function findRecipe(desc) {
-      if (!desc) return null;
+    var findRecipes = function findRecipes(desc) {
+      if (!desc) return [];
       var lower = desc.toLowerCase();
-      return RECIPES.find(function (r) {
+      return RECIPES.filter(function (r) {
         return lower.includes(r.title.toLowerCase());
       });
     };
@@ -3988,7 +4028,7 @@ function App() {
         fontStyle: "italic"
       }
     }, day.theme), day.meals.map(function (meal, mi) {
-      var linkedRecipe = findRecipe(meal.desc);
+      var linkedRecipes = findRecipes(meal.desc);
       return /*#__PURE__*/React.createElement("div", {
         key: mi,
         style: {
@@ -4022,28 +4062,36 @@ function App() {
         style: {
           fontSize: 11,
           color: "#c2185b",
-          marginBottom: linkedRecipe ? 4 : 0
+          marginBottom: linkedRecipes.length > 0 ? 4 : 0
         }
-      }, meal.note), linkedRecipe && /*#__PURE__*/React.createElement("button", {
-        onClick: function onClick() {
-          return goToRecipe(linkedRecipe.title);
-        },
+      }, meal.note), linkedRecipes.length > 0 && /*#__PURE__*/React.createElement("div", {
         style: {
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 4,
-          fontSize: 11,
-          color: "#c2185b",
-          background: "#fce4ec",
-          border: "none",
-          borderRadius: 12,
-          padding: "3px 10px",
-          cursor: "pointer",
-          fontFamily: "inherit",
-          fontWeight: 600,
-          transition: "all 0.2s"
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 6
         }
-      }, "\uD83C\uDF73 View recipe \u2192")), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
+      }, linkedRecipes.map(function (r, ri) {
+        return /*#__PURE__*/React.createElement("button", {
+          key: ri,
+          onClick: function onClick() {
+            return goToRecipe(r.title);
+          },
+          style: {
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+            fontSize: 11,
+            color: "#c2185b",
+            background: "#fce4ec",
+            border: "none",
+            borderRadius: 12,
+            padding: "3px 10px",
+            cursor: "pointer",
+            fontFamily: "inherit",
+            fontWeight: 600
+          }
+        }, "\uD83C\uDF73 ", r.title, " \u2192");
+      }))), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
         style: {
           fontSize: 12,
           color: C.accent,
