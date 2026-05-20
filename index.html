@@ -2715,13 +2715,32 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState25 = useState({
-      eloise: {},
-      boyfriend: {}
+  var _useState25 = useState(function () {
+      try {
+        var s = localStorage.getItem('wellness_logs');
+        return s ? JSON.parse(s) : {
+          eloise: {},
+          boyfriend: {}
+        };
+      } catch (_unused) {
+        return {
+          eloise: {},
+          boyfriend: {}
+        };
+      }
     }),
     _useState26 = _slicedToArray(_useState25, 2),
     logs = _useState26[0],
-    setLogs = _useState26[1];
+    setLogsRaw = _useState26[1];
+  var setLogs = function setLogs(u) {
+    setLogsRaw(function (p) {
+      var n = typeof u === 'function' ? u(p) : u;
+      try {
+        localStorage.setItem('wellness_logs', JSON.stringify(n));
+      } catch (_unused2) {}
+      return n;
+    });
+  };
   var _useState27 = useState({
       weight: "",
       waist: "",
@@ -4908,6 +4927,8 @@ function App() {
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Important:"), " This is based on general PCOS nutrition research \u2014 not medical advice. Every case of PCOS is different. Work with your doctor or a PCOS-specialist dietitian for personalised guidance. Ask your doctor about checking your vitamin D, magnesium, and insulin levels if you haven't already.")))));
 }
+var root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(React.createElement(App, null));
 
 </script>
 </body>
