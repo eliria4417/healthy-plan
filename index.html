@@ -1534,7 +1534,7 @@ var MEAL_PLAN = [{
     protein: 10
   }, {
     label: "Dinner",
-    desc: "Air Fryer Salmon + roasted broccoli",
+    desc: "Air Fryer Salmon with Lemon + roasted broccoli",
     cal: 320,
     protein: 34
   }]
@@ -1634,7 +1634,7 @@ var MEAL_PLAN = [{
   day: "Sunday",
   meals: [{
     label: "Breakfast",
-    desc: "Overnight Oats (prep 2 jars — one for Monday!)",
+    desc: "Overnight Protein Oats (prep 2 jars — one for Monday!)",
     cal: 360,
     protein: 30
   }, {
@@ -1709,7 +1709,7 @@ var PCOS_MEAL_PLAN = [{
     cal: 110
   }, {
     label: "Dinner",
-    desc: "Air Fryer Salmon + asparagus + turmeric drizzle",
+    desc: "Air Fryer Salmon with Lemon + asparagus + turmeric drizzle",
     note: "🌸 Double omega-3, anti-inflammatory dinner",
     cal: 340
   }, {
@@ -1733,7 +1733,7 @@ var PCOS_MEAL_PLAN = [{
     cal: 0
   }, {
     label: "Lunch",
-    desc: "Big Spinach & Arugula Chicken Salad + lemon olive oil dressing",
+    desc: "Big Spinach Chicken Salad with arugula + lemon olive oil dressing",
     note: "🌸 Two PCOS leafy greens in one meal",
     cal: 370
   }, {
@@ -1757,7 +1757,7 @@ var PCOS_MEAL_PLAN = [{
   theme: "🥚 Hormone Reset Day",
   meals: [{
     label: "Breakfast",
-    desc: "Egg Bites — Spinach & Feta (3 bites) + spearmint tea",
+    desc: "Egg Bites — Spinach & Feta (3 bites) + spearmint tea 🌸",
     note: "🌸 Eggs = choline for hormone production",
     cal: 330
   }, {
@@ -1835,7 +1835,7 @@ var PCOS_MEAL_PLAN = [{
     cal: 385
   }, {
     label: "Goûter",
-    desc: "Chomps beef stick + cucumber + spearmint tea",
+    desc: "Chomps & Cucumber Snack Box + spearmint tea",
     note: "Zero sugar, high protein, no bloating",
     cal: 90
   }, {
@@ -1898,7 +1898,7 @@ var PCOS_MEAL_PLAN = [{
     cal: 370
   }, {
     label: "Goûter",
-    desc: "Apple with cottage cheese + cinnamon + turmeric ginger tea",
+    desc: "Apple Slices with Cottage Cheese + cinnamon + turmeric ginger tea",
     note: "🌸 PCOS triple — cinnamon, ginger, turmeric",
     cal: 150
   }, {
@@ -2419,7 +2419,8 @@ function RecipeCard(_ref3) {
 }
 function MealDay(_ref6) {
   var day = _ref6.day,
-    mealFilter = _ref6.mealFilter;
+    mealFilter = _ref6.mealFilter,
+    onRecipeClick = _ref6.onRecipeClick;
   var meals = mealFilter === "All" ? day.meals : day.meals.filter(function (m) {
     return m.label === mealFilter;
   });
@@ -2430,6 +2431,15 @@ function MealDay(_ref6) {
   var totalP = day.meals.reduce(function (s, m) {
     return s + m.protein;
   }, 0);
+
+  // Find a matching recipe title from the meal description
+  var findRecipe = function findRecipe(desc) {
+    if (!desc) return null;
+    var lower = desc.toLowerCase();
+    return RECIPES.find(function (r) {
+      return lower.includes(r.title.toLowerCase());
+    });
+  };
   return /*#__PURE__*/React.createElement("div", {
     style: {
       background: "white",
@@ -2461,6 +2471,7 @@ function MealDay(_ref6) {
       bg: "#eee",
       fg: "#333"
     };
+    var linkedRecipe = findRecipe(meal.desc);
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -2481,14 +2492,40 @@ function MealDay(_ref6) {
         whiteSpace: "nowrap",
         marginTop: 2
       }
-    }, meal.label), /*#__PURE__*/React.createElement("span", {
+    }, meal.label), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
         fontSize: 13,
-        flex: 1,
         lineHeight: 1.5,
         color: C.charcoal
       }
-    }, meal.desc), /*#__PURE__*/React.createElement("div", {
+    }, meal.desc), linkedRecipe && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 4
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: function onClick() {
+        return onRecipeClick(linkedRecipe.title);
+      },
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+        fontSize: 11,
+        color: C.sageDark,
+        background: C.sageLight,
+        border: "none",
+        borderRadius: 12,
+        padding: "3px 10px",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        fontWeight: 600,
+        transition: "all 0.2s"
+      }
+    }, "\uD83C\uDF73 View recipe \u2192"))), /*#__PURE__*/React.createElement("div", {
       style: {
         textAlign: "right",
         flexShrink: 0
@@ -2569,6 +2606,15 @@ function App() {
     _useState20 = _slicedToArray(_useState19, 2),
     mealPlanView = _useState20[0],
     setMealPlanView = _useState20[1];
+  var goToRecipe = function goToRecipe(title) {
+    setTab("recipes");
+    setSearch(title);
+    setRF("All");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
   var _useState21 = useState("eloise"),
     _useState22 = _slicedToArray(_useState21, 2),
     person = _useState22[0],
@@ -2669,32 +2715,13 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState25 = useState(function () {
-      try {
-        var s = localStorage.getItem('wellness_logs');
-        return s ? JSON.parse(s) : {
-          eloise: {},
-          boyfriend: {}
-        };
-      } catch (_unused) {
-        return {
-          eloise: {},
-          boyfriend: {}
-        };
-      }
+  var _useState25 = useState({
+      eloise: {},
+      boyfriend: {}
     }),
     _useState26 = _slicedToArray(_useState25, 2),
     logs = _useState26[0],
-    setLogsRaw = _useState26[1];
-  var setLogs = function setLogs(u) {
-    setLogsRaw(function (p) {
-      var n = typeof u === 'function' ? u(p) : u;
-      try {
-        localStorage.setItem('wellness_logs', JSON.stringify(n));
-      } catch (_unused2) {}
-      return n;
-    });
-  };
+    setLogs = _useState26[1];
   var _useState27 = useState({
       weight: "",
       waist: "",
@@ -3872,7 +3899,8 @@ function App() {
     return /*#__PURE__*/React.createElement(MealDay, {
       key: i,
       day: day,
-      mealFilter: mealFilter
+      mealFilter: mealFilter,
+      onRecipeClick: goToRecipe
     });
   })), mealPlanView === "pcos" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3895,6 +3923,13 @@ function App() {
         background: bg,
         color: fg
       };
+    };
+    var findRecipe = function findRecipe(desc) {
+      if (!desc) return null;
+      var lower = desc.toLowerCase();
+      return RECIPES.find(function (r) {
+        return lower.includes(r.title.toLowerCase());
+      });
     };
     return /*#__PURE__*/React.createElement("div", {
       key: di,
@@ -3934,6 +3969,7 @@ function App() {
         fontStyle: "italic"
       }
     }, day.theme), day.meals.map(function (meal, mi) {
+      var linkedRecipe = findRecipe(meal.desc);
       return /*#__PURE__*/React.createElement("div", {
         key: mi,
         style: {
@@ -3966,9 +4002,29 @@ function App() {
       }, meal.desc), /*#__PURE__*/React.createElement("div", {
         style: {
           fontSize: 11,
-          color: "#c2185b"
+          color: "#c2185b",
+          marginBottom: linkedRecipe ? 4 : 0
         }
-      }, meal.note)), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
+      }, meal.note), linkedRecipe && /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick() {
+          return goToRecipe(linkedRecipe.title);
+        },
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 4,
+          fontSize: 11,
+          color: "#c2185b",
+          background: "#fce4ec",
+          border: "none",
+          borderRadius: 12,
+          padding: "3px 10px",
+          cursor: "pointer",
+          fontFamily: "inherit",
+          fontWeight: 600,
+          transition: "all 0.2s"
+        }
+      }, "\uD83C\uDF73 View recipe \u2192")), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
         style: {
           fontSize: 12,
           color: C.accent,
@@ -4852,8 +4908,6 @@ function App() {
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Important:"), " This is based on general PCOS nutrition research \u2014 not medical advice. Every case of PCOS is different. Work with your doctor or a PCOS-specialist dietitian for personalised guidance. Ask your doctor about checking your vitamin D, magnesium, and insulin levels if you haven't already.")))));
 }
-var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(/*#__PURE__*/React.createElement(App, null));
 
 </script>
 </body>
