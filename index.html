@@ -36,15 +36,15 @@
 "use strict";
 
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -1982,6 +1982,71 @@ var TRACKING_TIPS = [{
 var PCOS_GREAT = ["Air Fryer Lemon Herb Chicken", "Air Fryer Salmon with Lemon", "Salmon & Spinach Salad", "Spicy Shrimp & Spinach Bowl", "Air Fryer Garlic Shrimp", "Shrimp & Zucchini Stir-Fry", "Big Spinach Chicken Salad", "Cottage Cheese Egg Scramble", "Egg White & Mushroom Omelette", "Air Fryer Asparagus & Eggs", "Tuna-Stuffed Avocado", "Turkey & Zucchini Stir-Fry", "Turkey-Stuffed Baby Bell Peppers", "Vanilla Chia Pudding", "Chocolate Chia Pudding", "Banana Blueberry Chia Pudding", "Greek Yogurt Parfait", "Air Fryer Chicken Fajita Bowl", "Chicken & Broccoli Sheet Pan", "Juicy Lemon Garlic Chicken Breast", "Juicy French Mustard & Thyme Chicken", "Hard-Boiled Eggs & Carrots", "Soft-Boiled Egg with Fleur de Sel", "Egg Bites — Spinach & Feta", "Egg Bites — Turkey & Bell Pepper", "Spicy Shrimp & Spinach Bowl", "Shrimp Taco Lettuce Cups"];
 var PCOS_CAUTION = ["Lighter Gnocchi Carbonara", "High-Protein Beef Fried Rice", "High-Protein Chicken Fried Rice", "Beef Fried Rice (Half & Half)", "Chicken Fried Rice (Half & Half)", "Ground Turkey Soup", "Overnight Protein Oats", "Banana Protein Pancakes", "Banana Oat Breakfast Cookies", "No-Bake Energy Balls", "Protein Brownies", "Classic Brownies (Naturally Healthy)", "Blondies Beurre & Miel", "Protein Blondies", "Honey Butter Cookies", "Madeleines Classiques (La vraie recette)"];
 var MEAL_TYPES = ["All", "Breakfast", "Lunch", "Snack", "Dinner", "Wrap"];
+
+// ── 14-WEEK SCHEDULE ────────────────────────────────────────
+// Generates week/day entries for both plans
+// Eloise: 4 lifting days (Mon/Tue/Thu/Fri) + walk Wed/Sat + rest Sun
+// Sterling: 2 gym days (Sat/Sun) + run Mon–Fri
+var ELOISE_SCHEDULE = Array.from({
+  length: 14
+}, function (_, w) {
+  return {
+    week: w + 1,
+    label: "Week ".concat(w + 1).concat(w < 4 ? " — Learn" : w < 8 ? " — Build" : w < 12 ? " — Push" : " — Peak"),
+    days: [{
+      day: "Mon",
+      type: "💪 Upper Body A"
+    }, {
+      day: "Tue",
+      type: "🦵 Lower Body A"
+    }, {
+      day: "Wed",
+      type: "🚶 Walk"
+    }, {
+      day: "Thu",
+      type: "💪 Upper Body B"
+    }, {
+      day: "Fri",
+      type: "🦵 Lower Body B"
+    }, {
+      day: "Sat",
+      type: "🚶 Walk"
+    }, {
+      day: "Sun",
+      type: "🚶 Walk"
+    }]
+  };
+});
+var STERLING_SCHEDULE = Array.from({
+  length: 14
+}, function (_, w) {
+  return {
+    week: w + 1,
+    label: "Week ".concat(w + 1).concat(w < 4 ? " — Learn" : w < 8 ? " — Build" : " — Push"),
+    days: [{
+      day: "Mon",
+      type: "🏃 Run"
+    }, {
+      day: "Tue",
+      type: "🏃 Run"
+    }, {
+      day: "Wed",
+      type: "🏃 Run"
+    }, {
+      day: "Thu",
+      type: "🏃 Run"
+    }, {
+      day: "Fri",
+      type: "🏃 Run"
+    }, {
+      day: "Sat",
+      type: "💪 Upper Body"
+    }, {
+      day: "Sun",
+      type: "🏋️ Full Body"
+    }]
+  };
+});
 var WORKOUT_PLAN_BF = {
   overview: {
     goal: "Build strength + support running + lose weight",
@@ -2122,11 +2187,11 @@ var WORKOUT_PLAN_BF = {
     tip: "Hip flexors, calves and hamstrings tighten significantly with daily running. Tight hip flexors reduce squat depth and hurt glute activation in the gym. 10 minutes of stretching after every run protects your weekend sessions."
   }, {
     icon: "💤",
-    title: "Saturday is his hardest gym day",
+    title: "Saturday is your hardest gym day",
     tip: "You run Mon–Fri, so Saturday is your first gym day after a full week of running. Your legs need the break — that's why Saturday is upper body only. Sunday has leg work because you've had one full rest day."
   }, {
     icon: "🥩",
-    title: "Protein is more critical for him than you",
+    title: "Protein is non-negotiable",
     tip: "You're running 4–5 miles daily AND lifting on weekends. At 194 lbs / 88kg with that activity level you need 155–165g / 5.5–5.8oz of protein every single day. Without it, you'll lose muscle along with fat and feel exhausted."
   }, {
     icon: "📈",
@@ -2135,7 +2200,7 @@ var WORKOUT_PLAN_BF = {
   }, {
     icon: "🔼",
     title: "When to increase weight",
-    tip: "Same rule: if you can do all reps with good form, increase by the smallest increment available (usually 2 kg). If you can't complete 8 reps with good form, the weight is too heavy. Progress should feel gradual, not forced."
+    tip: "Same rule: if you can do all reps with good form, increase by the smallest increment available — usually 2 kg / 4 lbs. If you can't complete 8 reps with good form, the weight is too heavy. Progress should feel gradual, not forced."
   }],
   progression: [{
     phase: "Weeks 1–4 — Learn the movements",
@@ -2152,6 +2217,79 @@ var WORKOUT_PLAN_BF = {
     intensity: "60 min · Progressive weight",
     key: "This is where the running and lifting synergy becomes noticeable. You should feel stronger on runs and more capable in the gym. Results compound here.",
     checkpoints: ["Is your goblet squat weight significantly higher than Week 1?", "Is your running pace improving or the effort reducing?", "Are your clothes fitting differently?", "Consistent with both Saturday AND Sunday — no skipping?"]
+  }],
+  machines: [{
+    name: "Lat Pulldown",
+    week: "Week 5",
+    muscle: "Back + Biceps",
+    goal: "Upper body strength + running posture",
+    equipment: "Lat pulldown machine",
+    video_tip: "Search 'lat pulldown form beginners'",
+    how: ["Sit at the machine, adjust thigh pad snugly over your legs", "Grip bar slightly wider than shoulder-width, palms facing away", "Pull bar down to your upper chest — lead with elbows, not hands", "Squeeze your back at the bottom — feel it between your shoulder blades", "Let the bar rise slowly back up, arms fully extended"],
+    mistakes: ["Pulling behind the head — skip this entirely", "Using momentum to yank the bar down", "Not fully extending at the top"],
+    beginner_weight: "25–30 kg / 55–66 lbs",
+    sets: "3 sets of 10 reps",
+    why: "Runners have almost zero pulling strength — it's completely untrained. The lat pulldown builds the back muscles that keep your torso upright in the final miles of a run, reducing fatigue and improving form."
+  }, {
+    name: "Leg Press",
+    week: "Week 5",
+    muscle: "Quads + Glutes + Hamstrings",
+    goal: "Leg strength + running power",
+    equipment: "Leg press machine",
+    video_tip: "Search 'leg press form beginners'",
+    how: ["Sit in machine, back and head against pad", "Feet shoulder-width on platform, toes slightly out", "Lower platform by bending knees to 90°", "Drive through heels to press back up — don't lock knees at top", "Keep lower back pressed into the seat throughout"],
+    mistakes: ["Knees caving inward — push them out", "Locking knees at the top", "Lowering too fast"],
+    beginner_weight: "50–60 kg / 110–132 lbs",
+    sets: "3 sets of 10 reps",
+    why: "You can load the leg press 4–5x heavier than a goblet squat. For a runner this directly translates to more powerful push-off and faster finishing speed. This is your most important machine."
+  }, {
+    name: "Seated Cable Row",
+    week: "Week 5",
+    muscle: "Mid-back + Biceps",
+    goal: "Upper body balance, running posture",
+    equipment: "Cable row machine + V-bar",
+    video_tip: "Search 'seated cable row form beginners'",
+    how: ["Sit at cable row, feet on platform, slight knee bend", "Grip V-bar, sit up tall", "Pull bar to lower stomach — elbows go back behind you", "Squeeze shoulder blades together at the end", "Extend arms slowly with full stretch forward"],
+    mistakes: ["Using lower back momentum — torso stays almost still", "Rounding shoulders forward", "Pulling to chest instead of stomach"],
+    beginner_weight: "25–30 kg / 55–66 lbs",
+    sets: "3 sets of 12 reps",
+    why: "Runners almost always have tight, weak mid-backs from the forward lean of running. Cable rows fix this directly, reducing injury risk and making you more efficient over distance."
+  }, {
+    name: "Cable Tricep Pushdown",
+    week: "Week 6",
+    muscle: "Triceps",
+    goal: "Arm definition + upper body balance",
+    equipment: "Cable machine + rope attachment",
+    video_tip: "Search 'cable tricep pushdown rope form'",
+    how: ["Attach rope to high pulley", "Stand facing machine, grip rope ends, elbows pinned to sides", "Push rope down and slightly apart until arms fully straight", "Squeeze triceps hard at bottom for 1 second", "Let rope rise slowly — control the movement up"],
+    mistakes: ["Elbows flaring out — keep them glued to your sides", "Leaning excessively forward", "Not fully extending at the bottom"],
+    beginner_weight: "15–20 kg / 33–44 lbs",
+    sets: "3 sets of 12 reps",
+    why: "Running does almost nothing for arm definition. Cable tricep work directly tones the back of the arms and builds the arm drive that improves your running economy over longer distances."
+  }, {
+    name: "Hip Abductor Machine",
+    week: "Week 6",
+    muscle: "Outer glutes + Hip stabilisers",
+    goal: "Running injury prevention + glute strength",
+    equipment: "Hip abductor machine",
+    video_tip: "Search 'hip abductor machine form'",
+    how: ["Sit in machine with pads against outer thighs", "Push legs outward as far as comfortable", "Hold 1 second at widest point, squeeze glutes", "Return slowly — don't let weight slam back"],
+    mistakes: ["Going too fast — slow controlled movement is everything here", "Forgetting to squeeze glutes at the widest point", "Too much weight before feeling the right muscles"],
+    beginner_weight: "30–40 kg / 66–88 lbs",
+    sets: "3 sets of 15 reps",
+    why: "Weak hip abductors are the #1 cause of runner's knee and IT band syndrome. Strengthening them now is the best injury prevention investment you can make for long-term running."
+  }, {
+    name: "Chest Press Machine",
+    week: "Week 6",
+    muscle: "Chest + Triceps + Shoulders",
+    goal: "Upper body strength without needing a spotter",
+    equipment: "Chest press machine",
+    video_tip: "Search 'chest press machine form beginners'",
+    how: ["Adjust seat so handles are at chest height", "Sit back fully against pad", "Grip handles, press forward until arms nearly straight", "Lower slowly back — 3 seconds down", "Keep shoulder blades pinned back throughout"],
+    mistakes: ["Seat height wrong — handles should be at chest not chin", "Arching back off the pad", "Locking elbows at full extension"],
+    beginner_weight: "30–40 kg / 66–88 lbs",
+    sets: "3 sets of 12 reps",
+    why: "Lets you go significantly heavier than dumbbell press without a spotter, driving more chest and shoulder development. Great swap for Saturday sessions when you want to push harder."
   }]
 };
 
@@ -2162,7 +2300,7 @@ var WORKOUT_PLAN = {
     goal: "September 2026 — 10kg / 22 lbs lost, full body toned",
     weeks: 14,
     schedule: "4 days lifting / week + daily walking goal",
-    split: "Upper / Lower / Rest / Upper / Lower / Active Rest / Full Rest"
+    split: "Upper / Lower / Walk / Upper / Lower / Walk / Walk"
   },
   cycle_guide: [{
     phase: "🌸 Menstrual (Day 1–5)",
@@ -2373,12 +2511,12 @@ var WORKOUT_PLAN = {
     duration: "As needed",
     notes: "Optional light activity only. Your body is recovering and getting stronger right now."
   }, {
-    day: "Sunday 😴",
-    type: "Full Rest",
-    focus: "Recovery + Prep",
-    exercises: ["Full rest day", "Meal prep for the week", "Plan workouts for next week", "Prioritise 8 hours sleep"],
-    duration: "—",
-    notes: "Sleep is when your muscles actually grow. Prioritising rest is not optional — it's the programme."
+    day: "Sunday 🚶",
+    type: "Active Rest",
+    focus: "Walk + Recovery",
+    exercises: ["Walk toward 10K steps goal", "Meal prep for the week", "Plan workouts for next week", "Prioritise 8 hours sleep"],
+    duration: "As needed",
+    notes: "Gentle movement on Sunday keeps your step streak going without taxing your muscles. Let the lifting days recover while staying active."
   }],
   progression: [{
     phase: "Phase 1 — Learn",
@@ -2388,19 +2526,19 @@ var WORKOUT_PLAN = {
     key: "Every exercise feels awkward at first. That's normal. Focus on what the exercise is supposed to feel like, not how much weight you're moving.",
     checkpoints: ["Can you feel the right muscle working?", "Is your back flat during RDLs?", "Are your knees tracking properly in squats?", "Can you hold a plank for 30 seconds?"]
   }, {
-    phase: "Phase 2 — Build",
+    phase: "Phase 2 — Build + Add Machines",
     weeks: "Weeks 5–8 (June 23 – July 20)",
-    focus: "Start increasing weight. Add reps before adding weight.",
+    focus: "Increase dumbbell weight + introduce machines",
     intensity: "70–75% effort",
-    key: "If you can do 12 reps with good form, increase weight by the smallest increment available (usually 1–2 kg). If you can't do 8 reps with good form, the weight is too heavy.",
-    checkpoints: ["Are you lifting more than Week 1?", "Are you still sore in the right places?", "Have you tracked your weights in the log?", "Are you getting enough protein (100–110g/day)?"]
+    key: "Start increasing weight on dumbbells. Add machines progressively — they isolate muscles better and let you go heavier safely. See the Machine Guide tab for exactly what to add and when.",
+    checkpoints: ["Are you lifting more than Week 1?", "Have you tried the cable tricep pushdown?", "Are you still sore in the right places?", "Getting 100–110g protein daily?"]
   }, {
     phase: "Phase 3 — Push",
     weeks: "Weeks 9–12 (July 21 – Aug 17)",
-    focus: "Increase intensity. Last 2 reps of each set should be challenging.",
+    focus: "Heavier loads, more machine variety",
     intensity: "80% effort",
-    key: "This is where visible changes accelerate. The compound lifts (squat, RDL, row) should feel heavy and meaningful. You should feel genuinely stronger than Week 1.",
-    checkpoints: ["Goblet squat weight doubled from Week 1?", "Can you do a 60-second plank?", "Are you sleeping 7–8 hours?", "Are you sticking to the PCOS cycle adjustments?"]
+    key: "This is where visible changes accelerate. Mix dumbbells and machines freely — use whichever gives you better muscle activation for each exercise.",
+    checkpoints: ["Goblet squat weight doubled from Week 1?", "Can you do a 60-second plank?", "Are machines feeling more natural?", "Sleeping 7–8 hours consistently?"]
   }, {
     phase: "Phase 4 — Peak",
     weeks: "Weeks 13–14 (Aug 18 – Sep 1)",
@@ -2408,6 +2546,91 @@ var WORKOUT_PLAN = {
     intensity: "75% effort",
     key: "Don't try to do too much in the final two weeks. Results are the sum of 14 weeks of consistency — not one heroic final push. Stay the course.",
     checkpoints: ["Compare photos from Week 1", "How do your clothes fit?", "What's your energy like vs May?", "Celebrate how far you've come"]
+  }],
+  machines: [{
+    name: "Lat Pulldown",
+    week: "Week 5",
+    muscle: "Back + Biceps",
+    goal: "Flat stomach / posture / upper body definition",
+    equipment: "Lat pulldown machine",
+    video_tip: "Search 'lat pulldown form beginners'",
+    how: ["Sit at the machine, adjust thigh pad so it fits snugly over your legs", "Grip the bar slightly wider than shoulder-width, palms facing away", "Pull the bar down to your upper chest — lead with your elbows, not your hands", "Squeeze your back at the bottom — you should feel it between your shoulder blades", "Let the bar rise slowly back up, fully extending arms"],
+    mistakes: ["Pulling behind the head — strains neck, skip this entirely", "Using momentum to yank the bar down", "Not fully extending at the top — you lose range of motion"],
+    beginner_weight: "20–25 kg / 44–55 lbs",
+    sets: "3 sets of 10–12 reps",
+    why: "The lat pulldown builds the V-shape back muscles that create the illusion of a smaller waist. A strong back also reduces upper body tension, dramatically improves posture, and makes everything you lift easier."
+  }, {
+    name: "Cable Tricep Pushdown",
+    week: "Week 5",
+    muscle: "Triceps (back of arm)",
+    goal: "Toned arms — eliminates 'bingo wing' appearance",
+    equipment: "Cable machine + rope or bar attachment",
+    video_tip: "Search 'cable tricep pushdown rope form'",
+    how: ["Attach a rope to the high pulley of the cable machine", "Stand facing the machine, grip the rope ends, elbows pinned to your sides", "Push the rope down and slightly apart until arms are fully straight", "Squeeze triceps hard at the bottom for 1 second", "Let rope rise slowly — control the weight up"],
+    mistakes: ["Elbows flaring out — keep them glued to your sides", "Leaning forward excessively", "Not fully extending at the bottom — incomplete contraction"],
+    beginner_weight: "10–15 kg / 22–33 lbs",
+    sets: "3 sets of 12–15 reps",
+    why: "This is the single best exercise for toning the back of the arms. Triceps make up 2/3 of arm volume — more impact than biceps for arm appearance."
+  }, {
+    name: "Cable Bicep Curl",
+    week: "Week 5",
+    muscle: "Biceps",
+    goal: "Toned, defined arms",
+    equipment: "Cable machine + straight bar or EZ bar",
+    video_tip: "Search 'cable bicep curl form beginners'",
+    how: ["Attach a straight bar to the low pulley", "Stand facing machine, grip bar palms up, arms extended", "Curl bar up toward shoulders, keeping elbows pinned to sides", "Squeeze at the top, lower slowly — 3 seconds down", "Cable keeps constant tension throughout — more effective than dumbbells for this movement"],
+    mistakes: ["Swinging body to lift — too heavy, reduce weight", "Elbows drifting forward", "Rushing the lowering phase"],
+    beginner_weight: "10–12 kg / 22–26 lbs",
+    sets: "3 sets of 12 reps",
+    why: "Cable curls maintain tension throughout the full range of motion, unlike dumbbells which lose tension at the top. Better muscle activation = better arm definition."
+  }, {
+    name: "Leg Press",
+    week: "Week 6",
+    muscle: "Quads + Glutes + Hamstrings",
+    goal: "Toned legs, fat loss acceleration",
+    equipment: "Leg press machine",
+    video_tip: "Search 'leg press form beginners foot placement'",
+    how: ["Sit in the machine, back and head against the pad", "Place feet shoulder-width apart on the platform, toes slightly out", "Unrack by straightening legs, then lower platform by bending knees to 90°", "Drive through heels to press back up — don't lock knees at top", "Keep lower back pressed into the seat throughout"],
+    mistakes: ["Letting knees cave inward — push them out", "Locking knees at the top — keeps tension on the joint", "Lowering too fast — you lose the muscle-building benefit"],
+    beginner_weight: "30–40 kg / 66–88 lbs",
+    sets: "3 sets of 12 reps",
+    why: "You can load the leg press 3–4x heavier than a goblet squat, driving significantly more glute and quad development. This is where legs really start to change shape."
+  }, {
+    name: "Hip Abductor Machine",
+    week: "Week 6",
+    muscle: "Outer glutes + Hip abductors",
+    goal: "Rounder glutes, outer thigh toning",
+    equipment: "Hip abductor machine (the butterfly leg machine)",
+    video_tip: "Search 'hip abductor machine form'",
+    how: ["Sit in the machine with pads against outer thighs", "Push legs outward against the resistance as far as comfortable", "Hold 1 second at the widest point — squeeze glutes", "Return slowly — don't let the weight slam back"],
+    mistakes: ["Going too fast — slow controlled movement builds more muscle", "Using too much weight before you feel the right muscles working", "Forgetting to squeeze glutes at the widest point"],
+    beginner_weight: "25–35 kg / 55–77 lbs",
+    sets: "3 sets of 15 reps",
+    why: "The hip abductor and glute medius are almost always underdeveloped in women who focus on cardio. Strengthening them directly improves glute activation in squats and deadlifts, and reduces lower body fat storage around the hips."
+  }, {
+    name: "Seated Cable Row",
+    week: "Week 6",
+    muscle: "Mid-back + Biceps + Rear Shoulders",
+    goal: "Back definition, posture, upper body strength",
+    equipment: "Cable row machine + V-bar or wide bar",
+    video_tip: "Search 'seated cable row form beginners'",
+    how: ["Sit at the cable row station, feet on the platform, slight bend in knees", "Grip the V-bar, sit up tall — don't lean back", "Pull the bar to your lower stomach — elbows go back behind you", "Squeeze shoulder blades together at the end", "Extend arms slowly, lean slightly forward to get full stretch"],
+    mistakes: ["Using lower back momentum to pull — keep torso almost still", "Rounding shoulders forward", "Pulling to the chest instead of stomach"],
+    beginner_weight: "20–25 kg / 44–55 lbs",
+    sets: "3 sets of 12 reps",
+    why: "Rows build the mid-back muscles that pull your shoulders back, immediately improving posture. Better posture makes your stomach look flatter without losing a single gram."
+  }, {
+    name: "Assisted Pull-Up Machine",
+    week: "Week 8",
+    muscle: "Back + Biceps + Core",
+    goal: "Upper body strength, V-shape definition",
+    equipment: "Assisted pull-up machine",
+    video_tip: "Search 'assisted pull-up machine form beginners'",
+    how: ["Select assistance weight — heavier assistance = easier (start high)", "Kneel or stand on the platform depending on the machine", "Grip handles wide, palms facing away", "Pull yourself up until chin is above the handles", "Lower slowly — 3 seconds down"],
+    mistakes: ["Not going all the way up — half reps build nothing", "Dropping down fast — the lowering phase builds as much strength as pulling up", "Using too much assistance — challenge yourself"],
+    beginner_weight: "Start with high assistance (machine does most of the work), reduce over weeks",
+    sets: "3 sets of 8–10 reps",
+    why: "Pull-ups are the ultimate upper body exercise. The assisted version lets you build toward them gradually. When you can do a real unassisted pull-up, you'll know your upper body strength has fundamentally changed."
   }],
   beginner_tips: [{
     icon: "📱",
@@ -2433,10 +2656,6 @@ var WORKOUT_PLAN = {
     icon: "😴",
     title: "Sleep is the workout",
     tip: "Your muscles don't grow in the gym — they grow overnight. 7–8 hours is not a bonus, it's a requirement. Two weeks of poor sleep will erase 2 weeks of good training."
-  }, {
-    icon: "🌸",
-    title: "PCOS adjustment",
-    tip: "Track your cycle alongside your workouts. On luteal phase weeks, reduce your weights by 10–15% and add an extra 60 seconds rest between sets. This is not weakness — it's science. Women who cycle-sync their training get better results long-term than those who push the same intensity all month."
   }]
 };
 var PCOS_MEAL_PLAN = [{
@@ -2919,11 +3138,180 @@ function GroceryItem(_ref2) {
     }
   }, item.why)));
 }
-function BFWorkoutSubNav() {
-  var _useState3 = useState("split"),
+function WorkoutSchedule(_ref3) {
+  var schedule = _ref3.schedule,
+    storageKey = _ref3.storageKey,
+    accentColor = _ref3.accentColor,
+    lightColor = _ref3.lightColor;
+  var _useState3 = useState(function () {
+      try {
+        var s = localStorage.getItem(storageKey);
+        return s ? JSON.parse(s) : {};
+      } catch (e) {
+        return {};
+      }
+    }),
     _useState4 = _slicedToArray(_useState3, 2),
-    wTab = _useState4[0],
-    setWTab = _useState4[1];
+    checked = _useState4[0],
+    setChecked = _useState4[1];
+  var toggle = function toggle(key) {
+    setChecked(function (prev) {
+      var next = _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, !prev[key]));
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(next));
+      } catch (e) {}
+      return next;
+    });
+  };
+  var totalSessions = schedule.reduce(function (s, w) {
+    return s + w.days.filter(function (d) {
+      return !d.type.includes("🚶") && !d.type.includes("😴") && !d.type.includes("🏃");
+    }).length;
+  }, 0);
+  var completedSessions = Object.values(checked).filter(Boolean).length;
+  var pct = Math.round(completedSessions / totalSessions * 100);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: accentColor,
+      borderRadius: 14,
+      padding: "16px 20px",
+      marginBottom: 20,
+      color: "white"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 17,
+      marginBottom: 10
+    }
+  }, "14-Week Progress"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      height: 8,
+      background: "rgba(255,255,255,0.2)",
+      borderRadius: 4,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "".concat(pct, "%"),
+      height: "100%",
+      background: "white",
+      borderRadius: 4,
+      transition: "width 0.3s"
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      flexShrink: 0
+    }
+  }, completedSessions, "/", totalSessions, " sessions \xB7 ", pct, "%")), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "rgba(255,255,255,0.7)",
+      marginTop: 8
+    }
+  }, "Tap a workout to mark it done. Your progress saves automatically and survives app updates.")), schedule.map(function (week, wi) {
+    var workoutDays = week.days.filter(function (d) {
+      return !d.type.includes("🚶") && !d.type.includes("😴") && !d.type.includes("🏃");
+    });
+    var weekDone = workoutDays.filter(function (d) {
+      return checked["".concat(storageKey, "_w").concat(wi, "_").concat(d.day)];
+    }).length;
+    return /*#__PURE__*/React.createElement("div", {
+      key: wi,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 16,
+        marginBottom: 10,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: accentColor
+      }
+    }, week.label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        background: lightColor,
+        color: accentColor,
+        padding: "2px 10px",
+        borderRadius: 20,
+        fontWeight: 600
+      }
+    }, weekDone, "/", workoutDays.length, " done")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        flexWrap: "wrap"
+      }
+    }, week.days.map(function (d, di) {
+      var key = "".concat(storageKey, "_w").concat(wi, "_").concat(d.day);
+      var isWorkout = !d.type.includes("🚶") && !d.type.includes("😴") && !d.type.includes("🏃");
+      var isDone = checked[key];
+      var isRest = d.type.includes("😴");
+      var isWalk = d.type.includes("🚶");
+      var isRun = d.type.includes("🏃");
+      return /*#__PURE__*/React.createElement("div", {
+        key: di,
+        onClick: function onClick() {
+          return isWorkout && toggle(key);
+        },
+        style: {
+          flex: "0 0 calc(14.28% - 5px)",
+          minWidth: 38,
+          textAlign: "center",
+          padding: "8px 4px",
+          borderRadius: 10,
+          cursor: isWorkout ? "pointer" : "default",
+          background: isDone ? "#4caf50" : isRest ? "#f5f5f5" : isWalk ? "#e8f5e9" : isRun ? "#e3f2fd" : "white",
+          border: "2px solid ".concat(isDone ? "#4caf50" : isWorkout ? accentColor : "#e0e0e0"),
+          transition: "all 0.2s"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 10,
+          color: "#999",
+          marginBottom: 2
+        }
+      }, d.day), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 16
+        }
+      }, isDone ? "✅" : isRest ? "😴" : isWalk ? "🚶" : isRun ? "🏃" : d.type.includes("Upper") ? "💪" : d.type.includes("Lower") ? "🦵" : d.type.includes("Full") ? "🏋️" : "💪"), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 9,
+          color: isDone ? "#4caf50" : isWorkout ? accentColor : "#aaa",
+          marginTop: 2,
+          lineHeight: 1.2,
+          fontWeight: isDone ? 700 : 400
+        }
+      }, isDone ? "Done!" : isRest ? "Rest" : isWalk ? "Walk" : isRun ? "Run" : d.type.includes("Upper") ? "Upper" : d.type.includes("Lower") ? "Lower" : d.type.includes("Full") ? "Full" : "Gym"));
+    })));
+  }));
+}
+function BFWorkoutSubNav() {
+  var _useState5 = useState("split"),
+    _useState6 = _slicedToArray(_useState5, 2),
+    wTab = _useState6[0],
+    setWTab = _useState6[1];
   var BF_BLUE = "#1565c0";
   var BF_LIGHT = "#e3f2fd";
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
@@ -2933,10 +3321,10 @@ function BFWorkoutSubNav() {
       marginBottom: 22,
       flexWrap: "wrap"
     }
-  }, [["split", "📅 Weekend Plan"], ["exercises", "🏋️ Exercises"], ["running", "🏃 Running Tips"], ["phases", "📈 Progress Plan"]].map(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 2),
-      id = _ref4[0],
-      label = _ref4[1];
+  }, [["split", "📅 Weekend Plan"], ["exercises", "🏋️ Exercises"], ["machines", "⚙️ Machines"], ["running", "🏃 Running Tips"], ["schedule", "✅ Schedule"], ["phases", "📈 Progress Plan"]].map(function (_ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+      id = _ref5[0],
+      label = _ref5[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -2969,7 +3357,7 @@ function BFWorkoutSubNav() {
       color: BF_BLUE,
       lineHeight: 1.6
     }
-  }, /*#__PURE__*/React.createElement("strong", null, "The logic:"), " You run Mon\u2013Fri so your cardio and fat burning are covered. Saturday is upper body only \u2014 legs need the break. Sunday adds leg and glute work which directly makes you a faster, stronger runner.")), WORKOUT_PLAN_BF.weekly_split.map(function (day, i) {
+  }, /*#__PURE__*/React.createElement("strong", null, "The logic:"), " You run Mon\u2013Fri so your cardio and fat burning are already covered. Saturday is upper body only \u2014 legs need the break. Sunday adds leg and glute work which directly makes you a faster, stronger runner.")), WORKOUT_PLAN_BF.weekly_split.map(function (day, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3112,7 +3500,7 @@ function BFWorkoutSubNav() {
       color: BF_BLUE,
       lineHeight: 1.6
     }
-  }, /*#__PURE__*/React.createElement("strong", null, "Start light and feel the muscle \u2014 being a strong runner doesn't mean you're strong in the gym yet. Different muscles entirely."), " You're a beginner lifter even though you're a strong runner \u2014 completely different muscles and movement patterns. Film from the side for squats and RDLs.")), WORKOUT_PLAN_BF.exercises.map(function (ex, i) {
+  }, /*#__PURE__*/React.createElement("strong", null, "Start light and feel the muscle."), " You're a beginner lifter even though you're a strong runner \u2014 completely different muscles and movement patterns. Film yourself from the side for squats and RDLs.")), WORKOUT_PLAN_BF.exercises.map(function (ex, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3124,7 +3512,8 @@ function BFWorkoutSubNav() {
       }
     }, /*#__PURE__*/React.createElement("div", {
       onClick: function onClick(e) {
-        e.currentTarget.nextSibling.style.display = e.currentTarget.nextSibling.style.display === "none" ? "block" : "none";
+        var next = e.currentTarget.nextSibling;
+        next.style.display = next.style.display === "none" ? "block" : "none";
       },
       style: {
         padding: "16px 20px",
@@ -3274,6 +3663,184 @@ function BFWorkoutSubNav() {
         flexShrink: 0
       }
     }, "\uD83D\uDCF9 Watch on YouTube"))));
+  })), wTab === "machines" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff3e0",
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid #e65100"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#e65100",
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "\u2699\uFE0F Start machines from Week 5."), " Your running is already building serious cardio fitness. These machines fill the strength gaps that running leaves \u2014 especially upper body and glute isolation.")), WORKOUT_PLAN_BF.machines.map(function (m, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+        borderLeft: "3px solid #e65100"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: 8,
+        flexWrap: "wrap",
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17
+      }
+    }, m.name), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#fff3e0",
+        color: "#e65100",
+        fontSize: 11,
+        fontWeight: 700,
+        padding: "3px 10px",
+        borderRadius: 20,
+        flexShrink: 0
+      }
+    }, "Add from ", m.week)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: C.muted,
+        marginBottom: 8
+      }
+    }, m.muscle, " \xB7 ", m.equipment), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        marginBottom: 12,
+        flexWrap: "wrap"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: BF_LIGHT,
+        color: BF_BLUE,
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, m.sets), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#fde8d8",
+        color: "#b05e20",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, "Start: ", m.beginner_weight), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#e8f5e9",
+        color: "#2e7d32",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, "Goal: ", m.goal)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: BF_BLUE,
+        marginBottom: 6
+      }
+    }, "How To Do It"), m.how.map(function (step, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          display: "flex",
+          gap: 10,
+          padding: "4px 0",
+          fontSize: 13,
+          color: C.charcoal,
+          lineHeight: 1.5
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 20,
+          height: 20,
+          background: BF_BLUE,
+          color: "white",
+          borderRadius: "50%",
+          fontSize: 10,
+          fontWeight: 700,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0
+        }
+      }, j + 1), step);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: "#e65100",
+        marginBottom: 6,
+        marginTop: 12
+      }
+    }, "Common Mistakes"), m.mistakes.map(function (e, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "3px 0",
+          display: "flex",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: "#e65100",
+          flexShrink: 0
+        }
+      }, "\u26A0\uFE0F"), e);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 12,
+        background: BF_LIGHT,
+        borderRadius: 10,
+        padding: "10px 14px",
+        fontSize: 13,
+        color: BF_BLUE,
+        lineHeight: 1.6,
+        marginBottom: 10
+      }
+    }, "\uD83D\uDCA1 ", m.why), /*#__PURE__*/React.createElement("a", {
+      href: "https://www.youtube.com/results?search_query=".concat(encodeURIComponent(m.name + " proper form beginners")),
+      target: "_blank",
+      rel: "noopener noreferrer",
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+        fontSize: 11,
+        color: "white",
+        background: "#ff0000",
+        borderRadius: 10,
+        padding: "5px 12px",
+        textDecoration: "none",
+        fontWeight: 700
+      }
+    }, "\uD83D\uDCF9 Watch on YouTube"));
   })), wTab === "running" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       background: BF_LIGHT,
@@ -3288,7 +3855,7 @@ function BFWorkoutSubNav() {
       color: BF_BLUE,
       lineHeight: 1.6
     }
-  }, /*#__PURE__*/React.createElement("strong", null, "Running + lifting = the best combination for his goals."), " Most runners avoid the gym because they think it'll slow them down. The opposite is true \u2014 strong runners get faster, last longer, and get injured less.")), WORKOUT_PLAN_BF.running_strength_tips.map(function (tip, i) {
+  }, /*#__PURE__*/React.createElement("strong", null, "Running + lifting = the best combination for your goals."), " Most runners avoid the gym thinking it'll slow them down. The opposite is true \u2014 strong runners get faster, last longer, and get injured far less.")), WORKOUT_PLAN_BF.running_strength_tips.map(function (tip, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3323,7 +3890,12 @@ function BFWorkoutSubNav() {
         lineHeight: 1.7
       }
     }, tip.tip))));
-  })), wTab === "phases" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  })), wTab === "schedule" && /*#__PURE__*/React.createElement(WorkoutSchedule, {
+    schedule: STERLING_SCHEDULE,
+    storageKey: "sterling_schedule",
+    accentColor: BF_BLUE,
+    lightColor: BF_LIGHT
+  }), wTab === "phases" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       background: BF_LIGHT,
       borderRadius: 12,
@@ -3406,12 +3978,12 @@ function BFWorkoutSubNav() {
     }));
   })));
 }
-function ExerciseCard(_ref5) {
-  var ex = _ref5.ex;
-  var _useState5 = useState(false),
-    _useState6 = _slicedToArray(_useState5, 2),
-    open = _useState6[0],
-    setOpen = _useState6[1];
+function ExerciseCard(_ref6) {
+  var ex = _ref6.ex;
+  var _useState7 = useState(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    open = _useState8[0],
+    setOpen = _useState8[1];
   return /*#__PURE__*/React.createElement("div", {
     style: {
       background: "white",
@@ -3589,10 +4161,10 @@ function ExerciseCard(_ref5) {
   }, "\uD83D\uDCF9 Watch on YouTube"))));
 }
 function WorkoutSubNav() {
-  var _useState7 = useState("split"),
-    _useState8 = _slicedToArray(_useState7, 2),
-    wTab = _useState8[0],
-    setWTab = _useState8[1];
+  var _useState9 = useState("split"),
+    _useState0 = _slicedToArray(_useState9, 2),
+    wTab = _useState0[0],
+    setWTab = _useState0[1];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -3600,10 +4172,10 @@ function WorkoutSubNav() {
       marginBottom: 22,
       flexWrap: "wrap"
     }
-  }, [["split", "📅 Weekly Split"], ["exercises", "🏋️ Exercises"], ["cycle", "🌸 Cycle Sync"], ["phases", "📈 14-Week Plan"], ["tips", "💡 Tips"]].map(function (_ref6) {
-    var _ref7 = _slicedToArray(_ref6, 2),
-      id = _ref7[0],
-      label = _ref7[1];
+  }, [["split", "📅 Weekly Split"], ["exercises", "🏋️ Exercises"], ["machines", "⚙️ Machines"], ["schedule", "✅ Schedule"], ["cycle", "🌸 Cycle Sync"], ["phases", "📈 14-Week Plan"], ["tips", "💡 Tips"]].map(function (_ref7) {
+    var _ref8 = _slicedToArray(_ref7, 2),
+      id = _ref8[0],
+      label = _ref8[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -3798,7 +4370,190 @@ function WorkoutSubNav() {
       key: i,
       ex: ex
     });
-  })), wTab === "cycle" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  })), wTab === "machines" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff3e0",
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid #e65100"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#e65100",
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "\u2699\uFE0F Start machines from Week 5 onward."), " Weeks 1\u20134 are for learning dumbbell movements. Once those feel solid, swap in or add these machines for better isolation and heavier loads.")), WORKOUT_PLAN.machines.map(function (m, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+        borderLeft: "3px solid #e65100"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: 8,
+        flexWrap: "wrap",
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17
+      }
+    }, m.name), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#fff3e0",
+        color: "#e65100",
+        fontSize: 11,
+        fontWeight: 700,
+        padding: "3px 10px",
+        borderRadius: 20,
+        flexShrink: 0
+      }
+    }, "Add from ", m.week)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: C.muted,
+        marginBottom: 8
+      }
+    }, m.muscle, " \xB7 ", m.equipment), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        marginBottom: 12,
+        flexWrap: "wrap"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: C.sageLight,
+        color: C.sageDark,
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, m.sets), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#fde8d8",
+        color: "#b05e20",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, "Start: ", m.beginner_weight), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#e8f5e9",
+        color: "#2e7d32",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, "Goal: ", m.goal)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: C.accent,
+        marginBottom: 6
+      }
+    }, "How To Do It"), m.how.map(function (step, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          display: "flex",
+          gap: 10,
+          padding: "4px 0",
+          fontSize: 13,
+          color: C.charcoal,
+          lineHeight: 1.5
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 20,
+          height: 20,
+          background: C.sage,
+          color: "white",
+          borderRadius: "50%",
+          fontSize: 10,
+          fontWeight: 700,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0
+        }
+      }, j + 1), step);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: "#e65100",
+        marginBottom: 6,
+        marginTop: 12
+      }
+    }, "Common Mistakes"), m.mistakes.map(function (e, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "3px 0",
+          display: "flex",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: "#e65100",
+          flexShrink: 0
+        }
+      }, "\u26A0\uFE0F"), e);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 12,
+        background: C.sageLight,
+        borderRadius: 10,
+        padding: "10px 14px",
+        fontSize: 13,
+        color: C.sageDark,
+        lineHeight: 1.6,
+        marginBottom: 10
+      }
+    }, "\uD83D\uDCA1 ", m.why), /*#__PURE__*/React.createElement("a", {
+      href: "https://www.youtube.com/results?search_query=".concat(encodeURIComponent(m.name + " proper form beginners")),
+      target: "_blank",
+      rel: "noopener noreferrer",
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+        fontSize: 11,
+        color: "white",
+        background: "#ff0000",
+        borderRadius: 10,
+        padding: "5px 12px",
+        textDecoration: "none",
+        fontWeight: 700
+      }
+    }, "\uD83D\uDCF9 Watch on YouTube"));
+  })), wTab === "schedule" && /*#__PURE__*/React.createElement(WorkoutSchedule, {
+    schedule: ELOISE_SCHEDULE,
+    storageKey: "eloise_schedule",
+    accentColor: C.sageDark,
+    lightColor: C.sageLight
+  }), wTab === "cycle" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#fce4ec",
       borderRadius: 12,
@@ -4068,19 +4823,19 @@ function WorkoutSubNav() {
       color: "#880e4f",
       lineHeight: 1.7
     }
-  }, /*#__PURE__*/React.createElement("strong", null, "\uD83C\uDF38 Final PCOS note:"), " With PCOS, weight loss can be slower and less linear. You may lose 0.5kg one week and nothing the next \u2014 this is hormonal, not failure. Judge progress monthly, not weekly. By September you will be stronger, more toned, and more in tune with your body than you've been in years."))));
+  }, /*#__PURE__*/React.createElement("strong", null, "\uD83D\uDCAA Final note:"), " Weight loss from lifting isn't always linear. You may lose 0.5kg one week and nothing the next \u2014 that's normal and not failure. Muscle is being built while fat is being lost. Judge progress monthly, not weekly. By September you will be stronger, more toned, and more in tune with your body than you've been in years."))));
 }
-function RecipeCard(_ref8) {
-  var recipe = _ref8.recipe,
-    unit = _ref8.unit;
-  var _useState9 = useState(false),
-    _useState0 = _slicedToArray(_useState9, 2),
-    open = _useState0[0],
-    setOpen = _useState0[1];
-  var _useState1 = useState(1),
+function RecipeCard(_ref9) {
+  var recipe = _ref9.recipe,
+    unit = _ref9.unit;
+  var _useState1 = useState(false),
     _useState10 = _slicedToArray(_useState1, 2),
-    portions = _useState10[0],
-    setPortions = _useState10[1];
+    open = _useState10[0],
+    setOpen = _useState10[1];
+  var _useState11 = useState(1),
+    _useState12 = _slicedToArray(_useState11, 2),
+    portions = _useState12[0],
+    setPortions = _useState12[1];
   var cs = CAT[recipe.category] || {
     bg: "#eee",
     fg: "#333"
@@ -4276,10 +5031,10 @@ function RecipeCard(_ref8) {
       padding: 4,
       gap: 3
     }
-  }, Object.entries(SCALES).map(function (_ref9) {
-    var _ref0 = _slicedToArray(_ref9, 2),
-      key = _ref0[0],
-      s = _ref0[1];
+  }, Object.entries(SCALES).map(function (_ref0) {
+    var _ref1 = _slicedToArray(_ref0, 2),
+      key = _ref1[0],
+      s = _ref1[1];
     return /*#__PURE__*/React.createElement("button", {
       key: key,
       onClick: function onClick(e) {
@@ -4438,9 +5193,9 @@ function RecipeCard(_ref8) {
     }, step));
   }))));
 }
-function MiniChart(_ref1) {
-  var data = _ref1.data,
-    color = _ref1.color;
+function MiniChart(_ref10) {
+  var data = _ref10.data,
+    color = _ref10.color;
   if (!data || data.length < 2) return /*#__PURE__*/React.createElement("div", {
     style: {
       height: 80,
@@ -4488,10 +5243,10 @@ function MiniChart(_ref1) {
     });
   }));
 }
-function MealDay(_ref10) {
-  var day = _ref10.day,
-    mealFilter = _ref10.mealFilter,
-    onRecipeClick = _ref10.onRecipeClick;
+function MealDay(_ref11) {
+  var day = _ref11.day,
+    mealFilter = _ref11.mealFilter,
+    onRecipeClick = _ref11.onRecipeClick;
   var meals = mealFilter === "All" ? day.meals : day.meals.filter(function (m) {
     return m.label === mealFilter;
   });
@@ -4615,10 +5370,10 @@ function MealDay(_ref10) {
     }, meal.protein, "g / ", Math.round(meal.protein * 0.035), "oz")));
   }));
 }
-function Pill(_ref11) {
-  var value = _ref11.value,
-    current = _ref11.current,
-    setter = _ref11.setter;
+function Pill(_ref12) {
+  var value = _ref12.value,
+    current = _ref12.current,
+    setter = _ref12.setter;
   var active = current === value;
   var cs = CAT[value] || null;
   return /*#__PURE__*/React.createElement("button", {
@@ -4645,38 +5400,38 @@ function Pill(_ref11) {
 // MAIN APP
 // ─────────────────────────────────────────────────────────────
 function App() {
-  var _useState11 = useState("tracking"),
-    _useState12 = _slicedToArray(_useState11, 2),
-    tab = _useState12[0],
-    setTab = _useState12[1];
-  var _useState13 = useState("heb"),
+  var _useState13 = useState("tracking"),
     _useState14 = _slicedToArray(_useState13, 2),
-    store = _useState14[0],
-    setStore = _useState14[1];
-  var _useState15 = useState("All"),
+    tab = _useState14[0],
+    setTab = _useState14[1];
+  var _useState15 = useState("heb"),
     _useState16 = _slicedToArray(_useState15, 2),
-    recipeFilter = _useState16[0],
-    setRF = _useState16[1];
+    store = _useState16[0],
+    setStore = _useState16[1];
   var _useState17 = useState("All"),
     _useState18 = _slicedToArray(_useState17, 2),
-    mealFilter = _useState18[0],
-    setMF = _useState18[1];
-  var _useState19 = useState("imperial"),
+    recipeFilter = _useState18[0],
+    setRF = _useState18[1];
+  var _useState19 = useState("All"),
     _useState20 = _slicedToArray(_useState19, 2),
-    unit = _useState20[0],
-    setUnit = _useState20[1];
-  var _useState21 = useState(""),
+    mealFilter = _useState20[0],
+    setMF = _useState20[1];
+  var _useState21 = useState("imperial"),
     _useState22 = _slicedToArray(_useState21, 2),
-    search = _useState22[0],
-    setSearch = _useState22[1];
-  var _useState23 = useState(false),
+    unit = _useState22[0],
+    setUnit = _useState22[1];
+  var _useState23 = useState(""),
     _useState24 = _slicedToArray(_useState23, 2),
-    pcosFilter = _useState24[0],
-    setPcosFilter = _useState24[1];
-  var _useState25 = useState("standard"),
+    search = _useState24[0],
+    setSearch = _useState24[1];
+  var _useState25 = useState(false),
     _useState26 = _slicedToArray(_useState25, 2),
-    mealPlanView = _useState26[0],
-    setMealPlanView = _useState26[1];
+    pcosFilter = _useState26[0],
+    setPcosFilter = _useState26[1];
+  var _useState27 = useState("standard"),
+    _useState28 = _slicedToArray(_useState27, 2),
+    mealPlanView = _useState28[0],
+    setMealPlanView = _useState28[1];
   var goToRecipe = function goToRecipe(title) {
     setTab("recipes");
     setSearch(title);
@@ -4686,14 +5441,14 @@ function App() {
       behavior: "smooth"
     });
   };
-  var _useState27 = useState("eloise"),
-    _useState28 = _slicedToArray(_useState27, 2),
-    person = _useState28[0],
-    setPerson = _useState28[1];
-  var _useState29 = useState(false),
+  var _useState29 = useState("eloise"),
     _useState30 = _slicedToArray(_useState29, 2),
-    copied = _useState30[0],
-    setCopied = _useState30[1];
+    person = _useState30[0],
+    setPerson = _useState30[1];
+  var _useState31 = useState(false),
+    _useState32 = _slicedToArray(_useState31, 2),
+    copied = _useState32[0],
+    setCopied = _useState32[1];
   var PROFILES = {
     eloise: {
       name: "Eloise 🌿",
@@ -4751,7 +5506,7 @@ function App() {
       fat: "55–65g (1.9–2.3oz)",
       sugar: "< 40g (< 1.4oz)",
       activity: "Running 3.5 mi / 5.6km, 3–4x/week",
-      timeline: "~4–5 months",
+      timeline: "~14–17 weeks (14 weeks = ~20 lbs, full 24 lbs by week 17)",
       tolose_lbs: 24,
       tolose_kg: 11,
       tips: ["Your deficit is conservative — important because you're running. Too aggressive = no energy for training.", "Running 3.5 miles / 5.6km burns ~350–400 kcal. On run days you can eat up to ~2,500 kcal if needed.", "Protein at 155–165g (5.5–5.8oz) is critical — running breaks down muscle, protein rebuilds it. Hit this every single day.", "Results may come faster in the first weeks — running + lifting is a powerful combination. Stay consistent."],
@@ -4786,7 +5541,7 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState31 = useState(function () {
+  var _useState33 = useState(function () {
       try {
         var s = localStorage.getItem("wellness_logs");
         return s ? JSON.parse(s) : {
@@ -4800,9 +5555,9 @@ function App() {
         };
       }
     }),
-    _useState32 = _slicedToArray(_useState31, 2),
-    logs = _useState32[0],
-    setLogsRaw = _useState32[1];
+    _useState34 = _slicedToArray(_useState33, 2),
+    logs = _useState34[0],
+    setLogsRaw = _useState34[1];
   var setLogs = function setLogs(u) {
     setLogsRaw(function (p) {
       var n = typeof u === "function" ? u(p) : u;
@@ -4812,7 +5567,7 @@ function App() {
       return n;
     });
   };
-  var _useState33 = useState({
+  var _useState35 = useState({
       weight: "",
       waist: "",
       hips: "",
@@ -4821,17 +5576,17 @@ function App() {
       water: "",
       workout: false
     }),
-    _useState34 = _slicedToArray(_useState33, 2),
-    form = _useState34[0],
-    setForm = _useState34[1];
-  var _useState35 = useState("log"),
     _useState36 = _slicedToArray(_useState35, 2),
-    mView = _useState36[0],
-    setMView = _useState36[1];
-  var _useState37 = useState("weight"),
+    form = _useState36[0],
+    setForm = _useState36[1];
+  var _useState37 = useState("log"),
     _useState38 = _slicedToArray(_useState37, 2),
-    cKey = _useState38[0],
-    setCKey = _useState38[1];
+    mView = _useState38[0],
+    setMView = _useState38[1];
+  var _useState39 = useState("weight"),
+    _useState40 = _slicedToArray(_useState39, 2),
+    cKey = _useState40[0],
+    setCKey = _useState40[1];
   var saveLog = function saveLog() {
     if (Object.values(form).every(function (v) {
       return v === "" || v === false;
@@ -4894,9 +5649,9 @@ function App() {
       value: parseFloat(personLogs[d][cKey])
     };
   });
-  var MiniChart = function MiniChart(_ref12) {
-    var data = _ref12.data,
-      color = _ref12.color;
+  var MiniChart = function MiniChart(_ref13) {
+    var data = _ref13.data,
+      color = _ref13.color;
     if (data.length < 2) return /*#__PURE__*/React.createElement("div", {
       style: {
         textAlign: "center",
@@ -5075,10 +5830,10 @@ function App() {
       marginBottom: 24,
       width: "fit-content"
     }
-  }, [["eloise", "Eloise 🌿"], ["boyfriend", "Sterling 🏃"]].map(function (_ref13) {
-    var _ref14 = _slicedToArray(_ref13, 2),
-      id = _ref14[0],
-      label = _ref14[1];
+  }, [["eloise", "Eloise 🌿"], ["boyfriend", "Sterling 🏃"]].map(function (_ref14) {
+    var _ref15 = _slicedToArray(_ref14, 2),
+      id = _ref15[0],
+      label = _ref15[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -5103,10 +5858,10 @@ function App() {
       gap: 24,
       flexWrap: "wrap"
     }
-  }, [[String(P.cal), "kcal / Day"], [P.protein, "Protein Goal"], ["-".concat(P.tolose_lbs, " lbs"), "Goal (-".concat(P.tolose_kg, "kg)")], [String(RECIPES.length), "Recipes"]].map(function (_ref15) {
-    var _ref16 = _slicedToArray(_ref15, 2),
-      n = _ref16[0],
-      l = _ref16[1];
+  }, [[String(P.cal), "kcal / Day"], [P.protein, "Protein Goal"], ["-".concat(P.tolose_lbs, " lbs"), "Goal (-".concat(P.tolose_kg, "kg)")], [String(RECIPES.length), "Recipes"]].map(function (_ref16) {
+    var _ref17 = _slicedToArray(_ref16, 2),
+      n = _ref17[0],
+      l = _ref17[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -5202,10 +5957,10 @@ function App() {
       color: C.muted,
       marginBottom: 8
     }
-  }, "Profile"), [["Current weight", "".concat(P.current_lbs, " lbs / ").concat(P.current_kg, " kg")], ["Height", P.height], ["Goal weight", "".concat(P.goal_lbs, " lbs / ").concat(P.goal_kg, " kg")], ["To lose", "".concat(P.tolose_lbs, " lbs / ").concat(P.tolose_kg, " kg")], ["Activity", P.activity], ["Timeline", P.timeline]].map(function (_ref17) {
-    var _ref18 = _slicedToArray(_ref17, 2),
-      l = _ref18[0],
-      v = _ref18[1];
+  }, "Profile"), [["Current weight", "".concat(P.current_lbs, " lbs / ").concat(P.current_kg, " kg")], ["Height", P.height], ["Goal weight", "".concat(P.goal_lbs, " lbs / ").concat(P.goal_kg, " kg")], ["To lose", "".concat(P.tolose_lbs, " lbs / ").concat(P.tolose_kg, " kg")], ["Activity", P.activity], ["Timeline", P.timeline]].map(function (_ref18) {
+    var _ref19 = _slicedToArray(_ref18, 2),
+      l = _ref19[0],
+      v = _ref19[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -5408,10 +6163,10 @@ function App() {
       color: "#2e7d32",
       marginBottom: 14
     }
-  }, "\u2705 Prioritise These"), [["🐟 Fatty fish (salmon, tuna)", "Anti-inflammatory omega-3s — eat 3x/week minimum"], ["🥬 Leafy greens (spinach, arugula)", "Low glycemic, high magnesium — helps insulin sensitivity"], ["🫐 Berries", "Low sugar, high antioxidants — reduce PCOS inflammation"], ["🥚 Eggs", "Hormone-balancing choline, high protein, low GI"], ["🫚 Olive oil", "Anti-inflammatory healthy fat — use as your main cooking fat"], ["🌿 Cinnamon", "Clinically shown to improve insulin sensitivity — add to everything"], ["🫚 Flaxseed (add to oats/yogurt)", "Balances estrogen levels — 1 tbsp daily is ideal"], ["🍵 Spearmint tea", "Evidence-backed for reducing androgens in PCOS — 2 cups/day"], ["🫚 Turmeric & ginger", "Powerful anti-inflammatories — already in several recipes"]].map(function (_ref19, i) {
-    var _ref20 = _slicedToArray(_ref19, 2),
-      food = _ref20[0],
-      why = _ref20[1];
+  }, "\u2705 Prioritise These"), [["🐟 Fatty fish (salmon, tuna)", "Anti-inflammatory omega-3s — eat 3x/week minimum"], ["🥬 Leafy greens (spinach, arugula)", "Low glycemic, high magnesium — helps insulin sensitivity"], ["🫐 Berries", "Low sugar, high antioxidants — reduce PCOS inflammation"], ["🥚 Eggs", "Hormone-balancing choline, high protein, low GI"], ["🫚 Olive oil", "Anti-inflammatory healthy fat — use as your main cooking fat"], ["🌿 Cinnamon", "Clinically shown to improve insulin sensitivity — add to everything"], ["🫚 Flaxseed (add to oats/yogurt)", "Balances estrogen levels — 1 tbsp daily is ideal"], ["🍵 Spearmint tea", "Evidence-backed for reducing androgens in PCOS — 2 cups/day"], ["🫚 Turmeric & ginger", "Powerful anti-inflammatories — already in several recipes"]].map(function (_ref20, i) {
+    var _ref21 = _slicedToArray(_ref20, 2),
+      food = _ref21[0],
+      why = _ref21[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -5454,10 +6209,10 @@ function App() {
       color: "#e65100",
       marginBottom: 14
     }
-  }, "\u26A0\uFE0F Limit These"), [["🍞 Refined carbs (white bread, pasta, pastries)", "Spike insulin rapidly — already mostly out of your plan ✅"], ["🥛 Excess dairy", "Fine in moderate amounts — watch total daily dairy intake"], ["🧅 Raw onion & garlic", "Major bloating triggers — always cook them"], ["🥦 Large amounts of raw cruciferous veg", "Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"], ["🫘 Large portions of legumes", "Black beans, chickpeas — fine in small amounts, known bloating trigger"], ["🍬 Sugar alcohols", "Found in many protein bars — read labels carefully"], ["🧂 Excess salt", "Worsens water retention which PCOS already promotes"], ["🍺 Alcohol", "Disrupts hormones and worsens insulin resistance — minimise"]].map(function (_ref21, i) {
-    var _ref22 = _slicedToArray(_ref21, 2),
-      food = _ref22[0],
-      why = _ref22[1];
+  }, "\u26A0\uFE0F Limit These"), [["🍞 Refined carbs (white bread, pasta, pastries)", "Spike insulin rapidly — already mostly out of your plan ✅"], ["🥛 Excess dairy", "Fine in moderate amounts — watch total daily dairy intake"], ["🧅 Raw onion & garlic", "Major bloating triggers — always cook them"], ["🥦 Large amounts of raw cruciferous veg", "Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"], ["🫘 Large portions of legumes", "Black beans, chickpeas — fine in small amounts, known bloating trigger"], ["🍬 Sugar alcohols", "Found in many protein bars — read labels carefully"], ["🧂 Excess salt", "Worsens water retention which PCOS already promotes"], ["🍺 Alcohol", "Disrupts hormones and worsens insulin resistance — minimise"]].map(function (_ref22, i) {
+    var _ref23 = _slicedToArray(_ref22, 2),
+      food = _ref23[0],
+      why = _ref23[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -5500,10 +6255,10 @@ function App() {
       color: "#7b1fa2",
       marginBottom: 14
     }
-  }, "\uD83D\uDCA8 Bloating Remedies"), [["🍵 Peppermint tea after meals", "Most effective natural remedy for post-meal bloating"], ["🌿 Fennel seeds", "Chew a small pinch after meals — très français, genuinely works"], ["🚶 Walk after eating", "Even 10 minutes significantly helps digestion — fits your step goal"], ["🥄 Eat slowly, chew thoroughly", "Rushing meals is a major bloating cause — give yourself 20 min"], ["💧 Warm water with lemon", "Supports digestion, gentle on the gut, anti-inflammatory"], ["🧘 Manage stress", "Cortisol directly worsens bloating in PCOS — prioritise sleep & calm"]].map(function (_ref23, i) {
-    var _ref24 = _slicedToArray(_ref23, 2),
-      remedy = _ref24[0],
-      why = _ref24[1];
+  }, "\uD83D\uDCA8 Bloating Remedies"), [["🍵 Peppermint tea after meals", "Most effective natural remedy for post-meal bloating"], ["🌿 Fennel seeds", "Chew a small pinch after meals — très français, genuinely works"], ["🚶 Walk after eating", "Even 10 minutes significantly helps digestion — fits your step goal"], ["🥄 Eat slowly, chew thoroughly", "Rushing meals is a major bloating cause — give yourself 20 min"], ["💧 Warm water with lemon", "Supports digestion, gentle on the gut, anti-inflammatory"], ["🧘 Manage stress", "Cortisol directly worsens bloating in PCOS — prioritise sleep & calm"]].map(function (_ref24, i) {
+    var _ref25 = _slicedToArray(_ref24, 2),
+      remedy = _ref25[0],
+      why = _ref25[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -5576,11 +6331,11 @@ function App() {
       marginBottom: 20,
       flexWrap: "wrap"
     }
-  }, [["heb", "H-E-B", C.heb], ["tj", "Trader Joe's", C.tj], ["wf", "Whole Foods", C.wf]].map(function (_ref25) {
-    var _ref26 = _slicedToArray(_ref25, 3),
-      id = _ref26[0],
-      label = _ref26[1],
-      color = _ref26[2];
+  }, [["heb", "H-E-B", C.heb], ["tj", "Trader Joe's", C.tj], ["wf", "Whole Foods", C.wf]].map(function (_ref26) {
+    var _ref27 = _slicedToArray(_ref26, 3),
+      id = _ref27[0],
+      label = _ref27[1],
+      color = _ref27[2];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -5822,10 +6577,10 @@ function App() {
       gap: 2,
       flexShrink: 0
     }
-  }, [["imperial", "🇺🇸 Imperial"], ["metric", "🇫🇷 Metric"]].map(function (_ref27) {
-    var _ref28 = _slicedToArray(_ref27, 2),
-      id = _ref28[0],
-      label = _ref28[1];
+  }, [["imperial", "🇺🇸 Imperial"], ["metric", "🇫🇷 Metric"]].map(function (_ref28) {
+    var _ref29 = _slicedToArray(_ref28, 2),
+      id = _ref29[0],
+      label = _ref29[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -5920,10 +6675,10 @@ function App() {
       marginBottom: 24,
       width: "fit-content"
     }
-  }, [["standard", "📅 Standard Plan"], ["pcos", "🌸 PCOS Plan"]].map(function (_ref29) {
-    var _ref30 = _slicedToArray(_ref29, 2),
-      id = _ref30[0],
-      label = _ref30[1];
+  }, [["standard", "📅 Standard Plan"], ["pcos", "🌸 PCOS Plan"]].map(function (_ref30) {
+    var _ref31 = _slicedToArray(_ref30, 2),
+      id = _ref31[0],
+      label = _ref31[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -6151,10 +6906,10 @@ function App() {
       marginBottom: 20,
       width: "fit-content"
     }
-  }, [["eloise", "🌿 Eloise"], ["boyfriend", "🏃 Sterling"]].map(function (_ref31) {
-    var _ref32 = _slicedToArray(_ref31, 2),
-      id = _ref32[0],
-      label = _ref32[1];
+  }, [["eloise", "🌿 Eloise"], ["boyfriend", "🏃 Sterling"]].map(function (_ref32) {
+    var _ref33 = _slicedToArray(_ref32, 2),
+      id = _ref33[0],
+      label = _ref33[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -6179,7 +6934,7 @@ function App() {
       color: C.muted,
       marginBottom: 20
     }
-  }, "14 weeks \xB7 Beginner lifting \xB7 PCOS cycle-synced \xB7 May 26 \u2192 September 2026"), /*#__PURE__*/React.createElement("div", {
+  }, "14 weeks \xB7 Beginner lifting \xB7 May 26 \u2192 September 2026 \xB7 See \uD83C\uDF38 Cycle Sync tab for PCOS-specific guidance"), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "linear-gradient(135deg,".concat(C.sageDark, ",#2d4f31)"),
       borderRadius: 18,
@@ -6194,10 +6949,10 @@ function App() {
       color: "#9dcfa1",
       marginBottom: 14
     }
-  }, "Your 14-Week Goal"), [["Start", "May 26, 2026"], ["Goal", "September 2026"], ["Target", "-10kg / -22 lbs"], ["Schedule", "4 days lifting + daily walk"], ["Split", "Upper / Lower / Rest / Upper / Lower / Walk / Rest"]].map(function (_ref33) {
-    var _ref34 = _slicedToArray(_ref33, 2),
-      l = _ref34[0],
-      v = _ref34[1];
+  }, "Your 14-Week Goal"), [["Start", "May 26, 2026"], ["Goal", "September 2026"], ["Target", "-10kg / -22 lbs"], ["Schedule", "4 days lifting + daily walk"], ["Split", "Upper / Lower / Rest / Upper / Lower / Walk / Rest"]].map(function (_ref34) {
+    var _ref35 = _slicedToArray(_ref34, 2),
+      l = _ref35[0],
+      v = _ref35[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -6237,10 +6992,10 @@ function App() {
       color: "#90caf9",
       marginBottom: 14
     }
-  }, "Sterling's Weekend Plan"), [["Gym days", "Saturday + Sunday only"], ["Goal", "Strength + weight loss + running performance"], ["Duration", "45 min (builds to 60 min)"], ["Running", "Mon–Fri · 4–5 miles / 6.4–8km daily"], ["Key insight", "Running handles cardio — gym is 100% strength"]].map(function (_ref35) {
-    var _ref36 = _slicedToArray(_ref35, 2),
-      l = _ref36[0],
-      v = _ref36[1];
+  }, "Sterling's Weekend Plan"), [["Gym days", "Saturday + Sunday only"], ["Goal", "Strength + weight loss + running performance"], ["Duration", "45 min (builds to 60 min)"], ["Running", "Mon–Fri · 4–5 miles / 6.4–8km daily"], ["Key insight", "Running handles cardio — gym is 100% strength"]].map(function (_ref36) {
+    var _ref37 = _slicedToArray(_ref36, 2),
+      l = _ref37[0],
+      v = _ref37[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -6280,10 +7035,10 @@ function App() {
       gap: 8,
       marginBottom: 24
     }
-  }, [["log", "📝 Log Today"], ["history", "📈 Progress Charts"]].map(function (_ref37) {
-    var _ref38 = _slicedToArray(_ref37, 2),
-      id = _ref38[0],
-      label = _ref38[1];
+  }, [["log", "📝 Log Today"], ["history", "📈 Progress Charts"]].map(function (_ref38) {
+    var _ref39 = _slicedToArray(_ref38, 2),
+      id = _ref39[0],
+      label = _ref39[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -6342,11 +7097,11 @@ function App() {
       gridTemplateColumns: "1fr 1fr 1fr",
       gap: 12
     }
-  }, [["weight", "Weight", "kg"], ["waist", "Waist", "cm"], ["hips", "Hips", "cm"]].map(function (_ref39) {
-    var _ref40 = _slicedToArray(_ref39, 3),
-      key = _ref40[0],
-      label = _ref40[1],
-      u = _ref40[2];
+  }, [["weight", "Weight", "kg"], ["waist", "Waist", "cm"], ["hips", "Hips", "cm"]].map(function (_ref40) {
+    var _ref41 = _slicedToArray(_ref40, 3),
+      key = _ref41[0],
+      label = _ref41[1],
+      u = _ref41[2];
     return /*#__PURE__*/React.createElement("div", {
       key: key
     }, /*#__PURE__*/React.createElement("label", {
@@ -6401,11 +7156,11 @@ function App() {
       gap: 12,
       marginBottom: 14
     }
-  }, [["steps", "Steps walked", "e.g. 8500"], ["calories", "Calories eaten", "e.g. 1340"]].map(function (_ref41) {
-    var _ref42 = _slicedToArray(_ref41, 3),
-      key = _ref42[0],
-      label = _ref42[1],
-      ph = _ref42[2];
+  }, [["steps", "Steps walked", "e.g. 8500"], ["calories", "Calories eaten", "e.g. 1340"]].map(function (_ref42) {
+    var _ref43 = _slicedToArray(_ref42, 3),
+      key = _ref43[0],
+      label = _ref43[1],
+      ph = _ref43[2];
     return /*#__PURE__*/React.createElement("div", {
       key: key
     }, /*#__PURE__*/React.createElement("label", {
@@ -6583,11 +7338,11 @@ function App() {
       padding: 20,
       boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
     }
-  }, [["Bloating", "💨", "severity"], ["Energy level (1–5)", "⚡", "scale"], ["Mood (1–5)", "😊", "scale"], ["Cramps", "🌡️", "severity"], ["Skin breakouts", "✨", "severity"], ["Headache / Migraine", "🤕", "migraine"], ["Migraine intensity (1–5)", "📊", "migrainescale"]].map(function (_ref43) {
-    var _ref44 = _slicedToArray(_ref43, 3),
-      label = _ref44[0],
-      icon = _ref44[1],
-      type = _ref44[2];
+  }, [["Bloating", "💨", "severity"], ["Energy level (1–5)", "⚡", "scale"], ["Mood (1–5)", "😊", "scale"], ["Cramps", "🌡️", "severity"], ["Skin breakouts", "✨", "severity"], ["Headache / Migraine", "🤕", "migraine"], ["Migraine intensity (1–5)", "📊", "migrainescale"]].map(function (_ref44) {
+    var _ref45 = _slicedToArray(_ref44, 3),
+      label = _ref45[0],
+      icon = _ref45[1],
+      type = _ref45[2];
     return /*#__PURE__*/React.createElement("div", {
       key: label,
       style: {
@@ -6758,10 +7513,10 @@ function App() {
       marginBottom: 16,
       flexWrap: "wrap"
     }
-  }, [["Start", chartData[0].value], ["Latest", chartData[chartData.length - 1].value], ["Change", +(chartData[chartData.length - 1].value - chartData[0].value).toFixed(1)]].map(function (_ref45, i) {
-    var _ref46 = _slicedToArray(_ref45, 2),
-      l = _ref46[0],
-      v = _ref46[1];
+  }, [["Start", chartData[0].value], ["Latest", chartData[chartData.length - 1].value], ["Change", +(chartData[chartData.length - 1].value - chartData[0].value).toFixed(1)]].map(function (_ref46, i) {
+    var _ref47 = _slicedToArray(_ref46, 2),
+      l = _ref47[0],
+      v = _ref47[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l
     }, /*#__PURE__*/React.createElement("span", {
@@ -6831,10 +7586,10 @@ function App() {
         gap: 8,
         flexWrap: "wrap"
       }
-    }, [["weight", "kg"], ["waist", "cm"], ["hips", "cm"], ["steps", "steps"], ["calories", "kcal"], ["water", "L"]].map(function (_ref47) {
-      var _ref48 = _slicedToArray(_ref47, 2),
-        key = _ref48[0],
-        u = _ref48[1];
+    }, [["weight", "kg"], ["waist", "cm"], ["hips", "cm"], ["steps", "steps"], ["calories", "kcal"], ["water", "L"]].map(function (_ref48) {
+      var _ref49 = _slicedToArray(_ref48, 2),
+        key = _ref49[0],
+        u = _ref49[1];
       return log[key] ? /*#__PURE__*/React.createElement("span", {
         key: key,
         style: {
