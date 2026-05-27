@@ -36,15 +36,15 @@
 "use strict";
 
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -87,6 +87,18 @@ var CAT = {
   Wrap: {
     bg: "#ede7f6",
     fg: "#4527a0"
+  },
+  "Pre-Workout": {
+    bg: "#e3f2fd",
+    fg: "#1565c0"
+  },
+  "Late Night": {
+    bg: "#f3e5f5",
+    fg: "#6a1b9a"
+  },
+  "Goûter": {
+    bg: "#fce4ec",
+    fg: "#880e4f"
   }
 };
 
@@ -1286,7 +1298,7 @@ var RECIPES = [
   bloat: "medium",
   imperial: ["1 can chickpeas (~15 oz, drained and rinsed)", "1 tsp olive oil", "½ tsp sea salt", "½ tsp garlic powder", "Optional: pinch of smoked paprika"],
   metric: ["1 can chickpeas (~400g, drained and rinsed)", "5ml olive oil", "2.5ml sea salt", "2.5ml garlic powder", "Optional: pinch of smoked paprika"],
-  steps: ["Drain and rinse chickpeas thoroughly. This is the most important step — spread them on a clean kitchen towel and pat completely dry. Any moisture = soft chickpeas instead of crunchy ones. Let them dry 10–15 minutes if you have time.", "Remove any loose skins that come off during drying — they burn before the chickpeas crisp up.", "Toss dry chickpeas with olive oil, salt and garlic powder in a bowl until evenly coated.", "Air fry at 390°F / 200°C for 15–18 minutes, shaking the basket every 5 minutes. They should be deeply golden and feel hard when you press one.", "Let cool 5–10 minutes before eating — they crisp up even more as they cool. Don't skip this step.", "Store in an open container or paper bag at room temperature — airtight containers trap moisture and make them go soft. Best within 2 days.", "🌸 Chickpeas are a great PCOS snack — high fibre, plant protein, low GI. Just keep portions to ½ cup / 80g to manage bloating.", "💡 Boyfriend tip: make a double batch — two cans — and use them alongside meals all week instead of chips. Same crunch, way more nutrition."]
+  steps: ["Drain and rinse chickpeas thoroughly. This is the most important step — spread them on a clean kitchen towel and pat completely dry. Any moisture = soft chickpeas instead of crunchy ones. Let them dry 10–15 minutes if you have time.", "Remove any loose skins that come off during drying — they burn before the chickpeas crisp up.", "Toss dry chickpeas with olive oil, salt and garlic powder in a bowl until evenly coated.", "Air fry at 390°F / 200°C for 15–18 minutes, shaking the basket every 5 minutes. They should be deeply golden and feel hard when you press one.", "Let cool 5–10 minutes before eating — they crisp up even more as they cool. Don't skip this step.", "Store in an open container or paper bag at room temperature — airtight containers trap moisture and make them go soft. Best within 2 days.", "🌸 Chickpeas are a great PCOS snack — high fibre, plant protein, low GI. Just keep portions to ½ cup / 80g to manage bloating.", "💡 Sterling tip: make a double batch — two cans — and use them alongside meals all week instead of chips. Same crunch, way more nutrition."]
 }, {
   title: "Air Fryer Roasted Chickpeas (Spicy)",
   category: "Snack",
@@ -1697,6 +1709,12 @@ var GROCERY = {
 var MEAL_PLAN = [{
   day: "Monday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Overnight Oats Pre-Workout Jar",
+    note: "🏋️ Prep the night before — grab and go, best for morning lifting",
+    cal: 240,
+    protein: 18
+  }, {
     label: "Breakfast",
     desc: "Overnight Protein Oats",
     cal: 360,
@@ -1716,10 +1734,22 @@ var MEAL_PLAN = [{
     desc: "Turkey & Zucchini Stir-Fry (no rice)",
     cal: 350,
     protein: 32
+  }, {
+    label: "Late Night",
+    desc: "Frozen Yogurt Bark",
+    note: "🌙 Make Sunday batch — grab straight from freezer. Casein feeds muscles overnight",
+    cal: 110,
+    protein: 10
   }]
 }, {
   day: "Tuesday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Greek Yogurt with Banana & Honey",
+    note: "🏋️ 15g protein before lifting — highest protein pre-workout option",
+    cal: 200,
+    protein: 15
+  }, {
     label: "Breakfast",
     desc: "Cottage Cheese Egg Scramble",
     cal: 300,
@@ -1739,10 +1769,22 @@ var MEAL_PLAN = [{
     desc: "Air Fryer Salmon with Lemon + roasted broccoli",
     cal: 320,
     protein: 34
+  }, {
+    label: "Late Night",
+    desc: "Warm Cinnamon Cottage Cheese Bowl",
+    note: "🌙 Casein protein overnight = muscle repair while you sleep",
+    cal: 120,
+    protein: 14
   }]
 }, {
   day: "Wednesday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Banana & Peanut Butter Toast",
+    note: "🏋️ Fast carbs + protein — fuel the lift without heaviness",
+    cal: 220,
+    protein: 7
+  }, {
     label: "Breakfast",
     desc: "Greek Yogurt Parfait with berries & chia",
     cal: 280,
@@ -1762,10 +1804,22 @@ var MEAL_PLAN = [{
     desc: "Air Fryer Chicken Fajita Bowl (cauli rice)",
     cal: 380,
     protein: 38
+  }, {
+    label: "Late Night",
+    desc: "Dark Chocolate & Almond Butter Rice Cake",
+    note: "🌙 Magnesium from dark chocolate supports sleep quality",
+    cal: 140,
+    protein: 4
   }]
 }, {
   day: "Thursday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Rice Cake with Banana & Almond Butter",
+    note: "🏋️ Lightest option — zero bloating risk, pure fast carbs",
+    cal: 160,
+    protein: 4
+  }, {
     label: "Breakfast",
     desc: "Protein Smoothie (chocolate whey + spinach)",
     cal: 300,
@@ -1785,10 +1839,22 @@ var MEAL_PLAN = [{
     desc: "Ground Turkey Soup (make extra for Friday)",
     cal: 300,
     protein: 30
+  }, {
+    label: "Late Night",
+    desc: "Warm Banana with Cinnamon & Honey",
+    note: "🌙 Tryptophan + magnesium = better sleep. Perfect pre-bed ritual",
+    cal: 105,
+    protein: 1
   }]
 }, {
   day: "Friday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Protein Smoothie Pre-Workout Shot",
+    note: "🏋️ Highest protein shot — great for heavier Friday lifts",
+    cal: 180,
+    protein: 20
+  }, {
     label: "Breakfast",
     desc: "Egg White & Mushroom Omelette",
     cal: 180,
@@ -1808,10 +1874,22 @@ var MEAL_PLAN = [{
     desc: "Air Fryer Lemon Herb Chicken + asparagus 🥂",
     cal: 320,
     protein: 37
+  }, {
+    label: "Late Night",
+    desc: "Spearmint Hot Chocolate",
+    note: "🌙🌸 Warm wind-down drink — spearmint reduces androgens while you sleep",
+    cal: 120,
+    protein: 8
   }]
 }, {
   day: "Saturday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Banana & Peanut Butter Toast",
+    note: "🏋️ Light pre-workout fuel for Saturday session",
+    cal: 220,
+    protein: 7
+  }, {
     label: "Breakfast",
     desc: "Air Fryer Asparagus & Eggs (slow morning)",
     cal: 240,
@@ -1831,10 +1909,22 @@ var MEAL_PLAN = [{
     desc: "Date night! Chicken & Broccoli Sheet Pan — or order smart 🍽️",
     cal: 340,
     protein: 40
+  }, {
+    label: "Late Night",
+    desc: "Frozen Yogurt Bark",
+    note: "🌙 Weekend treat that fits the plan perfectly",
+    cal: 110,
+    protein: 10
   }]
 }, {
   day: "Sunday",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Greek Yogurt with Banana & Honey",
+    note: "🏋️ Sunday lift fuel — keep the routine consistent",
+    cal: 200,
+    protein: 15
+  }, {
     label: "Breakfast",
     desc: "Overnight Protein Oats (prep 2 jars — one for Monday!)",
     cal: 360,
@@ -1854,6 +1944,12 @@ var MEAL_PLAN = [{
     desc: "Ground Turkey Soup — cook double batch for the week 🍲",
     cal: 300,
     protein: 30
+  }, {
+    label: "Late Night",
+    desc: "Warm Cinnamon Cottage Cheese Bowl",
+    note: "🌙 Best pre-bed snack for lifting — slow casein feeds muscles all night",
+    cal: 120,
+    protein: 14
   }]
 }];
 var TRACKING_TIPS = [{
@@ -1886,243 +1982,826 @@ var TRACKING_TIPS = [{
 var PCOS_GREAT = ["Air Fryer Lemon Herb Chicken", "Air Fryer Salmon with Lemon", "Salmon & Spinach Salad", "Spicy Shrimp & Spinach Bowl", "Air Fryer Garlic Shrimp", "Shrimp & Zucchini Stir-Fry", "Big Spinach Chicken Salad", "Cottage Cheese Egg Scramble", "Egg White & Mushroom Omelette", "Air Fryer Asparagus & Eggs", "Tuna-Stuffed Avocado", "Turkey & Zucchini Stir-Fry", "Turkey-Stuffed Baby Bell Peppers", "Vanilla Chia Pudding", "Chocolate Chia Pudding", "Banana Blueberry Chia Pudding", "Greek Yogurt Parfait", "Air Fryer Chicken Fajita Bowl", "Chicken & Broccoli Sheet Pan", "Juicy Lemon Garlic Chicken Breast", "Juicy French Mustard & Thyme Chicken", "Hard-Boiled Eggs & Carrots", "Soft-Boiled Egg with Fleur de Sel", "Egg Bites — Spinach & Feta", "Egg Bites — Turkey & Bell Pepper", "Spicy Shrimp & Spinach Bowl", "Shrimp Taco Lettuce Cups"];
 var PCOS_CAUTION = ["Lighter Gnocchi Carbonara", "High-Protein Beef Fried Rice", "High-Protein Chicken Fried Rice", "Beef Fried Rice (Half & Half)", "Chicken Fried Rice (Half & Half)", "Ground Turkey Soup", "Overnight Protein Oats", "Banana Protein Pancakes", "Banana Oat Breakfast Cookies", "No-Bake Energy Balls", "Protein Brownies", "Classic Brownies (Naturally Healthy)", "Blondies Beurre & Miel", "Protein Blondies", "Honey Butter Cookies", "Madeleines Classiques (La vraie recette)"];
 var MEAL_TYPES = ["All", "Breakfast", "Lunch", "Snack", "Dinner", "Wrap"];
+var WORKOUT_PLAN_BF = {
+  overview: {
+    goal: "Build strength + support running + lose weight",
+    schedule: "Saturday + Sunday gym · Mon–Fri running 4–5 miles",
+    duration: "45 min (expandable to 60 min)",
+    philosophy: "Running covers your cardio and fat burning all week. The gym is purely for strength — no treadmills needed."
+  },
+  weekly_split: [{
+    day: "Saturday 💪",
+    type: "Upper Body + Core",
+    focus: "Chest · Back · Shoulders · Arms · Core",
+    exercises: ["Dumbbell Chest Press — 3×12", "Dumbbell Bent-Over Row — 3×12 each", "Seated Dumbbell Shoulder Press — 3×10", "Dumbbell Bicep Curl — 3×12", "Tricep Dumbbell Overhead Extension — 3×12", "Plank — 3×30 sec", "Dead Bug — 3×8 each side"],
+    duration: "45 min",
+    notes: "Upper body only on Saturday — your legs ran all week, give them a full rest. Focus on feeling the muscle work rather than lifting heavy. Rest 60–90 sec between sets."
+  }, {
+    day: "Sunday 🏋️",
+    type: "Full Body Strength",
+    focus: "Glutes · Legs · Core · Upper Body",
+    exercises: ["Dumbbell Goblet Squat — 3×12", "Glute Bridge — 3×15", "Dumbbell Romanian Deadlift (RDL) — 3×10", "Dumbbell Bent-Over Row — 3×12 each", "Seated Dumbbell Shoulder Press — 3×10", "Plank — 3×30 sec", "Dead Bug — 3×8 each side"],
+    duration: "45–60 min",
+    notes: "Sunday is full body but leg-focused — glutes and hamstrings are the most undertrained muscles in runners. Strong glutes = faster running + fewer injuries. Keep weights moderate, focus on form."
+  }, {
+    day: "Monday–Friday 🏃",
+    type: "Running",
+    focus: "4–5 miles / 6.4–8km",
+    exercises: ["Run 4–5 miles at comfortable pace", "Stretch calves, hamstrings and hip flexors after every run", "Optional: 10 min core work on any day (plank, dead bug)", "Walk the rest of the day — steps count toward weight loss"],
+    duration: "40–50 min",
+    notes: "Your running is doing the heavy lifting for fat loss. Don't skip the post-run stretch — tight hip flexors fight against your gym squats."
+  }],
+  exercises: [{
+    name: "Dumbbell Chest Press",
+    muscle: "Chest + Triceps + Shoulders",
+    equipment: "Adjustable bench + dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell chest press form beginners'",
+    how: ["Sit on bench, place dumbbells on thighs, lie back bringing them to chest height", "Elbows at 45° — not flared out to 90°", "Press up until arms almost straight — don't lock elbows", "Lower slowly — 3 seconds down is where the muscle builds", "Feet flat on floor, slight natural arch in lower back"],
+    mistakes: ["Elbows flaring to 90° — shoulder injury risk", "Bouncing weight off chest", "Going too heavy — start with 6–8 kg / 12–16 lbs each"],
+    beginner_weight: "6–8 kg / 12–16 lbs each",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Dumbbell Bent-Over Row",
+    muscle: "Back + Biceps",
+    equipment: "Dumbbells + bench",
+    level: "Beginner",
+    video_tip: "Search 'single arm dumbbell row form'",
+    how: ["One knee and hand on the bench for support", "Hold dumbbell in other hand, arm hanging straight down", "Pull dumbbell up toward your hip — elbow goes behind you", "Squeeze back at the top, lower slowly", "Back stays flat — don't rotate your torso"],
+    mistakes: ["Using bicep instead of back — think 'elbow to ceiling'", "Rounding the back", "Pulling toward chest instead of hip"],
+    beginner_weight: "8–10 kg / 16–20 lbs",
+    sets: "3 sets of 12 reps each side"
+  }, {
+    name: "Seated Dumbbell Shoulder Press",
+    muscle: "Shoulders + Triceps",
+    equipment: "Adjustable bench + dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell shoulder press seated form'",
+    how: ["Set bench to 90° upright", "Hold dumbbells at shoulder height, palms facing forward", "Press straight up until arms nearly straight", "Lower slowly back to shoulder height", "Core tight, don't arch lower back"],
+    mistakes: ["Leaning back excessively — puts strain on lower back", "Going too heavy before shoulders are warmed up"],
+    beginner_weight: "6–8 kg / 12–16 lbs each",
+    sets: "3 sets of 10 reps"
+  }, {
+    name: "Dumbbell Bicep Curl",
+    muscle: "Biceps",
+    equipment: "Dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell bicep curl proper form'",
+    how: ["Stand with dumbbells at sides, palms forward", "Curl both up toward shoulders", "Squeeze at the top for 1 second", "Lower slowly — 3 seconds down", "Elbows pinned to sides throughout"],
+    mistakes: ["Swinging body to lift — too heavy, reduce weight", "Elbows drifting forward", "Dropping weight down instead of lowering controlled"],
+    beginner_weight: "6–8 kg / 12–16 lbs",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Tricep Dumbbell Overhead Extension",
+    muscle: "Triceps",
+    equipment: "One dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'overhead tricep extension dumbbell form'",
+    how: ["Stand or sit, hold one dumbbell with both hands above head", "Lower weight behind head by bending at elbows only", "Upper arms stay completely still", "Press back up, squeeze triceps at top"],
+    mistakes: ["Flaring elbows out wide", "Moving upper arms during the movement", "Going too heavy — triceps are a small muscle"],
+    beginner_weight: "8–10 kg / 16–20 lbs (one dumbbell)",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Dumbbell Goblet Squat",
+    muscle: "Quads + Glutes + Core",
+    equipment: "One dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'goblet squat dumbbell form beginners'",
+    how: ["Hold one dumbbell vertically at your chest with both hands", "Feet shoulder-width apart, toes slightly out", "Push hips back and bend knees — squat until thighs are parallel to floor", "Chest up, knees track over toes", "Drive through heels to stand"],
+    mistakes: ["Knees caving inward — push them out deliberately", "Heels lifting — weight too far forward", "Not going deep enough — aim for parallel thighs"],
+    beginner_weight: "10–12 kg / 20–24 lbs (he's heavier — can handle more from the start)",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Glute Bridge",
+    muscle: "Glutes + Hamstrings + Core",
+    equipment: "Mat + optional dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'glute bridge form weighted'",
+    how: ["Lie on back, knees bent, feet flat on floor hip-width apart", "Optional: place dumbbell on hips for resistance", "Drive hips up by squeezing glutes — not lower back", "Hold 2 seconds at top, squeeze hard", "Lower slowly without letting glutes touch the floor between reps"],
+    mistakes: ["Driving with lower back instead of glutes — feel where it burns", "Not squeezing at the top", "Moving too fast — slow it down"],
+    beginner_weight: "Bodyweight first, then 15–20 kg / 30–40 lbs dumbbell on hips",
+    sets: "3 sets of 15 reps"
+  }, {
+    name: "Dumbbell Romanian Deadlift (RDL)",
+    muscle: "Hamstrings + Glutes + Lower Back",
+    equipment: "Dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'Romanian deadlift dumbbell form beginners'",
+    how: ["Stand with dumbbells in front of thighs, palms facing you", "Hinge at hips — push them back, not down", "Lower dumbbells along your legs keeping them close", "Back stays flat, slight bend in knees", "Feel the stretch in hamstrings, then drive hips forward to stand"],
+    mistakes: ["Rounding the lower back — biggest injury risk, reduce weight immediately", "Bending knees too much — becomes a squat", "Lowering too fast — control the movement"],
+    beginner_weight: "10–12 kg / 20–24 lbs each",
+    sets: "3 sets of 10 reps"
+  }, {
+    name: "Plank",
+    muscle: "Core (entire)",
+    equipment: "Mat or floor",
+    level: "Beginner",
+    video_tip: "Search 'plank proper form beginner'",
+    how: ["Forearms on floor, elbows under shoulders", "Toes on floor, body in a straight line", "Squeeze glutes, tighten core, breathe normally", "Don't let hips sag or pike up"],
+    mistakes: ["Hips sagging — raise them slightly if needed", "Holding breath", "Looking up — keep neck neutral"],
+    beginner_weight: "Bodyweight only",
+    sets: "3 sets of 30 sec. Build to 60 sec over weeks."
+  }, {
+    name: "Dead Bug",
+    muscle: "Deep Core + Lower Back Stability",
+    equipment: "Mat",
+    level: "Beginner",
+    video_tip: "Search 'dead bug exercise form core'",
+    how: ["Lie on back, arms straight up, knees bent at 90°", "Lower opposite arm and leg toward floor simultaneously", "Lower back MUST stay pressed into mat — this is the whole exercise", "Bring back to start, switch sides", "Breathe out as you lower, breathe in as you return"],
+    mistakes: ["Lower back arching off floor — reduce range of motion", "Moving too fast", "Holding breath"],
+    beginner_weight: "Bodyweight only",
+    sets: "3 sets of 8 reps each side"
+  }],
+  running_strength_tips: [{
+    icon: "🦵",
+    title: "Glutes are your engine",
+    tip: "Runners who don't strength train almost always have weak glutes — the hip flexors take over and that's where injuries start. The goblet squat and glute bridge on Sunday are the two most important exercises for your running performance."
+  }, {
+    icon: "🧘",
+    title: "Stretch after every run — no exceptions",
+    tip: "Hip flexors, calves and hamstrings tighten significantly with daily running. Tight hip flexors reduce squat depth and hurt glute activation in the gym. 10 minutes of stretching after every run protects your weekend sessions."
+  }, {
+    icon: "💤",
+    title: "Saturday is his hardest gym day",
+    tip: "You run Mon–Fri, so Saturday is your first gym day after a full week of running. Your legs need the break — that's why Saturday is upper body only. Sunday has leg work because you've had one full rest day."
+  }, {
+    icon: "🥩",
+    title: "Protein is more critical for him than you",
+    tip: "You're running 4–5 miles daily AND lifting on weekends. At 194 lbs / 88kg with that activity level you need 155–165g / 5.5–5.8oz of protein every single day. Without it, you'll lose muscle along with fat and feel exhausted."
+  }, {
+    icon: "📈",
+    title: "Progress looks different for runners",
+    tip: "Runners who add strength training typically don't see dramatic weight changes immediately — the muscle you build partially offsets the fat you lose. Judge your progress by how running feels (easier, faster, less tired) and how your clothes fit, not just the scale."
+  }, {
+    icon: "🔼",
+    title: "When to increase weight",
+    tip: "Same rule: if you can do all reps with good form, increase by the smallest increment available (usually 2 kg). If you can't complete 8 reps with good form, the weight is too heavy. Progress should feel gradual, not forced."
+  }],
+  progression: [{
+    phase: "Weeks 1–4 — Learn the movements",
+    intensity: "45 min · Low weight",
+    key: "Every exercise will feel awkward at first — that's completely normal. Focus entirely on feeling the right muscle work. Film yourself from the side. Ask gym staff to check your form if unsure.",
+    checkpoints: ["Can you feel your back (not biceps) during rows?", "Are your knees tracking correctly in squats?", "Can you hold a plank for 30 seconds?", "Does the gym feel less intimidating than Week 1?"]
+  }, {
+    phase: "Weeks 5–8 — Add weight, add confidence",
+    intensity: "45–60 min · Moderate weight",
+    key: "Increase weight by the smallest increment once you can complete all reps cleanly. The last 2 reps should feel challenging but doable.",
+    checkpoints: ["Are you lifting more than Week 1?", "Are your runs feeling any easier or faster?", "Are your glutes actually sore after Sunday sessions? If not, increase weight.", "Still stretching after every run? No exceptions."]
+  }, {
+    phase: "Weeks 9–14 — Build real strength",
+    intensity: "60 min · Progressive weight",
+    key: "This is where the running and lifting synergy becomes noticeable. You should feel stronger on runs and more capable in the gym. Results compound here.",
+    checkpoints: ["Is your goblet squat weight significantly higher than Week 1?", "Is your running pace improving or the effort reducing?", "Are your clothes fitting differently?", "Consistent with both Saturday AND Sunday — no skipping?"]
+  }]
+};
+
+// ── WORKOUT PLAN ────────────────────────────────────────────
+var WORKOUT_PLAN = {
+  overview: {
+    start: "May 26, 2026",
+    goal: "September 2026 — 10kg / 22 lbs lost, full body toned",
+    weeks: 14,
+    schedule: "4 days lifting / week + daily walking goal",
+    split: "Upper / Lower / Rest / Upper / Lower / Active Rest / Full Rest"
+  },
+  cycle_guide: [{
+    phase: "🌸 Menstrual (Day 1–5)",
+    energy: "Low",
+    intensity: "Easy",
+    color: "#fce4ec",
+    fg: "#880e4f",
+    desc: "Your period. Hormones are at their lowest. Don't force intensity — your body is working hard already.",
+    "do": ["Gentle walking only", "Light stretching or yoga", "Rest is productive, not lazy", "Stay hydrated, prioritise iron-rich foods"],
+    avoid: ["Heavy lifting", "HIIT or high intensity", "Feeling guilty about resting"],
+    tip: "This is your recovery week. Use it to meal prep, plan your next phase, and sleep more."
+  }, {
+    phase: "🌿 Follicular (Day 6–13)",
+    energy: "Rising",
+    intensity: "Build",
+    color: "#e8f5e9",
+    fg: "#2e7d32",
+    desc: "Estrogen rises, energy increases, recovery is faster. Start ramping intensity back up.",
+    "do": ["Full lifting sessions at normal intensity", "Increase weights if the previous week felt easy", "Higher protein intake supports the anabolic window", "Good time to try new exercises or machines"],
+    avoid: ["Skipping sessions — this is your prime window", "Underrating your strength — you're likely stronger than last week"],
+    tip: "Your best gains happen here. Show up consistently during the follicular phase and the results compound."
+  }, {
+    phase: "⚡ Ovulatory (Day 14–16)",
+    energy: "Peak",
+    intensity: "Push Hard",
+    color: "#fff8e1",
+    fg: "#7a5c00",
+    desc: "Peak estrogen, peak strength, peak energy. Your body is primed for performance.",
+    "do": ["Go heavier than usual — this is your personal record window", "Full intensity on all lifts", "Extra set per exercise if energy allows", "Celebrate what your body can do"],
+    avoid: ["Holding back", "Skipping this window — it only lasts 2–3 days"],
+    tip: "You'll feel unusually strong and motivated. That's not a coincidence — use it."
+  }, {
+    phase: "🌙 Luteal (Day 17–28)",
+    energy: "Declining",
+    intensity: "Reduce",
+    color: "#f3e5f5",
+    fg: "#6a1b9a",
+    desc: "Progesterone rises, body temperature increases, inflammation is higher. This is the PCOS danger zone for overtraining.",
+    "do": ["Keep lifting but reduce weight by 10–15%", "Focus on form over load", "More rest between sets (2–3 min instead of 1)", "Prioritise sleep and stress management", "Gentle walking over intense cardio"],
+    avoid: ["Pushing through unusual fatigue — listen to your body", "HIIT or high-intensity cardio", "Comparing this week to your ovulatory week"],
+    tip: "Many PCOS women plateau here because they fight the luteal phase instead of working with it. Reduce intensity, maintain consistency, trust the process."
+  }],
+  exercises: [
+  // UPPER BODY
+  {
+    name: "Dumbbell Chest Press",
+    muscle: "Chest + Triceps + Shoulders",
+    equipment: "Adjustable bench + dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell chest press form' on YouTube",
+    how: ["Sit on the bench, place dumbbells on thighs", "Lie back, bring dumbbells to chest height, elbows at 45°", "Press up until arms are almost straight (don't lock elbows)", "Lower slowly — 3 seconds down, 1 second up", "Keep feet flat on floor, lower back slightly arched"],
+    mistakes: ["Elbows flaring out to 90° — hurts shoulders", "Bouncing weight off chest", "Going too heavy too soon — start with 4–5 kg / 10 lbs each"],
+    beginner_weight: "4–6 kg / 8–12 lbs each dumbbell",
+    sets: "3 sets of 10–12 reps"
+  }, {
+    name: "Seated Dumbbell Shoulder Press",
+    muscle: "Shoulders + Triceps",
+    equipment: "Adjustable bench (upright) + dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell shoulder press seated form'",
+    how: ["Set bench to 90° upright", "Hold dumbbells at shoulder height, palms facing forward", "Press straight up until arms are nearly straight", "Lower slowly back to shoulder height", "Keep core tight, don't arch lower back"],
+    mistakes: ["Leaning back excessively", "Pressing behind the head — strains the neck", "Using momentum instead of controlled movement"],
+    beginner_weight: "4–6 kg / 8–12 lbs each",
+    sets: "3 sets of 10–12 reps"
+  }, {
+    name: "Dumbbell Bent-Over Row",
+    muscle: "Back + Biceps",
+    equipment: "Dumbbells + bench",
+    level: "Beginner",
+    video_tip: "Search 'single arm dumbbell row form'",
+    how: ["Put one knee and hand on the bench for support", "Hold dumbbell in the other hand, arm hanging straight", "Pull dumbbell up toward your hip — elbow goes behind you", "Squeeze back at the top, lower slowly", "Keep back flat, don't rotate your torso"],
+    mistakes: ["Using too much bicep — the back should do the work", "Rounding the back", "Pulling toward the chest instead of the hip"],
+    beginner_weight: "6–8 kg / 12–15 lbs",
+    sets: "3 sets of 10–12 reps each side"
+  }, {
+    name: "Dumbbell Bicep Curl",
+    muscle: "Biceps",
+    equipment: "Dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'dumbbell bicep curl form'",
+    how: ["Stand with dumbbells at your sides, palms forward", "Curl both dumbbells up toward shoulders", "Squeeze at the top for 1 second", "Lower slowly — this is where the muscle grows", "Elbows stay pinned to your sides throughout"],
+    mistakes: ["Swinging the body to lift the weight — too heavy", "Letting elbows drift forward", "Dropping the weight down instead of lowering controlled"],
+    beginner_weight: "4–6 kg / 8–12 lbs",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Tricep Dumbbell Overhead Extension",
+    muscle: "Triceps",
+    equipment: "One dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'overhead tricep extension dumbbell form'",
+    how: ["Sit or stand, hold one dumbbell with both hands above your head", "Lower the weight behind your head by bending at the elbows", "Upper arms stay still — only forearms move", "Press back up to straight, squeeze triceps at top"],
+    mistakes: ["Flaring elbows out wide", "Moving upper arms during the movement", "Going too heavy — the triceps are a small muscle"],
+    beginner_weight: "6–8 kg / 12–16 lbs (one dumbbell)",
+    sets: "3 sets of 12 reps"
+  }, {
+    name: "Plank",
+    muscle: "Core (entire)",
+    equipment: "Mat (or floor)",
+    level: "Beginner",
+    video_tip: "Search 'plank form beginner'",
+    how: ["Forearms on the floor, elbows under shoulders", "Toes on the floor, body in a straight line", "Squeeze glutes, tighten core, breathe normally", "Don't let hips sag or pike up", "Hold for time"],
+    mistakes: ["Hips sagging — put them higher if needed", "Holding breath", "Looking up — keep neck neutral"],
+    beginner_weight: "Bodyweight only",
+    sets: "3 sets of 20–30 seconds. Build to 60 seconds over weeks."
+  },
+  // LOWER BODY
+  {
+    name: "Dumbbell Goblet Squat",
+    muscle: "Quads + Glutes + Core",
+    equipment: "One dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'goblet squat form dumbbell'",
+    how: ["Hold one dumbbell vertically at your chest with both hands", "Feet shoulder-width apart, toes slightly out", "Push hips back and bend knees — squat down until thighs are parallel", "Chest up, knees track over toes", "Drive through heels to stand back up"],
+    mistakes: ["Knees caving inward — push them out", "Heels lifting — weight is too far forward", "Not going deep enough — aim for parallel"],
+    beginner_weight: "8–10 kg / 16–20 lbs dumbbell",
+    sets: "3 sets of 12–15 reps"
+  }, {
+    name: "Dumbbell Romanian Deadlift (RDL)",
+    muscle: "Hamstrings + Glutes + Lower Back",
+    equipment: "Dumbbells",
+    level: "Beginner",
+    video_tip: "Search 'Romanian deadlift dumbbell form'",
+    how: ["Stand with dumbbells in front of thighs, palms facing you", "Hinge at the hips — push them back, not down", "Lower dumbbells along your legs, keeping them close", "Back stays flat, slight bend in knees", "Feel the stretch in hamstrings, then drive hips forward to stand"],
+    mistakes: ["Rounding the lower back — biggest mistake and injury risk", "Bending knees too much — this becomes a squat", "Lowering too fast — control the movement"],
+    beginner_weight: "8–10 kg / 16–20 lbs each",
+    sets: "3 sets of 10–12 reps"
+  }, {
+    name: "Dumbbell Lateral Lunge",
+    muscle: "Glutes + Inner Thighs + Quads",
+    equipment: "Dumbbells or bodyweight",
+    level: "Beginner",
+    video_tip: "Search 'lateral lunge form'",
+    how: ["Stand with feet together, dumbbells at sides", "Step wide to one side, bend that knee and push hips back", "Other leg stays straight", "Push off the bent leg to return to start", "Alternate sides or do all reps one side then switch"],
+    mistakes: ["Knee going past toes on the bent leg", "Torso collapsing forward", "Going too wide before you have the mobility"],
+    beginner_weight: "Bodyweight first, then 4–6 kg / 8–12 lbs each",
+    sets: "3 sets of 10 reps each side"
+  }, {
+    name: "Glute Bridge",
+    muscle: "Glutes + Hamstrings + Core",
+    equipment: "Mat + optional dumbbell",
+    level: "Beginner",
+    video_tip: "Search 'glute bridge form dumbbell'",
+    how: ["Lie on your back, knees bent, feet flat on floor", "Place a dumbbell on your hips if adding weight", "Drive hips up by squeezing glutes — body forms a straight line", "Hold 1–2 seconds at the top, squeeze hard", "Lower slowly, don't let glutes touch the floor between reps"],
+    mistakes: ["Driving with the lower back instead of glutes", "Not squeezing at the top", "Feet too close or too far from body"],
+    beginner_weight: "Bodyweight first, then 10–15 kg / 20–30 lbs dumbbell on hips",
+    sets: "3 sets of 15 reps"
+  }, {
+    name: "Calf Raises",
+    muscle: "Calves",
+    equipment: "Step or floor",
+    level: "Beginner",
+    video_tip: "Search 'calf raise form'",
+    how: ["Stand on the edge of a step (or flat floor)", "Rise up onto the balls of your feet as high as possible", "Hold 1 second at the top", "Lower slowly — full range of motion"],
+    mistakes: ["Rushing through reps — calves need slow controlled movement", "Not going through full range", "Doing too many reps with no weight — calves respond better to load"],
+    beginner_weight: "Bodyweight or hold dumbbells",
+    sets: "3 sets of 15–20 reps"
+  }, {
+    name: "Dead Bug",
+    muscle: "Deep Core + Transverse Abdominis",
+    equipment: "Mat",
+    level: "Beginner",
+    video_tip: "Search 'dead bug exercise form beginners' on YouTube",
+    how: ["Lie on back, arms straight up, knees bent at 90° (tabletop position)", "Lower opposite arm and leg toward the floor simultaneously", "Lower back must stay pressed into the mat the entire time", "Bring back to start, switch sides", "Breathe out as you lower, in as you return"],
+    mistakes: ["Lower back arching off the floor — reduce range of motion", "Moving too fast", "Holding breath"],
+    beginner_weight: "Bodyweight only",
+    sets: "3 sets of 8 reps each side"
+  }],
+  weekly_split: [{
+    day: "Monday 💪",
+    type: "Upper Body A",
+    focus: "Chest + Back + Core",
+    exercises: ["Dumbbell Chest Press — 3×12", "Dumbbell Bent-Over Row — 3×12 each", "Seated Dumbbell Shoulder Press — 3×12", "Dumbbell Bicep Curl — 3×12", "Plank — 3×30 sec", "Dead Bug — 3×8 each side"],
+    duration: "45–55 min",
+    notes: "Rest 60–90 sec between sets. Focus entirely on form — weight is secondary."
+  }, {
+    day: "Tuesday 🦵",
+    type: "Lower Body A",
+    focus: "Quads + Glutes + Hamstrings",
+    exercises: ["Dumbbell Goblet Squat — 3×12", "Dumbbell Romanian Deadlift (RDL) — 3×10", "Glute Bridge — 3×15", "Dumbbell Lateral Lunge — 3×10 each", "Calf Raises — 3×20"],
+    duration: "40–50 min",
+    notes: "Squeeze the target muscle on every rep. Slow the lowering phase — 3 seconds down."
+  }, {
+    day: "Wednesday 🚶",
+    type: "Active Rest",
+    focus: "Recovery",
+    exercises: ["Walk toward 10K steps goal", "Gentle stretching — 10 min", "Optional: 20 min light yoga"],
+    duration: "As needed",
+    notes: "No lifting. Let muscles recover. This is part of the programme, not a skip day."
+  }, {
+    day: "Thursday 💪",
+    type: "Upper Body B",
+    focus: "Shoulders + Triceps + Core",
+    exercises: ["Seated Dumbbell Shoulder Press — 3×12", "Tricep Dumbbell Overhead Extension — 3×12", "Dumbbell Bent-Over Row — 3×12 each", "Dumbbell Bicep Curl — 3×12", "Plank — 3×30 sec", "Dead Bug — 3×8 each side"],
+    duration: "45–55 min",
+    notes: "Upper Body B is slightly different from A — each day trains everything but with different emphasis."
+  }, {
+    day: "Friday 🦵",
+    type: "Lower Body B",
+    focus: "Glutes + Inner Thighs + Core",
+    exercises: ["Dumbbell Romanian Deadlift (RDL) — 3×10", "Glute Bridge — 3×15", "Dumbbell Goblet Squat — 3×12", "Dumbbell Lateral Lunge — 3×10 each", "Calf Raises — 3×20", "Dead Bug — 3×8 each side"],
+    duration: "40–50 min",
+    notes: "Lower Body B has more glute focus. Add dumbbell to glute bridge once bodyweight feels easy."
+  }, {
+    day: "Saturday 🚶",
+    type: "Active Rest",
+    focus: "Steps + Stretch",
+    exercises: ["Walk toward 10K steps", "15 min full body stretch", "Enjoy the weekend — you earned it"],
+    duration: "As needed",
+    notes: "Optional light activity only. Your body is recovering and getting stronger right now."
+  }, {
+    day: "Sunday 😴",
+    type: "Full Rest",
+    focus: "Recovery + Prep",
+    exercises: ["Full rest day", "Meal prep for the week", "Plan workouts for next week", "Prioritise 8 hours sleep"],
+    duration: "—",
+    notes: "Sleep is when your muscles actually grow. Prioritising rest is not optional — it's the programme."
+  }],
+  progression: [{
+    phase: "Phase 1 — Learn",
+    weeks: "Weeks 1–4 (May 26 – June 22)",
+    focus: "Master movement patterns. Weight is irrelevant.",
+    intensity: "60% effort",
+    key: "Every exercise feels awkward at first. That's normal. Focus on what the exercise is supposed to feel like, not how much weight you're moving.",
+    checkpoints: ["Can you feel the right muscle working?", "Is your back flat during RDLs?", "Are your knees tracking properly in squats?", "Can you hold a plank for 30 seconds?"]
+  }, {
+    phase: "Phase 2 — Build",
+    weeks: "Weeks 5–8 (June 23 – July 20)",
+    focus: "Start increasing weight. Add reps before adding weight.",
+    intensity: "70–75% effort",
+    key: "If you can do 12 reps with good form, increase weight by the smallest increment available (usually 1–2 kg). If you can't do 8 reps with good form, the weight is too heavy.",
+    checkpoints: ["Are you lifting more than Week 1?", "Are you still sore in the right places?", "Have you tracked your weights in the log?", "Are you getting enough protein (100–110g/day)?"]
+  }, {
+    phase: "Phase 3 — Push",
+    weeks: "Weeks 9–12 (July 21 – Aug 17)",
+    focus: "Increase intensity. Last 2 reps of each set should be challenging.",
+    intensity: "80% effort",
+    key: "This is where visible changes accelerate. The compound lifts (squat, RDL, row) should feel heavy and meaningful. You should feel genuinely stronger than Week 1.",
+    checkpoints: ["Goblet squat weight doubled from Week 1?", "Can you do a 60-second plank?", "Are you sleeping 7–8 hours?", "Are you sticking to the PCOS cycle adjustments?"]
+  }, {
+    phase: "Phase 4 — Peak",
+    weeks: "Weeks 13–14 (Aug 18 – Sep 1)",
+    focus: "Maintain intensity, prioritise sleep and nutrition.",
+    intensity: "75% effort",
+    key: "Don't try to do too much in the final two weeks. Results are the sum of 14 weeks of consistency — not one heroic final push. Stay the course.",
+    checkpoints: ["Compare photos from Week 1", "How do your clothes fit?", "What's your energy like vs May?", "Celebrate how far you've come"]
+  }],
+  beginner_tips: [{
+    icon: "📱",
+    title: "Film yourself",
+    tip: "For the first two weeks, film your side profile during squats and RDLs. You don't need to show anyone — it's just for you to check your form. Most people are shocked by what they see vs what they thought they were doing."
+  }, {
+    icon: "📓",
+    title: "Log every session",
+    tip: "Write down: exercise, weight used, reps completed. Every single session. This tells you when to increase weight and gives you proof of progress when you feel like nothing is changing."
+  }, {
+    icon: "⏱️",
+    title: "Rest between sets",
+    tip: "60–90 seconds minimum between sets. Beginners often rush because they feel fine — but the rest is when your muscles prepare for the next set. Rushing = weaker sets = less progress."
+  }, {
+    icon: "🎯",
+    title: "Mind-muscle connection",
+    tip: "Before each set, think about the muscle you're supposed to be working. Touch it if that helps. Intentional contraction is what causes adaptation — mindlessly moving weight through space is not the same thing."
+  }, {
+    icon: "🔼",
+    title: "Progressive overload",
+    tip: "The fundamental law of getting stronger: you must gradually increase the challenge over time. Add 1–2 kg when you can complete all reps with good form. Never add weight until your form is solid."
+  }, {
+    icon: "😴",
+    title: "Sleep is the workout",
+    tip: "Your muscles don't grow in the gym — they grow overnight. 7–8 hours is not a bonus, it's a requirement. Two weeks of poor sleep will erase 2 weeks of good training."
+  }, {
+    icon: "🌸",
+    title: "PCOS adjustment",
+    tip: "Track your cycle alongside your workouts. On luteal phase weeks, reduce your weights by 10–15% and add an extra 60 seconds rest between sets. This is not weakness — it's science. Women who cycle-sync their training get better results long-term than those who push the same intensity all month."
+  }]
+};
 var PCOS_MEAL_PLAN = [{
   day: "Monday",
   theme: "🐟 Omega-3 Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Overnight Oats Pre-Workout Jar",
+    note: "🏋️🌸 Prep Sunday night — oat carbs + yogurt protein + cinnamon for insulin support",
+    cal: 240,
+    protein: 18
+  }, {
     label: "Breakfast",
     desc: "Vanilla Chia Pudding + 1 tbsp ground flaxseed + frozen blueberries",
     note: "🌸 Low GI, omega-3s, fibre — ideal PCOS start",
-    cal: 320
+    cal: 320,
+    protein: 20
   }, {
     label: "Spearmint Tea",
     desc: "2 cups throughout the morning",
     note: "🌸 Daily androgen reduction",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Lunch",
     desc: "Salmon & Spinach Salad + ¼ avocado",
     note: "🌸 Omega-3 + magnesium + healthy fat",
-    cal: 400
+    cal: 400,
+    protein: 35
   }, {
     label: "Goûter",
     desc: "Apple Slices with Cottage Cheese + cinnamon",
     note: "🌸 Cinnamon improves insulin sensitivity",
-    cal: 110
+    cal: 110,
+    protein: 10
   }, {
     label: "Dinner",
     desc: "Air Fryer Salmon with Lemon + asparagus + turmeric drizzle",
     note: "🌸 Double omega-3, anti-inflammatory dinner",
-    cal: 340
+    cal: 340,
+    protein: 34
   }, {
     label: "After dinner",
     desc: "Peppermint tea + fennel seeds",
     note: "Bloating prevention",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Frozen Yogurt Bark",
+    note: "🌙🌸 Made Sunday — casein overnight + berries antioxidants + dark chocolate magnesium",
+    cal: 110,
+    protein: 10
   }]
 }, {
   day: "Tuesday",
   theme: "🥬 Anti-Inflammatory Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Greek Yogurt with Banana & Honey",
+    note: "🏋️🌸 High protein + cinnamon before lifting = ideal PCOS pre-workout combination",
+    cal: 200,
+    protein: 15
+  }, {
     label: "Breakfast",
     desc: "Protein Smoothie + 1 tbsp ground flaxseed + frozen blueberries",
     note: "🌸 Flaxseed balances estrogen daily",
-    cal: 330
+    cal: 330,
+    protein: 32
   }, {
     label: "Spearmint Tea",
     desc: "2 cups throughout the morning",
     note: "🌸 Daily androgen support",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Lunch",
     desc: "Big Spinach Chicken Salad with arugula + lemon olive oil dressing",
     note: "🌸 Two PCOS leafy greens in one meal",
-    cal: 370
+    cal: 370,
+    protein: 36
   }, {
     label: "Goûter",
     desc: "Cucumber & Feta Bites + turmeric ginger tea",
     note: "🌸 Anti-inflammatory snack + tea",
-    cal: 90
+    cal: 90,
+    protein: 6
   }, {
     label: "Dinner",
     desc: "Turkey & Zucchini Stir-Fry with turmeric + ginger added to sauce",
     note: "🌸 Add ½ tsp turmeric to any stir-fry for PCOS benefit",
-    cal: 350
+    cal: 350,
+    protein: 32
   }, {
     label: "After dinner",
     desc: "Peppermint tea",
     note: "Post-meal bloating remedy",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Spearmint Hot Chocolate",
+    note: "🌙🌸 Your evening PCOS ritual — spearmint works overnight to reduce androgens",
+    cal: 120,
+    protein: 8
   }]
 }, {
   day: "Wednesday",
   theme: "🥚 Hormone Reset Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Banana & Peanut Butter Toast",
+    note: "🏋️ Fast carbs before lifting — keep it light before egg bites breakfast",
+    cal: 220,
+    protein: 7
+  }, {
     label: "Breakfast",
     desc: "Spinach & Feta Egg Bites (3 bites) + spearmint tea 🌸",
     note: "🌸 Eggs = choline for hormone production",
-    cal: 330
+    cal: 330,
+    protein: 11
   }, {
     label: "Lunch",
     desc: "Tuna Rice Salad (black rice + corn + asparagus + vinaigrette)",
     note: "🌸 Omega-3 tuna + black rice antioxidants + asparagus = PCOS triple win",
-    cal: 380
+    cal: 380,
+    protein: 32
   }, {
     label: "Goûter",
     desc: "Greek Yogurt with Honey & Cinnamon + 1 tbsp ground flaxseed",
     note: "🌸 Cinnamon + flaxseed PCOS combo",
-    cal: 140
+    cal: 140,
+    protein: 12
   }, {
     label: "Dinner",
     desc: "Air Fryer Crispy Drumsticks + roasted asparagus + lemon",
     note: "High protein, gentle on digestion",
-    cal: 410
+    cal: 410,
+    protein: 38
   }, {
     label: "After dinner",
     desc: "Turmeric ginger tea",
     note: "🌸 Anti-inflammatory wind-down",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Warm Cinnamon Cottage Cheese Bowl",
+    note: "🌙🌸 Cinnamon stabilises blood sugar overnight — reduces cortisol spike in PCOS",
+    cal: 120,
+    protein: 14
   }]
 }, {
   day: "Thursday",
   theme: "🌿 Gut Health Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Rice Cake with Banana & Almond Butter",
+    note: "🏋️ Easiest on digestion — zero bloating risk before Thursday gut health day",
+    cal: 160,
+    protein: 4
+  }, {
     label: "Breakfast",
     desc: "Banana Blueberry Chia Pudding + 1 tbsp ground flaxseed",
     note: "🌸 Fibre + flaxseed + antioxidants for gut & hormones",
-    cal: 300
+    cal: 300,
+    protein: 10
   }, {
     label: "Spearmint Tea",
     desc: "2 cups morning",
     note: "🌸 Daily routine — keep it consistent",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Lunch",
     desc: "Spicy Shrimp & Spinach Bowl + ¼ avocado",
     note: "🌸 Shrimp = lean protein + zinc for PCOS",
-    cal: 320
+    cal: 320,
+    protein: 31
   }, {
     label: "Goûter",
     desc: "Soft-Boiled Egg with Fleur de Sel + baby carrots",
     note: "High protein, very easy on digestion",
-    cal: 115
+    cal: 115,
+    protein: 7
   }, {
     label: "Dinner",
     desc: "Ground Turkey Soup with extra ginger + turmeric stirred in",
     note: "🌸 Gut-healing, add spices freely",
-    cal: 300
+    cal: 300,
+    protein: 30
   }, {
     label: "After dinner",
     desc: "Fennel seed chew + peppermint tea",
     note: "Double bloating defence",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Warm Banana with Cinnamon & Honey",
+    note: "🌙🌸 Tryptophan + magnesium + cinnamon = best PCOS sleep combination",
+    cal: 105,
+    protein: 1
   }]
 }, {
   day: "Friday",
   theme: "💪 High Protein Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Protein Smoothie Pre-Workout Shot",
+    note: "🏋️🌸 High protein shot before heavy Friday lifts",
+    cal: 180,
+    protein: 20
+  }, {
     label: "Breakfast",
     desc: "Egg White & Mushroom Omelette + arugula + lemon",
     note: "🌸 High protein, zero GI spike — ideal PCOS breakfast",
-    cal: 210
+    cal: 210,
+    protein: 22
   }, {
     label: "Spearmint Tea",
     desc: "2 cups morning",
     note: "🌸 Consistent daily habit",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Lunch",
     desc: "Turkey & Bell Pepper Egg Bites (3) + big spinach salad",
     note: "🌸 13g protein per bite — highest protein egg bite",
-    cal: 385
+    cal: 385,
+    protein: 13
   }, {
     label: "Goûter",
     desc: "Chomps & Cucumber Snack Box + spearmint tea",
     note: "Zero sugar, high protein, no bloating",
-    cal: 90
+    cal: 90,
+    protein: 10
   }, {
     label: "Dinner",
     desc: "Air Fryer Garlic Shrimp over cauliflower rice + lemon drizzle",
     note: "🌸 Very low carb, very high protein — best PCOS weight loss combo",
-    cal: 305
+    cal: 305,
+    protein: 32
   }, {
     label: "After dinner",
     desc: "Peppermint tea 🥂",
     note: "It's Friday — you did great this week",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Dark Chocolate & Almond Butter Rice Cake",
+    note: "🌙🌸 70%+ dark chocolate = magnesium for PCOS + sleep. Friday treat.",
+    cal: 140,
+    protein: 4
   }]
 }, {
   day: "Saturday",
   theme: "🌸 Nourish Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Banana & Peanut Butter Toast",
+    note: "🏋️ Light Saturday pre-workout fuel",
+    cal: 220,
+    protein: 7
+  }, {
     label: "Breakfast",
     desc: "Air Fryer Asparagus & Eggs + turmeric sprinkle + spearmint tea",
     note: "🌸 Leisurely PCOS-optimised morning",
-    cal: 240
+    cal: 240,
+    protein: 20
   }, {
     label: "Lunch",
     desc: "Salmon & Spinach Salad (second omega-3 meal this week)",
     note: "🌸 Aim for salmon 3x/week for PCOS",
-    cal: 400
+    cal: 400,
+    protein: 35
   }, {
     label: "Goûter",
     desc: "Frozen Banana Bites (5 pieces) + spearmint tea",
     note: "🌸 Post-walk treat — anti-inflammatory dark chocolate",
-    cal: 130
+    cal: 130,
+    protein: 2
   }, {
     label: "Dinner",
     desc: "Date night 🍽️ — grilled fish or chicken + vegetables, skip the bread",
     note: "Protein anchor + veg, avoid refined carbs",
-    cal: 450
+    cal: 450,
+    protein: 35
   }, {
     label: "After dinner",
     desc: "Walk 15 min — best post-dinner bloating remedy",
     note: "Your digestion will thank you",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Spearmint Hot Chocolate",
+    note: "🌙🌸 Saturday wind-down ritual — spearmint + warm milk = perfect PCOS bedtime",
+    cal: 120,
+    protein: 8
   }]
 }, {
   day: "Sunday",
   theme: "🍳 Prep Day",
   meals: [{
+    label: "Pre-Workout",
+    desc: "Greek Yogurt with Banana & Honey",
+    note: "🏋️ Sunday prep day — fuel the session, then batch cook",
+    cal: 200,
+    protein: 15
+  }, {
     label: "Breakfast",
     desc: "Overnight Protein Oats (prep 2–3 jars) + 1 tbsp flaxseed each",
     note: "🌸 Make Mon & Tue breakfasts now",
-    cal: 380
+    cal: 380,
+    protein: 30
   }, {
     label: "Spearmint Tea",
     desc: "2 cups while prepping",
     note: "🌸 Make it a ritual",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Lunch",
     desc: "Big Spinach Chicken Salad — use batch-cooked chicken",
     note: "Cook 6 breasts + a big pot of soup today",
-    cal: 370
+    cal: 370,
+    protein: 36
   }, {
     label: "Goûter",
     desc: "Apple Slices with Cottage Cheese + cinnamon + turmeric ginger tea",
     note: "🌸 PCOS triple — cinnamon, ginger, turmeric",
-    cal: 150
+    cal: 150,
+    protein: 10
   }, {
     label: "Dinner",
     desc: "Ground Turkey Soup (double batch — Mon + Tue lunches)",
     note: "🌸 Cook once, eat 4 times — the PCOS prep strategy",
-    cal: 300
+    cal: 300,
+    protein: 30
   }, {
     label: "Evening prep",
     desc: "Prep chia pudding jars for Mon–Wed: Vanilla Chia Pudding, Chocolate Chia Pudding, Banana Blueberry Chia Pudding",
     note: "🌸 Each jar: 30g chia seeds + 240ml milk + flavour — ready in 5 min, add toppings in the morning",
-    cal: 0
+    cal: 0,
+    protein: 0
+  }, {
+    label: "Late Night",
+    desc: "Frozen Yogurt Bark",
+    note: "🌙🌸 Make this Sunday batch for the week — best PCOS bedtime snack on the list",
+    cal: 110,
+    protein: 10
   }, {
     label: "Evening prep",
     desc: "Prep egg bites for Mon–Wed: Spinach & Feta Egg Bites (6) + Turkey & Bell Pepper Egg Bites (6)",
     note: "Bake both batches together — grab 3 each morning Mon–Wed, reheat 30 sec in microwave",
-    cal: 0
+    cal: 0,
+    protein: 0
   }, {
     label: "Supplements",
     desc: "Lay out weekly supplements: Ovasitol powder (mix into morning water daily), Magnesium Glycinate (take at night before bed), Omega-3 Fish Oil (with biggest meal), Vitamin D3+K2 (with fatty meal for absorption)",
     note: "🌸 Place them somewhere visible — on the counter or next to your coffee maker so you never forget",
-    cal: 0
+    cal: 0,
+    protein: 0
   }]
 }];
 
@@ -2240,24 +2919,1173 @@ function GroceryItem(_ref2) {
     }
   }, item.why)));
 }
-function RecipeCard(_ref3) {
-  var recipe = _ref3.recipe,
-    unit = _ref3.unit;
-  var _useState3 = useState(false),
+function BFWorkoutSubNav() {
+  var _useState3 = useState("split"),
     _useState4 = _slicedToArray(_useState3, 2),
-    open = _useState4[0],
-    setOpen = _useState4[1];
-  var _useState5 = useState(1),
+    wTab = _useState4[0],
+    setWTab = _useState4[1];
+  var BF_BLUE = "#1565c0";
+  var BF_LIGHT = "#e3f2fd";
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginBottom: 22,
+      flexWrap: "wrap"
+    }
+  }, [["split", "📅 Weekend Plan"], ["exercises", "🏋️ Exercises"], ["running", "🏃 Running Tips"], ["phases", "📈 Progress Plan"]].map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+      id = _ref4[0],
+      label = _ref4[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: id,
+      onClick: function onClick() {
+        return setWTab(id);
+      },
+      style: {
+        padding: "8px 14px",
+        borderRadius: 20,
+        border: "none",
+        cursor: "pointer",
+        background: wTab === id ? BF_BLUE : "#efefef",
+        color: wTab === id ? "white" : C.muted,
+        fontFamily: "inherit",
+        fontSize: 12,
+        fontWeight: 600,
+        transition: "all 0.2s"
+      }
+    }, label);
+  })), wTab === "split" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: BF_LIGHT,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(BF_BLUE)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: BF_BLUE,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "The logic:"), " You run Mon\u2013Fri so your cardio and fat burning are covered. Saturday is upper body only \u2014 legs need the break. Sunday adds leg and glute work which directly makes you a faster, stronger runner.")), WORKOUT_PLAN_BF.weekly_split.map(function (day, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "baseline",
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17,
+        color: BF_BLUE
+      }
+    }, day.day), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        background: BF_LIGHT,
+        color: BF_BLUE,
+        padding: "3px 10px",
+        borderRadius: 20,
+        fontWeight: 600
+      }
+    }, day.duration)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: "#1976d2",
+        textTransform: "uppercase",
+        letterSpacing: 1,
+        marginBottom: 10
+      }
+    }, day.type, " \xB7 ", day.focus), day.exercises.map(function (ex, j) {
+      var exName = ex.split(" — ")[0].trim();
+      var setsInfo = ex.includes(" — ") ? ex.split(" — ")[1] : "";
+      var exData = WORKOUT_PLAN_BF.exercises.find(function (e) {
+        return e.name === exName;
+      });
+      var ytUrl = "https://www.youtube.com/results?search_query=".concat(encodeURIComponent(exName + " proper form beginners"));
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          padding: "8px 0",
+          borderBottom: "1px solid #f5f5f5"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          display: "flex",
+          alignItems: "center",
+          gap: 6
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: BF_BLUE,
+          fontWeight: 700,
+          flexShrink: 0
+        }
+      }, "\xB7"), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontWeight: exData ? 600 : 400
+        }
+      }, exName), setsInfo && /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: C.muted,
+          fontSize: 12
+        }
+      }, "\u2014 ", setsInfo)), exData && /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          gap: 6,
+          marginTop: 5,
+          paddingLeft: 14,
+          flexWrap: "wrap"
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick() {
+          return setWTab("exercises");
+        },
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 3,
+          fontSize: 11,
+          color: BF_BLUE,
+          background: BF_LIGHT,
+          border: "none",
+          borderRadius: 10,
+          padding: "3px 10px",
+          cursor: "pointer",
+          fontFamily: "inherit",
+          fontWeight: 600
+        }
+      }, "\uD83C\uDFCB\uFE0F How to do it \u2192"), /*#__PURE__*/React.createElement("a", {
+        href: ytUrl,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 3,
+          fontSize: 11,
+          color: "white",
+          background: "#ff0000",
+          borderRadius: 10,
+          padding: "3px 10px",
+          textDecoration: "none",
+          fontWeight: 600
+        }
+      }, "\uD83D\uDCF9 Watch on YouTube")));
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 10,
+        fontSize: 12,
+        color: C.muted,
+        fontStyle: "italic",
+        lineHeight: 1.5
+      }
+    }, "\uD83D\uDCA1 ", day.notes));
+  })), wTab === "exercises" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: BF_LIGHT,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(BF_BLUE)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: BF_BLUE,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Start light and feel the muscle \u2014 being a strong runner doesn't mean you're strong in the gym yet. Different muscles entirely."), " You're a beginner lifter even though you're a strong runner \u2014 completely different muscles and movement patterns. Film from the side for squats and RDLs.")), WORKOUT_PLAN_BF.exercises.map(function (ex, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        marginBottom: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+        overflow: "hidden"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: function onClick(e) {
+        e.currentTarget.nextSibling.style.display = e.currentTarget.nextSibling.style.display === "none" ? "block" : "none";
+      },
+      style: {
+        padding: "16px 20px",
+        cursor: "pointer",
+        background: C.warm
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17,
+        marginBottom: 4
+      }
+    }, ex.name), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: C.muted,
+        marginBottom: 6
+      }
+    }, ex.muscle), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6,
+        flexWrap: "wrap"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: BF_LIGHT,
+        color: BF_BLUE,
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, ex.equipment), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#e8f5e9",
+        color: "#2e7d32",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, ex.sets), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: "#fde8d8",
+        color: "#b05e20",
+        fontSize: 10,
+        fontWeight: 700,
+        padding: "2px 8px",
+        borderRadius: 20
+      }
+    }, "Start: ", ex.beginner_weight))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "none",
+        padding: 20
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: BF_BLUE,
+        marginBottom: 8
+      }
+    }, "How To Do It"), ex.how.map(function (step, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          display: "flex",
+          gap: 10,
+          padding: "5px 0",
+          fontSize: 13,
+          color: C.charcoal,
+          lineHeight: 1.5
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 20,
+          height: 20,
+          background: BF_BLUE,
+          color: "white",
+          borderRadius: "50%",
+          fontSize: 10,
+          fontWeight: 700,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          marginTop: 1
+        }
+      }, j + 1), step);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: "#e65100",
+        marginBottom: 6,
+        marginTop: 14
+      }
+    }, "Common Mistakes"), ex.mistakes.map(function (m, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          padding: "4px 0",
+          display: "flex",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: "#e65100",
+          flexShrink: 0
+        }
+      }, "\u26A0\uFE0F"), m);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 14,
+        background: BF_LIGHT,
+        borderRadius: 10,
+        padding: "10px 14px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+        flexWrap: "wrap"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 12,
+        color: BF_BLUE
+      }
+    }, "\uD83D\uDCF9 ", ex.video_tip), /*#__PURE__*/React.createElement("a", {
+      href: "https://www.youtube.com/results?search_query=".concat(encodeURIComponent(ex.name + " proper form beginners")),
+      target: "_blank",
+      rel: "noopener noreferrer",
+      style: {
+        fontSize: 11,
+        color: "white",
+        background: "#ff0000",
+        borderRadius: 10,
+        padding: "5px 12px",
+        textDecoration: "none",
+        fontWeight: 700,
+        flexShrink: 0
+      }
+    }, "\uD83D\uDCF9 Watch on YouTube"))));
+  })), wTab === "running" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: BF_LIGHT,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(BF_BLUE)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: BF_BLUE,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Running + lifting = the best combination for his goals."), " Most runners avoid the gym because they think it'll slow them down. The opposite is true \u2014 strong runners get faster, last longer, and get injured less.")), WORKOUT_PLAN_BF.running_strength_tips.map(function (tip, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 12,
+        padding: 18,
+        marginBottom: 12,
+        borderLeft: "3px solid ".concat(BF_BLUE),
+        boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 12
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 22,
+        flexShrink: 0
+      }
+    }, tip.icon), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 15,
+        fontWeight: 700,
+        color: BF_BLUE,
+        marginBottom: 6
+      }
+    }, tip.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: C.charcoal,
+        lineHeight: 1.7
+      }
+    }, tip.tip))));
+  })), wTab === "phases" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: BF_LIGHT,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(BF_BLUE)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: BF_BLUE,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Two sessions per week is plenty."), " Quality over quantity \u2014 especially with daily running already in the picture. Consistent Saturday + Sunday for 14 weeks will make a real, visible difference.")), WORKOUT_PLAN_BF.progression.map(function (phase, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 14,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 18,
+        color: BF_BLUE,
+        marginBottom: 4
+      }
+    }, phase.phase), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: BF_LIGHT,
+        color: BF_BLUE,
+        fontSize: 11,
+        fontWeight: 700,
+        padding: "3px 10px",
+        borderRadius: 20,
+        display: "inline-block",
+        marginBottom: 12
+      }
+    }, phase.intensity), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: C.charcoal,
+        lineHeight: 1.65,
+        marginBottom: 14
+      }
+    }, phase.key), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: BF_BLUE,
+        marginBottom: 8
+      }
+    }, "Checkpoints"), phase.checkpoints.map(function (c, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "5px 0",
+          borderBottom: "1px solid #f5f5f5",
+          display: "flex",
+          gap: 10,
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 18,
+          height: 18,
+          borderRadius: "50%",
+          border: "2px solid ".concat(BF_BLUE),
+          flexShrink: 0,
+          display: "inline-block"
+        }
+      }), c);
+    }));
+  })));
+}
+function ExerciseCard(_ref5) {
+  var ex = _ref5.ex;
+  var _useState5 = useState(false),
     _useState6 = _slicedToArray(_useState5, 2),
-    portions = _useState6[0],
-    setPortions = _useState6[1]; // 1 = Eloise only, 2 = both
+    open = _useState6[0],
+    setOpen = _useState6[1];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "white",
+      borderRadius: 14,
+      marginBottom: 12,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: function onClick() {
+      return setOpen(!open);
+    },
+    style: {
+      padding: "16px 20px",
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      background: C.warm
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 17,
+      marginBottom: 4
+    }
+  }, ex.name), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: C.muted
+    }
+  }, ex.muscle), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6,
+      marginTop: 6,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: "#e3f2fd",
+      color: "#1565c0",
+      fontSize: 10,
+      fontWeight: 700,
+      padding: "2px 8px",
+      borderRadius: 20
+    }
+  }, ex.equipment), /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: C.sageLight,
+      color: C.sageDark,
+      fontSize: 10,
+      fontWeight: 700,
+      padding: "2px 8px",
+      borderRadius: 20
+    }
+  }, ex.sets), /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: "#fde8d8",
+      color: "#b05e20",
+      fontSize: 10,
+      fontWeight: 700,
+      padding: "2px 8px",
+      borderRadius: 20
+    }
+  }, "Start: ", ex.beginner_weight))), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 18,
+      color: C.muted,
+      transform: open ? "rotate(180deg)" : "none",
+      transition: "0.3s",
+      flexShrink: 0,
+      marginLeft: 10
+    }
+  }, "\u25BE")), open && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: 1.5,
+      textTransform: "uppercase",
+      color: C.accent,
+      marginBottom: 8
+    }
+  }, "How To Do It"), ex.how.map(function (step, j) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: j,
+      style: {
+        display: "flex",
+        gap: 10,
+        padding: "5px 0",
+        fontSize: 13,
+        color: C.charcoal,
+        lineHeight: 1.5
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 20,
+        height: 20,
+        background: C.sage,
+        color: "white",
+        borderRadius: "50%",
+        fontSize: 10,
+        fontWeight: 700,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        marginTop: 1
+      }
+    }, j + 1), step);
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: 1.5,
+      textTransform: "uppercase",
+      color: "#e65100",
+      marginBottom: 8,
+      marginTop: 16
+    }
+  }, "Common Mistakes"), ex.mistakes.map(function (m, j) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: j,
+      style: {
+        fontSize: 13,
+        color: C.charcoal,
+        padding: "4px 0",
+        display: "flex",
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: "#e65100",
+        flexShrink: 0
+      }
+    }, "\u26A0\uFE0F"), m);
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 14,
+      background: "#e3f2fd",
+      borderRadius: 10,
+      padding: "10px 14px",
+      fontSize: 12,
+      color: "#1565c0",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 10,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83D\uDCF9 ", ex.video_tip), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.youtube.com/results?search_query=".concat(encodeURIComponent(ex.name + " proper form beginners")),
+    target: "_blank",
+    rel: "noopener noreferrer",
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    },
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 4,
+      fontSize: 11,
+      color: "white",
+      background: "#ff0000",
+      borderRadius: 10,
+      padding: "5px 12px",
+      textDecoration: "none",
+      fontWeight: 700,
+      flexShrink: 0
+    }
+  }, "\uD83D\uDCF9 Watch on YouTube"))));
+}
+function WorkoutSubNav() {
+  var _useState7 = useState("split"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    wTab = _useState8[0],
+    setWTab = _useState8[1];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginBottom: 22,
+      flexWrap: "wrap"
+    }
+  }, [["split", "📅 Weekly Split"], ["exercises", "🏋️ Exercises"], ["cycle", "🌸 Cycle Sync"], ["phases", "📈 14-Week Plan"], ["tips", "💡 Tips"]].map(function (_ref6) {
+    var _ref7 = _slicedToArray(_ref6, 2),
+      id = _ref7[0],
+      label = _ref7[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: id,
+      onClick: function onClick() {
+        return setWTab(id);
+      },
+      style: {
+        padding: "8px 14px",
+        borderRadius: 20,
+        border: "none",
+        cursor: "pointer",
+        background: wTab === id ? C.sageDark : "#efefef",
+        color: wTab === id ? "white" : C.muted,
+        fontFamily: "inherit",
+        fontSize: 12,
+        fontWeight: 600,
+        transition: "all 0.2s"
+      }
+    }, label);
+  })), wTab === "split" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: C.sageLight,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(C.sage)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: C.sageDark,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Your 4:30am schedule:"), " Wake up, eat your pre-workout snack, head to the gym. Done in under an hour. Tap any exercise to see how to do it, or tap \uD83D\uDCF9 to watch it on YouTube.")), WORKOUT_PLAN.weekly_split.map(function (day, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "baseline",
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17,
+        color: C.sageDark
+      }
+    }, day.day), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 11,
+        background: C.sageLight,
+        color: C.sageDark,
+        padding: "3px 10px",
+        borderRadius: 20,
+        fontWeight: 600
+      }
+    }, day.duration)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: C.accent,
+        textTransform: "uppercase",
+        letterSpacing: 1,
+        marginBottom: 10
+      }
+    }, day.type, " \xB7 ", day.focus), day.exercises.map(function (ex, j) {
+      // Extract exercise name (before the " — " separator)
+      var exName = ex.split(" — ")[0].trim();
+      var setsInfo = ex.includes(" — ") ? ex.split(" — ")[1] : "";
+      // Find matching exercise in guide
+      var exData = WORKOUT_PLAN.exercises.find(function (e) {
+        return e.name === exName;
+      });
+      var ytQuery = exData ? encodeURIComponent(exData.name + " proper form beginners") : encodeURIComponent(exName + " exercise form");
+      var ytUrl = "https://www.youtube.com/results?search_query=".concat(ytQuery);
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          padding: "8px 0",
+          borderBottom: "1px solid #f5f5f5"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          flex: 1
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          display: "flex",
+          alignItems: "center",
+          gap: 6
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: C.sage,
+          fontWeight: 700,
+          flexShrink: 0
+        }
+      }, "\xB7"), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontWeight: exData ? 600 : 400
+        }
+      }, exName), setsInfo && /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: C.muted,
+          fontSize: 12
+        }
+      }, "\u2014 ", setsInfo)), exData && /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          gap: 6,
+          marginTop: 5,
+          paddingLeft: 14,
+          flexWrap: "wrap"
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick() {
+          return setWTab("exercises");
+        },
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 3,
+          fontSize: 11,
+          color: C.sageDark,
+          background: C.sageLight,
+          border: "none",
+          borderRadius: 10,
+          padding: "3px 10px",
+          cursor: "pointer",
+          fontFamily: "inherit",
+          fontWeight: 600
+        }
+      }, "\uD83C\uDFCB\uFE0F How to do it \u2192"), /*#__PURE__*/React.createElement("a", {
+        href: ytUrl,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 3,
+          fontSize: 11,
+          color: "white",
+          background: "#ff0000",
+          borderRadius: 10,
+          padding: "3px 10px",
+          textDecoration: "none",
+          fontWeight: 600
+        }
+      }, "\uD83D\uDCF9 Watch on YouTube")))));
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 10,
+        fontSize: 12,
+        color: C.muted,
+        fontStyle: "italic",
+        lineHeight: 1.5
+      }
+    }, "\uD83D\uDCA1 ", day.notes));
+  })), wTab === "exercises" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#e3f2fd",
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid #1565c0"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#1565c0",
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Before your first session:"), " Read through each exercise. Film yourself from the side for squats and RDLs. Start with the lightest weight and do 5 reps to test your form.")), WORKOUT_PLAN.exercises.map(function (ex, i) {
+    return /*#__PURE__*/React.createElement(ExerciseCard, {
+      key: i,
+      ex: ex
+    });
+  })), wTab === "cycle" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fce4ec",
+      borderRadius: 12,
+      padding: "14px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid #c2185b"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#880e4f",
+      lineHeight: 1.7
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "\uD83C\uDF38 Why this matters for PCOS:"), " Your hormones fluctuate across your cycle and directly affect how your body responds to exercise. Training the same way every week means working against your body half the time. Cycle-syncing = better results, less frustration.")), WORKOUT_PLAN.cycle_guide.map(function (phase, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 14,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+        borderLeft: "4px solid ".concat(phase.fg)
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 8,
+        flexWrap: "wrap",
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 17,
+        color: phase.fg
+      }
+    }, phase.phase), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: phase.color,
+        color: phase.fg,
+        fontSize: 11,
+        fontWeight: 700,
+        padding: "4px 12px",
+        borderRadius: 20
+      }
+    }, phase.intensity)), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: C.muted,
+        marginBottom: 14,
+        lineHeight: 1.6,
+        fontStyle: "italic"
+      }
+    }, phase.desc), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: "#2e7d32",
+        marginBottom: 6
+      }
+    }, "\u2705 Do This"), phase["do"].map(function (d, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "3px 0",
+          display: "flex",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: "#2e7d32",
+          flexShrink: 0
+        }
+      }, "\xB7"), d);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: "#e65100",
+        marginBottom: 6,
+        marginTop: 12
+      }
+    }, "\u26A0\uFE0F Avoid"), phase.avoid.map(function (d, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "3px 0",
+          display: "flex",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: "#e65100",
+          flexShrink: 0
+        }
+      }, "\xB7"), d);
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 14,
+        background: phase.color,
+        borderRadius: 10,
+        padding: "10px 14px",
+        fontSize: 12,
+        color: phase.fg,
+        lineHeight: 1.6
+      }
+    }, "\uD83D\uDCA1 ", phase.tip));
+  })), wTab === "phases" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: C.sageLight,
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid ".concat(C.sage)
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: C.sageDark,
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "The plan:"), " 4 weeks learning \u2192 4 weeks building \u2192 4 weeks pushing \u2192 2 weeks maintaining. Trust the progression \u2014 results compound.")), WORKOUT_PLAN.progression.map(function (phase, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 14,
+        padding: 20,
+        marginBottom: 14,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: "Georgia,serif",
+        fontSize: 18,
+        color: C.sageDark,
+        marginBottom: 4
+      }
+    }, phase.phase), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: C.muted,
+        marginBottom: 8
+      }
+    }, phase.weeks), /*#__PURE__*/React.createElement("span", {
+      style: {
+        background: C.sageLight,
+        color: C.sageDark,
+        fontSize: 11,
+        fontWeight: 700,
+        padding: "3px 10px",
+        borderRadius: 20,
+        display: "inline-block",
+        marginBottom: 12
+      }
+    }, phase.intensity), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: C.charcoal,
+        lineHeight: 1.65,
+        marginBottom: 14
+      }
+    }, phase.key), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 1.5,
+        textTransform: "uppercase",
+        color: C.accent,
+        marginBottom: 8
+      }
+    }, "Checkpoints"), phase.checkpoints.map(function (c, j) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: j,
+        style: {
+          fontSize: 13,
+          color: C.charcoal,
+          padding: "5px 0",
+          borderBottom: "1px solid #f5f5f5",
+          display: "flex",
+          gap: 10,
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 18,
+          height: 18,
+          borderRadius: "50%",
+          border: "2px solid ".concat(C.sage),
+          flexShrink: 0,
+          display: "inline-block"
+        }
+      }), c);
+    }));
+  })), wTab === "tips" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#e3f2fd",
+      borderRadius: 12,
+      padding: "12px 16px",
+      marginBottom: 18,
+      borderLeft: "3px solid #1565c0"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#1565c0",
+      lineHeight: 1.6
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "The most important thing:"), " Show up at 4:30am consistently for 4 weeks. After that it becomes automatic. The first 2 weeks are the hardest \u2014 not because of lifting, but because of the schedule change.")), WORKOUT_PLAN.beginner_tips.map(function (tip, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        background: "white",
+        borderRadius: 12,
+        padding: 18,
+        marginBottom: 12,
+        borderLeft: "3px solid ".concat(C.sage),
+        boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 12,
+        alignItems: "flex-start"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 22,
+        flexShrink: 0
+      }
+    }, tip.icon), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 15,
+        fontWeight: 700,
+        color: C.sageDark,
+        marginBottom: 6
+      }
+    }, tip.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: C.charcoal,
+        lineHeight: 1.7
+      }
+    }, tip.tip))));
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fce4ec",
+      borderRadius: 12,
+      padding: "16px 18px",
+      marginTop: 8,
+      borderLeft: "3px solid #c2185b"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "#880e4f",
+      lineHeight: 1.7
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "\uD83C\uDF38 Final PCOS note:"), " With PCOS, weight loss can be slower and less linear. You may lose 0.5kg one week and nothing the next \u2014 this is hormonal, not failure. Judge progress monthly, not weekly. By September you will be stronger, more toned, and more in tune with your body than you've been in years."))));
+}
+function RecipeCard(_ref8) {
+  var recipe = _ref8.recipe,
+    unit = _ref8.unit;
+  var _useState9 = useState(false),
+    _useState0 = _slicedToArray(_useState9, 2),
+    open = _useState0[0],
+    setOpen = _useState0[1];
+  var _useState1 = useState(1),
+    _useState10 = _slicedToArray(_useState1, 2),
+    portions = _useState10[0],
+    setPortions = _useState10[1];
   var cs = CAT[recipe.category] || {
     bg: "#eee",
     fg: "#333"
   };
   var ingredients = unit === "metric" ? recipe.metric : recipe.imperial;
-
-  // Scale multipliers: Eloise = 1x, Boyfriend = 1.4x (his portions are ~40% larger)
   var SCALES = {
     1: {
       label: "🌿 Eloise",
@@ -2266,7 +4094,7 @@ function RecipeCard(_ref3) {
       protein: recipe.protein
     },
     2: {
-      label: "🏃 Boyfriend",
+      label: "🏃 Sterling",
       multiplier: 1.4,
       cal: Math.round(recipe.cal * 1.4),
       protein: Math.round(recipe.protein * 1.4)
@@ -2279,14 +4107,11 @@ function RecipeCard(_ref3) {
     }
   };
   var S = SCALES[portions];
-
-  // Scale a single ingredient string — finds leading numbers and multiplies them
   var scaleIngredient = function scaleIngredient(ing, mult) {
     if (!mult || mult === 1) return ing;
     return ing.replace(/(\d+(\.\d+)?)/g, function (match) {
       var n = parseFloat(match);
       var scaled = n * mult;
-      // Round nicely
       if (scaled % 1 === 0) return String(Math.round(scaled));
       if (scaled < 10) return parseFloat(scaled.toFixed(1)).toString();
       return String(Math.round(scaled));
@@ -2451,10 +4276,10 @@ function RecipeCard(_ref3) {
       padding: 4,
       gap: 3
     }
-  }, Object.entries(SCALES).map(function (_ref4) {
-    var _ref5 = _slicedToArray(_ref4, 2),
-      key = _ref5[0],
-      s = _ref5[1];
+  }, Object.entries(SCALES).map(function (_ref9) {
+    var _ref0 = _slicedToArray(_ref9, 2),
+      key = _ref0[0],
+      s = _ref0[1];
     return /*#__PURE__*/React.createElement("button", {
       key: key,
       onClick: function onClick(e) {
@@ -2520,22 +4345,7 @@ function RecipeCard(_ref3) {
       fontSize: 11,
       color: C.muted
     }
-  }, Math.round(S.protein * 0.035), "oz protein")), portions === 3 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      background: "#fff8e1",
-      borderRadius: 10,
-      padding: "10px 14px",
-      textAlign: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      fontWeight: 600,
-      color: "#7a5c00",
-      lineHeight: 1.4
-    }
-  }, "Cook for 2 \u2014 portions split above")))), /*#__PURE__*/React.createElement("div", {
+  }, Math.round(S.protein * 0.035), "oz protein")))), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
       fontWeight: 700,
@@ -2544,13 +4354,12 @@ function RecipeCard(_ref3) {
       color: C.accent,
       marginBottom: 10
     }
-  }, "Ingredients ", portions === 3 ? "(for both)" : portions === 2 ? "(🏃 Boyfriend)" : "(🌿 Eloise)"), /*#__PURE__*/React.createElement("ul", {
+  }, "Ingredients ", portions === 3 ? "(for both)" : portions === 2 ? "(🏃 Sterling)" : "(🌿 Eloise)"), /*#__PURE__*/React.createElement("ul", {
     style: {
       listStyle: "none",
       marginBottom: 20
     }
   }, ingredients.map(function (ing, i) {
-    var scaled = portions === 3 ? "Eloise: ".concat(ing, "  |  Boyfriend: ").concat(scaleIngredient(ing, 1.4)) : scaleIngredient(ing, S.multiplier);
     return /*#__PURE__*/React.createElement("li", {
       key: i,
       style: {
@@ -2581,7 +4390,7 @@ function RecipeCard(_ref3) {
         color: C.accent,
         fontWeight: 600
       }
-    }, "Boyfriend:"), " ", scaleIngredient(ing, 1.4))) : scaled);
+    }, "Sterling:"), " ", scaleIngredient(ing, 1.4))) : scaleIngredient(ing, S.multiplier));
   })), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
@@ -2629,10 +4438,60 @@ function RecipeCard(_ref3) {
     }, step));
   }))));
 }
-function MealDay(_ref6) {
-  var day = _ref6.day,
-    mealFilter = _ref6.mealFilter,
-    onRecipeClick = _ref6.onRecipeClick;
+function MiniChart(_ref1) {
+  var data = _ref1.data,
+    color = _ref1.color;
+  if (!data || data.length < 2) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 80,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: C.muted,
+      fontSize: 13
+    }
+  }, "Log at least 2 days to see your chart");
+  var vals = data.map(function (d) {
+    return d.value;
+  });
+  var minV = Math.min.apply(Math, _toConsumableArray(vals));
+  var maxV = Math.max.apply(Math, _toConsumableArray(vals));
+  var range = maxV - minV || 1;
+  var w = 300;
+  var h = 80;
+  var pad = 10;
+  var points = data.map(function (d, i) {
+    var x = pad + i / (data.length - 1) * (w - pad * 2);
+    var y = h - pad - (d.value - minV) / range * (h - pad * 2);
+    return x + "," + y;
+  }).join(' ');
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 " + w + " " + h,
+    style: {
+      width: "100%",
+      height: 80
+    }
+  }, /*#__PURE__*/React.createElement("polyline", {
+    fill: "none",
+    stroke: color,
+    strokeWidth: "2",
+    points: points
+  }), data.map(function (d, i) {
+    var x = pad + i / (data.length - 1) * (w - pad * 2);
+    var y = h - pad - (d.value - minV) / range * (h - pad * 2);
+    return /*#__PURE__*/React.createElement("circle", {
+      key: i,
+      cx: x,
+      cy: y,
+      r: "3",
+      fill: color
+    });
+  }));
+}
+function MealDay(_ref10) {
+  var day = _ref10.day,
+    mealFilter = _ref10.mealFilter,
+    onRecipeClick = _ref10.onRecipeClick;
   var meals = mealFilter === "All" ? day.meals : day.meals.filter(function (m) {
     return m.label === mealFilter;
   });
@@ -2756,10 +4615,10 @@ function MealDay(_ref6) {
     }, meal.protein, "g / ", Math.round(meal.protein * 0.035), "oz")));
   }));
 }
-function Pill(_ref7) {
-  var value = _ref7.value,
-    current = _ref7.current,
-    setter = _ref7.setter;
+function Pill(_ref11) {
+  var value = _ref11.value,
+    current = _ref11.current,
+    setter = _ref11.setter;
   var active = current === value;
   var cs = CAT[value] || null;
   return /*#__PURE__*/React.createElement("button", {
@@ -2786,38 +4645,38 @@ function Pill(_ref7) {
 // MAIN APP
 // ─────────────────────────────────────────────────────────────
 function App() {
-  var _useState7 = useState("tracking"),
-    _useState8 = _slicedToArray(_useState7, 2),
-    tab = _useState8[0],
-    setTab = _useState8[1];
-  var _useState9 = useState("heb"),
-    _useState0 = _slicedToArray(_useState9, 2),
-    store = _useState0[0],
-    setStore = _useState0[1];
-  var _useState1 = useState("All"),
-    _useState10 = _slicedToArray(_useState1, 2),
-    recipeFilter = _useState10[0],
-    setRF = _useState10[1];
-  var _useState11 = useState("All"),
+  var _useState11 = useState("tracking"),
     _useState12 = _slicedToArray(_useState11, 2),
-    mealFilter = _useState12[0],
-    setMF = _useState12[1];
-  var _useState13 = useState("imperial"),
+    tab = _useState12[0],
+    setTab = _useState12[1];
+  var _useState13 = useState("heb"),
     _useState14 = _slicedToArray(_useState13, 2),
-    unit = _useState14[0],
-    setUnit = _useState14[1];
-  var _useState15 = useState(""),
+    store = _useState14[0],
+    setStore = _useState14[1];
+  var _useState15 = useState("All"),
     _useState16 = _slicedToArray(_useState15, 2),
-    search = _useState16[0],
-    setSearch = _useState16[1];
-  var _useState17 = useState(false),
+    recipeFilter = _useState16[0],
+    setRF = _useState16[1];
+  var _useState17 = useState("All"),
     _useState18 = _slicedToArray(_useState17, 2),
-    pcosFilter = _useState18[0],
-    setPcosFilter = _useState18[1];
-  var _useState19 = useState("standard"),
+    mealFilter = _useState18[0],
+    setMF = _useState18[1];
+  var _useState19 = useState("imperial"),
     _useState20 = _slicedToArray(_useState19, 2),
-    mealPlanView = _useState20[0],
-    setMealPlanView = _useState20[1];
+    unit = _useState20[0],
+    setUnit = _useState20[1];
+  var _useState21 = useState(""),
+    _useState22 = _slicedToArray(_useState21, 2),
+    search = _useState22[0],
+    setSearch = _useState22[1];
+  var _useState23 = useState(false),
+    _useState24 = _slicedToArray(_useState23, 2),
+    pcosFilter = _useState24[0],
+    setPcosFilter = _useState24[1];
+  var _useState25 = useState("standard"),
+    _useState26 = _slicedToArray(_useState25, 2),
+    mealPlanView = _useState26[0],
+    setMealPlanView = _useState26[1];
   var goToRecipe = function goToRecipe(title) {
     setTab("recipes");
     setSearch(title);
@@ -2827,14 +4686,14 @@ function App() {
       behavior: "smooth"
     });
   };
-  var _useState21 = useState("eloise"),
-    _useState22 = _slicedToArray(_useState21, 2),
-    person = _useState22[0],
-    setPerson = _useState22[1];
-  var _useState23 = useState(false),
-    _useState24 = _slicedToArray(_useState23, 2),
-    copied = _useState24[0],
-    setCopied = _useState24[1];
+  var _useState27 = useState("eloise"),
+    _useState28 = _slicedToArray(_useState27, 2),
+    person = _useState28[0],
+    setPerson = _useState28[1];
+  var _useState29 = useState(false),
+    _useState30 = _slicedToArray(_useState29, 2),
+    copied = _useState30[0],
+    setCopied = _useState30[1];
   var PROFILES = {
     eloise: {
       name: "Eloise 🌿",
@@ -2880,7 +4739,7 @@ function App() {
       }]
     },
     boyfriend: {
-      name: "Boyfriend 🏃",
+      name: "Sterling 🏃",
       current_lbs: 194,
       goal_lbs: 170,
       height: "5'10\"",
@@ -2895,7 +4754,7 @@ function App() {
       timeline: "~4–5 months",
       tolose_lbs: 24,
       tolose_kg: 11,
-      tips: ["His deficit is conservative — important because he's running. Too aggressive = no energy for training.", "Running 3.5 miles / 5.6km burns ~350–400 kcal. On run days he can eat up to ~2,500 kcal if needed.", "Protein at 155–165g (5.5–5.8oz) is critical — running breaks down muscle, protein rebuilds it.", "He'll likely lose weight faster than you at first — don't compare progress. Different bodies, different rates."],
+      tips: ["Your deficit is conservative — important because you're running. Too aggressive = no energy for training.", "Running 3.5 miles / 5.6km burns ~350–400 kcal. On run days you can eat up to ~2,500 kcal if needed.", "Protein at 155–165g (5.5–5.8oz) is critical — running breaks down muscle, protein rebuilds it. Hit this every single day.", "Results may come faster in the first weeks — running + lifting is a powerful combination. Stay consistent."],
       macros: [{
         label: "Protein",
         value: 160,
@@ -2927,7 +4786,7 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState25 = useState(function () {
+  var _useState31 = useState(function () {
       try {
         var s = localStorage.getItem("wellness_logs");
         return s ? JSON.parse(s) : {
@@ -2941,9 +4800,9 @@ function App() {
         };
       }
     }),
-    _useState26 = _slicedToArray(_useState25, 2),
-    logs = _useState26[0],
-    setLogsRaw = _useState26[1];
+    _useState32 = _slicedToArray(_useState31, 2),
+    logs = _useState32[0],
+    setLogsRaw = _useState32[1];
   var setLogs = function setLogs(u) {
     setLogsRaw(function (p) {
       var n = typeof u === "function" ? u(p) : u;
@@ -2953,7 +4812,7 @@ function App() {
       return n;
     });
   };
-  var _useState27 = useState({
+  var _useState33 = useState({
       weight: "",
       waist: "",
       hips: "",
@@ -2962,17 +4821,17 @@ function App() {
       water: "",
       workout: false
     }),
-    _useState28 = _slicedToArray(_useState27, 2),
-    form = _useState28[0],
-    setForm = _useState28[1];
-  var _useState29 = useState("log"),
-    _useState30 = _slicedToArray(_useState29, 2),
-    mView = _useState30[0],
-    setMView = _useState30[1];
-  var _useState31 = useState("weight"),
-    _useState32 = _slicedToArray(_useState31, 2),
-    cKey = _useState32[0],
-    setCKey = _useState32[1];
+    _useState34 = _slicedToArray(_useState33, 2),
+    form = _useState34[0],
+    setForm = _useState34[1];
+  var _useState35 = useState("log"),
+    _useState36 = _slicedToArray(_useState35, 2),
+    mView = _useState36[0],
+    setMView = _useState36[1];
+  var _useState37 = useState("weight"),
+    _useState38 = _slicedToArray(_useState37, 2),
+    cKey = _useState38[0],
+    setCKey = _useState38[1];
   var saveLog = function saveLog() {
     if (Object.values(form).every(function (v) {
       return v === "" || v === false;
@@ -3035,9 +4894,9 @@ function App() {
       value: parseFloat(personLogs[d][cKey])
     };
   });
-  var MiniChart = function MiniChart(_ref8) {
-    var data = _ref8.data,
-      color = _ref8.color;
+  var MiniChart = function MiniChart(_ref12) {
+    var data = _ref12.data,
+      color = _ref12.color;
     if (data.length < 2) return /*#__PURE__*/React.createElement("div", {
       style: {
         textAlign: "center",
@@ -3143,6 +5002,9 @@ function App() {
     id: "mealplan",
     label: "📅 Meal Plan"
   }, {
+    id: "workout",
+    label: "💪 Workout"
+  }, {
     id: "metrics",
     label: "📈 Metrics"
   }, {
@@ -3213,10 +5075,10 @@ function App() {
       marginBottom: 24,
       width: "fit-content"
     }
-  }, [["eloise", "Eloise 🌿"], ["boyfriend", "Boyfriend 🏃"]].map(function (_ref9) {
-    var _ref0 = _slicedToArray(_ref9, 2),
-      id = _ref0[0],
-      label = _ref0[1];
+  }, [["eloise", "Eloise 🌿"], ["boyfriend", "Sterling 🏃"]].map(function (_ref13) {
+    var _ref14 = _slicedToArray(_ref13, 2),
+      id = _ref14[0],
+      label = _ref14[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -3241,10 +5103,10 @@ function App() {
       gap: 24,
       flexWrap: "wrap"
     }
-  }, [[String(P.cal), "kcal / Day"], [P.protein, "Protein Goal"], ["-".concat(P.tolose_lbs, " lbs"), "Goal (-".concat(P.tolose_kg, "kg)")], [String(RECIPES.length), "Recipes"]].map(function (_ref1) {
-    var _ref10 = _slicedToArray(_ref1, 2),
-      n = _ref10[0],
-      l = _ref10[1];
+  }, [[String(P.cal), "kcal / Day"], [P.protein, "Protein Goal"], ["-".concat(P.tolose_lbs, " lbs"), "Goal (-".concat(P.tolose_kg, "kg)")], [String(RECIPES.length), "Recipes"]].map(function (_ref15) {
+    var _ref16 = _slicedToArray(_ref15, 2),
+      n = _ref16[0],
+      l = _ref16[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -3340,10 +5202,10 @@ function App() {
       color: C.muted,
       marginBottom: 8
     }
-  }, "Profile"), [["Current weight", "".concat(P.current_lbs, " lbs / ").concat(P.current_kg, " kg")], ["Height", P.height], ["Goal weight", "".concat(P.goal_lbs, " lbs / ").concat(P.goal_kg, " kg")], ["To lose", "".concat(P.tolose_lbs, " lbs / ").concat(P.tolose_kg, " kg")], ["Activity", P.activity], ["Timeline", P.timeline]].map(function (_ref11) {
-    var _ref12 = _slicedToArray(_ref11, 2),
-      l = _ref12[0],
-      v = _ref12[1];
+  }, "Profile"), [["Current weight", "".concat(P.current_lbs, " lbs / ").concat(P.current_kg, " kg")], ["Height", P.height], ["Goal weight", "".concat(P.goal_lbs, " lbs / ").concat(P.goal_kg, " kg")], ["To lose", "".concat(P.tolose_lbs, " lbs / ").concat(P.tolose_kg, " kg")], ["Activity", P.activity], ["Timeline", P.timeline]].map(function (_ref17) {
+    var _ref18 = _slicedToArray(_ref17, 2),
+      l = _ref18[0],
+      v = _ref18[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l,
       style: {
@@ -3546,10 +5408,10 @@ function App() {
       color: "#2e7d32",
       marginBottom: 14
     }
-  }, "\u2705 Prioritise These"), [["🐟 Fatty fish (salmon, tuna)", "Anti-inflammatory omega-3s — eat 3x/week minimum"], ["🥬 Leafy greens (spinach, arugula)", "Low glycemic, high magnesium — helps insulin sensitivity"], ["🫐 Berries", "Low sugar, high antioxidants — reduce PCOS inflammation"], ["🥚 Eggs", "Hormone-balancing choline, high protein, low GI"], ["🫚 Olive oil", "Anti-inflammatory healthy fat — use as your main cooking fat"], ["🌿 Cinnamon", "Clinically shown to improve insulin sensitivity — add to everything"], ["🫚 Flaxseed (add to oats/yogurt)", "Balances estrogen levels — 1 tbsp daily is ideal"], ["🍵 Spearmint tea", "Evidence-backed for reducing androgens in PCOS — 2 cups/day"], ["🫚 Turmeric & ginger", "Powerful anti-inflammatories — already in several recipes"]].map(function (_ref13, i) {
-    var _ref14 = _slicedToArray(_ref13, 2),
-      food = _ref14[0],
-      why = _ref14[1];
+  }, "\u2705 Prioritise These"), [["🐟 Fatty fish (salmon, tuna)", "Anti-inflammatory omega-3s — eat 3x/week minimum"], ["🥬 Leafy greens (spinach, arugula)", "Low glycemic, high magnesium — helps insulin sensitivity"], ["🫐 Berries", "Low sugar, high antioxidants — reduce PCOS inflammation"], ["🥚 Eggs", "Hormone-balancing choline, high protein, low GI"], ["🫚 Olive oil", "Anti-inflammatory healthy fat — use as your main cooking fat"], ["🌿 Cinnamon", "Clinically shown to improve insulin sensitivity — add to everything"], ["🫚 Flaxseed (add to oats/yogurt)", "Balances estrogen levels — 1 tbsp daily is ideal"], ["🍵 Spearmint tea", "Evidence-backed for reducing androgens in PCOS — 2 cups/day"], ["🫚 Turmeric & ginger", "Powerful anti-inflammatories — already in several recipes"]].map(function (_ref19, i) {
+    var _ref20 = _slicedToArray(_ref19, 2),
+      food = _ref20[0],
+      why = _ref20[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3592,10 +5454,10 @@ function App() {
       color: "#e65100",
       marginBottom: 14
     }
-  }, "\u26A0\uFE0F Limit These"), [["🍞 Refined carbs (white bread, pasta, pastries)", "Spike insulin rapidly — already mostly out of your plan ✅"], ["🥛 Excess dairy", "Fine in moderate amounts — watch total daily dairy intake"], ["🧅 Raw onion & garlic", "Major bloating triggers — always cook them"], ["🥦 Large amounts of raw cruciferous veg", "Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"], ["🫘 Large portions of legumes", "Black beans, chickpeas — fine in small amounts, known bloating trigger"], ["🍬 Sugar alcohols", "Found in many protein bars — read labels carefully"], ["🧂 Excess salt", "Worsens water retention which PCOS already promotes"], ["🍺 Alcohol", "Disrupts hormones and worsens insulin resistance — minimise"]].map(function (_ref15, i) {
-    var _ref16 = _slicedToArray(_ref15, 2),
-      food = _ref16[0],
-      why = _ref16[1];
+  }, "\u26A0\uFE0F Limit These"), [["🍞 Refined carbs (white bread, pasta, pastries)", "Spike insulin rapidly — already mostly out of your plan ✅"], ["🥛 Excess dairy", "Fine in moderate amounts — watch total daily dairy intake"], ["🧅 Raw onion & garlic", "Major bloating triggers — always cook them"], ["🥦 Large amounts of raw cruciferous veg", "Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"], ["🫘 Large portions of legumes", "Black beans, chickpeas — fine in small amounts, known bloating trigger"], ["🍬 Sugar alcohols", "Found in many protein bars — read labels carefully"], ["🧂 Excess salt", "Worsens water retention which PCOS already promotes"], ["🍺 Alcohol", "Disrupts hormones and worsens insulin resistance — minimise"]].map(function (_ref21, i) {
+    var _ref22 = _slicedToArray(_ref21, 2),
+      food = _ref22[0],
+      why = _ref22[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3638,10 +5500,10 @@ function App() {
       color: "#7b1fa2",
       marginBottom: 14
     }
-  }, "\uD83D\uDCA8 Bloating Remedies"), [["🍵 Peppermint tea after meals", "Most effective natural remedy for post-meal bloating"], ["🌿 Fennel seeds", "Chew a small pinch after meals — très français, genuinely works"], ["🚶 Walk after eating", "Even 10 minutes significantly helps digestion — fits your step goal"], ["🥄 Eat slowly, chew thoroughly", "Rushing meals is a major bloating cause — give yourself 20 min"], ["💧 Warm water with lemon", "Supports digestion, gentle on the gut, anti-inflammatory"], ["🧘 Manage stress", "Cortisol directly worsens bloating in PCOS — prioritise sleep & calm"]].map(function (_ref17, i) {
-    var _ref18 = _slicedToArray(_ref17, 2),
-      remedy = _ref18[0],
-      why = _ref18[1];
+  }, "\uD83D\uDCA8 Bloating Remedies"), [["🍵 Peppermint tea after meals", "Most effective natural remedy for post-meal bloating"], ["🌿 Fennel seeds", "Chew a small pinch after meals — très français, genuinely works"], ["🚶 Walk after eating", "Even 10 minutes significantly helps digestion — fits your step goal"], ["🥄 Eat slowly, chew thoroughly", "Rushing meals is a major bloating cause — give yourself 20 min"], ["💧 Warm water with lemon", "Supports digestion, gentle on the gut, anti-inflammatory"], ["🧘 Manage stress", "Cortisol directly worsens bloating in PCOS — prioritise sleep & calm"]].map(function (_ref23, i) {
+    var _ref24 = _slicedToArray(_ref23, 2),
+      remedy = _ref24[0],
+      why = _ref24[1];
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
@@ -3714,11 +5576,11 @@ function App() {
       marginBottom: 20,
       flexWrap: "wrap"
     }
-  }, [["heb", "H-E-B", C.heb], ["tj", "Trader Joe's", C.tj], ["wf", "Whole Foods", C.wf]].map(function (_ref19) {
-    var _ref20 = _slicedToArray(_ref19, 3),
-      id = _ref20[0],
-      label = _ref20[1],
-      color = _ref20[2];
+  }, [["heb", "H-E-B", C.heb], ["tj", "Trader Joe's", C.tj], ["wf", "Whole Foods", C.wf]].map(function (_ref25) {
+    var _ref26 = _slicedToArray(_ref25, 3),
+      id = _ref26[0],
+      label = _ref26[1],
+      color = _ref26[2];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -3960,10 +5822,10 @@ function App() {
       gap: 2,
       flexShrink: 0
     }
-  }, [["imperial", "🇺🇸 Imperial"], ["metric", "🇫🇷 Metric"]].map(function (_ref21) {
-    var _ref22 = _slicedToArray(_ref21, 2),
-      id = _ref22[0],
-      label = _ref22[1];
+  }, [["imperial", "🇺🇸 Imperial"], ["metric", "🇫🇷 Metric"]].map(function (_ref27) {
+    var _ref28 = _slicedToArray(_ref27, 2),
+      id = _ref28[0],
+      label = _ref28[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -4058,10 +5920,10 @@ function App() {
       marginBottom: 24,
       width: "fit-content"
     }
-  }, [["standard", "📅 Standard Plan"], ["pcos", "🌸 PCOS Plan"]].map(function (_ref23) {
-    var _ref24 = _slicedToArray(_ref23, 2),
-      id = _ref24[0],
-      label = _ref24[1];
+  }, [["standard", "📅 Standard Plan"], ["pcos", "🌸 PCOS Plan"]].map(function (_ref29) {
+    var _ref30 = _slicedToArray(_ref29, 2),
+      id = _ref30[0],
+      label = _ref30[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -4272,7 +6134,134 @@ function App() {
         }
       }, meal.cal));
     }));
-  }))), tab === "metrics" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }))), tab === "workout" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 26,
+      marginBottom: 4,
+      fontWeight: 400
+    }
+  }, "\uD83D\uDCAA Workout Plan"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      background: "#efefef",
+      borderRadius: 24,
+      padding: 4,
+      gap: 3,
+      marginBottom: 20,
+      width: "fit-content"
+    }
+  }, [["eloise", "🌿 Eloise"], ["boyfriend", "🏃 Sterling"]].map(function (_ref31) {
+    var _ref32 = _slicedToArray(_ref31, 2),
+      id = _ref32[0],
+      label = _ref32[1];
+    return /*#__PURE__*/React.createElement("button", {
+      key: id,
+      onClick: function onClick() {
+        return setPerson(id);
+      },
+      style: {
+        padding: "8px 18px",
+        borderRadius: 20,
+        border: "none",
+        cursor: "pointer",
+        background: person === id ? C.sageDark : "transparent",
+        color: person === id ? "white" : C.muted,
+        fontFamily: "inherit",
+        fontSize: 13,
+        fontWeight: 600,
+        transition: "all 0.2s"
+      }
+    }, label);
+  })), person === "eloise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: C.muted,
+      marginBottom: 20
+    }
+  }, "14 weeks \xB7 Beginner lifting \xB7 PCOS cycle-synced \xB7 May 26 \u2192 September 2026"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "linear-gradient(135deg,".concat(C.sageDark, ",#2d4f31)"),
+      borderRadius: 18,
+      padding: 22,
+      marginBottom: 20,
+      color: "white"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 17,
+      color: "#9dcfa1",
+      marginBottom: 14
+    }
+  }, "Your 14-Week Goal"), [["Start", "May 26, 2026"], ["Goal", "September 2026"], ["Target", "-10kg / -22 lbs"], ["Schedule", "4 days lifting + daily walk"], ["Split", "Upper / Lower / Rest / Upper / Lower / Walk / Rest"]].map(function (_ref33) {
+    var _ref34 = _slicedToArray(_ref33, 2),
+      l = _ref34[0],
+      v = _ref34[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: l,
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "5px 0",
+        borderBottom: "1px solid rgba(255,255,255,0.1)",
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: "rgba(255,255,255,0.6)"
+      }
+    }, l), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600
+      }
+    }, v));
+  })), /*#__PURE__*/React.createElement(WorkoutSubNav, null)), person === "boyfriend" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: C.muted,
+      marginBottom: 20
+    }
+  }, "Weekend strength \xB7 Running Mon\u2013Fri \xB7 Build strength, lose weight, run better"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "linear-gradient(135deg,#1a3a5c,#0d2137)",
+      borderRadius: 18,
+      padding: 22,
+      marginBottom: 20,
+      color: "white"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 17,
+      color: "#90caf9",
+      marginBottom: 14
+    }
+  }, "Sterling's Weekend Plan"), [["Gym days", "Saturday + Sunday only"], ["Goal", "Strength + weight loss + running performance"], ["Duration", "45 min (builds to 60 min)"], ["Running", "Mon–Fri · 4–5 miles / 6.4–8km daily"], ["Key insight", "Running handles cardio — gym is 100% strength"]].map(function (_ref35) {
+    var _ref36 = _slicedToArray(_ref35, 2),
+      l = _ref36[0],
+      v = _ref36[1];
+    return /*#__PURE__*/React.createElement("div", {
+      key: l,
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "5px 0",
+        borderBottom: "1px solid rgba(255,255,255,0.1)",
+        fontSize: 13
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: "rgba(255,255,255,0.6)"
+      }
+    }, l), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontWeight: 600,
+        textAlign: "right",
+        maxWidth: "60%"
+      }
+    }, v));
+  })), /*#__PURE__*/React.createElement(BFWorkoutSubNav, null))), tab === "metrics" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "Georgia,serif",
       fontSize: 26,
@@ -4291,10 +6280,10 @@ function App() {
       gap: 8,
       marginBottom: 24
     }
-  }, [["log", "📝 Log Today"], ["history", "📈 Progress Charts"]].map(function (_ref25) {
-    var _ref26 = _slicedToArray(_ref25, 2),
-      id = _ref26[0],
-      label = _ref26[1];
+  }, [["log", "📝 Log Today"], ["history", "📈 Progress Charts"]].map(function (_ref37) {
+    var _ref38 = _slicedToArray(_ref37, 2),
+      id = _ref38[0],
+      label = _ref38[1];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       onClick: function onClick() {
@@ -4330,7 +6319,7 @@ function App() {
     weekday: "long",
     month: "long",
     day: "numeric"
-  }), personLogs[today] && " \u2705 ".concat(P.name, " already logged!"))), /*#__PURE__*/React.createElement("div", {
+  }), personLogs[today] && " \u2705 ".concat(P.name, " already logged today!"))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "white",
       borderRadius: 14,
@@ -4353,11 +6342,11 @@ function App() {
       gridTemplateColumns: "1fr 1fr 1fr",
       gap: 12
     }
-  }, [["weight", "Weight", "kg"], ["waist", "Waist", "cm"], ["hips", "Hips", "cm"]].map(function (_ref27) {
-    var _ref28 = _slicedToArray(_ref27, 3),
-      key = _ref28[0],
-      label = _ref28[1],
-      u = _ref28[2];
+  }, [["weight", "Weight", "kg"], ["waist", "Waist", "cm"], ["hips", "Hips", "cm"]].map(function (_ref39) {
+    var _ref40 = _slicedToArray(_ref39, 3),
+      key = _ref40[0],
+      label = _ref40[1],
+      u = _ref40[2];
     return /*#__PURE__*/React.createElement("div", {
       key: key
     }, /*#__PURE__*/React.createElement("label", {
@@ -4412,11 +6401,11 @@ function App() {
       gap: 12,
       marginBottom: 14
     }
-  }, [["steps", "Steps walked", "e.g. 8500"], ["calories", "Calories eaten", "e.g. 1340"]].map(function (_ref29) {
-    var _ref30 = _slicedToArray(_ref29, 3),
-      key = _ref30[0],
-      label = _ref30[1],
-      ph = _ref30[2];
+  }, [["steps", "Steps walked", "e.g. 8500"], ["calories", "Calories eaten", "e.g. 1340"]].map(function (_ref41) {
+    var _ref42 = _slicedToArray(_ref41, 3),
+      key = _ref42[0],
+      label = _ref42[1],
+      ph = _ref42[2];
     return /*#__PURE__*/React.createElement("div", {
       key: key
     }, /*#__PURE__*/React.createElement("label", {
@@ -4594,11 +6583,11 @@ function App() {
       padding: 20,
       boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
     }
-  }, [["Bloating", "💨", "severity"], ["Energy level (1–5)", "⚡", "scale"], ["Mood (1–5)", "😊", "scale"], ["Cramps", "🌡️", "severity"], ["Skin breakouts", "✨", "severity"], ["Headache / Migraine", "🤕", "migraine"], ["Migraine intensity (1–5)", "📊", "migrainescale"]].map(function (_ref31) {
-    var _ref32 = _slicedToArray(_ref31, 3),
-      label = _ref32[0],
-      icon = _ref32[1],
-      type = _ref32[2];
+  }, [["Bloating", "💨", "severity"], ["Energy level (1–5)", "⚡", "scale"], ["Mood (1–5)", "😊", "scale"], ["Cramps", "🌡️", "severity"], ["Skin breakouts", "✨", "severity"], ["Headache / Migraine", "🤕", "migraine"], ["Migraine intensity (1–5)", "📊", "migrainescale"]].map(function (_ref43) {
+    var _ref44 = _slicedToArray(_ref43, 3),
+      label = _ref44[0],
+      icon = _ref44[1],
+      type = _ref44[2];
     return /*#__PURE__*/React.createElement("div", {
       key: label,
       style: {
@@ -4769,10 +6758,10 @@ function App() {
       marginBottom: 16,
       flexWrap: "wrap"
     }
-  }, [["Start", chartData[0].value], ["Latest", chartData[chartData.length - 1].value], ["Change", +(chartData[chartData.length - 1].value - chartData[0].value).toFixed(1)]].map(function (_ref33, i) {
-    var _ref34 = _slicedToArray(_ref33, 2),
-      l = _ref34[0],
-      v = _ref34[1];
+  }, [["Start", chartData[0].value], ["Latest", chartData[chartData.length - 1].value], ["Change", +(chartData[chartData.length - 1].value - chartData[0].value).toFixed(1)]].map(function (_ref45, i) {
+    var _ref46 = _slicedToArray(_ref45, 2),
+      l = _ref46[0],
+      v = _ref46[1];
     return /*#__PURE__*/React.createElement("div", {
       key: l
     }, /*#__PURE__*/React.createElement("span", {
@@ -4842,10 +6831,10 @@ function App() {
         gap: 8,
         flexWrap: "wrap"
       }
-    }, [["weight", "kg"], ["waist", "cm"], ["hips", "cm"], ["steps", "steps"], ["calories", "kcal"], ["water", "L"]].map(function (_ref35) {
-      var _ref36 = _slicedToArray(_ref35, 2),
-        key = _ref36[0],
-        u = _ref36[1];
+    }, [["weight", "kg"], ["waist", "cm"], ["hips", "cm"], ["steps", "steps"], ["calories", "kcal"], ["water", "L"]].map(function (_ref47) {
+      var _ref48 = _slicedToArray(_ref47, 2),
+        key = _ref48[0],
+        u = _ref48[1];
       return log[key] ? /*#__PURE__*/React.createElement("span", {
         key: key,
         style: {
