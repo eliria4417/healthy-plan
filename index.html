@@ -12,6 +12,8 @@
 <title>🌿 Healthy Plan</title>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -52,7 +54,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var _React = React,
-  useState = _React.useState;
+  useState = _React.useState,
+  useEffect = _React.useEffect;
 var C = {
   sage: "#5c8a60",
   sageDark: "#3d6142",
@@ -66,6 +69,76 @@ var C = {
   heb: "#e8192c",
   tj: "#9b1b2a",
   wf: "#00674b"
+};
+
+// ── FIREBASE SYNC ───────────────────────────────────────────
+// Replace the firebaseConfig below with your own from Firebase Console
+// console.firebase.google.com → Your project → Project settings → Web app
+var firebaseConfig = {
+  apiKey: "AIzaSyAx_ayRUcNxvmTHIS6OVcPkD7tErDJlswM",
+  authDomain: "healthy-plan-a4eaf.firebaseapp.com",
+  databaseURL: "https://healthy-plan-a4eaf-default-rtdb.firebaseio.com",
+  projectId: "healthy-plan-a4eaf",
+  storageBucket: "healthy-plan-a4eaf.firebasestorage.app",
+  messagingSenderId: "666338545331",
+  appId: "1:666338545331:web:ddb6c49dcfc793415b6ac6"
+};
+
+// Check if Firebase SDK is available (loaded via CDN in index.html)
+var FIREBASE_AVAILABLE = typeof firebase !== "undefined";
+var db = null;
+if (FIREBASE_AVAILABLE) {
+  try {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+  } catch (e) {
+    // Already initialized or config not set — fall back to localStorage only
+  }
+}
+
+// Write to Firebase + localStorage
+var syncSet = function syncSet(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {}
+  if (db) {
+    try {
+      db.ref("healthy_plan/" + key).set(value);
+    } catch (e) {}
+  }
+};
+
+// Subscribe to Firebase, fall back to localStorage
+var syncListen = function syncListen(key, callback) {
+  if (db) {
+    try {
+      db.ref("healthy_plan/" + key).on("value", function (snapshot) {
+        var val = snapshot.val();
+        if (val !== null) {
+          try {
+            localStorage.setItem(key, JSON.stringify(val));
+          } catch (e) {}
+          callback(val);
+        }
+      });
+      return;
+    } catch (e) {}
+  }
+  // Fallback: read from localStorage once
+  try {
+    var s = localStorage.getItem(key);
+    if (s) callback(JSON.parse(s));
+  } catch (e) {}
+};
+
+// Read from localStorage (used for initial state)
+var syncGet = function syncGet(key, fallback) {
+  try {
+    var s = localStorage.getItem(key);
+    return s ? JSON.parse(s) : fallback;
+  } catch (e) {
+    return fallback;
+  }
 };
 var CAT = {
   Breakfast: {
@@ -3144,22 +3217,25 @@ function WorkoutSchedule(_ref3) {
     accentColor = _ref3.accentColor,
     lightColor = _ref3.lightColor;
   var _useState3 = useState(function () {
-      try {
-        var s = localStorage.getItem(storageKey);
-        return s ? JSON.parse(s) : {};
-      } catch (e) {
-        return {};
-      }
+      return syncGet(storageKey, {});
     }),
     _useState4 = _slicedToArray(_useState3, 2),
     checked = _useState4[0],
     setChecked = _useState4[1];
+  var _useState5 = useState(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    synced = _useState6[0],
+    setSynced = _useState6[1];
+  useEffect(function () {
+    syncListen(storageKey, function (val) {
+      setChecked(val || {});
+      setSynced(true);
+    });
+  }, [storageKey]);
   var toggle = function toggle(key) {
     setChecked(function (prev) {
       var next = _objectSpread(_objectSpread({}, prev), {}, _defineProperty({}, key, !prev[key]));
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(next));
-      } catch (e) {}
+      syncSet(storageKey, next);
       return next;
     });
   };
@@ -3180,11 +3256,25 @@ function WorkoutSchedule(_ref3) {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: "Georgia,serif",
-      fontSize: 17,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
       marginBottom: 10
     }
-  }, "14-Week Progress"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "Georgia,serif",
+      fontSize: 17
+    }
+  }, "14-Week Progress"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      background: "rgba(255,255,255,0.2)",
+      padding: "3px 10px",
+      borderRadius: 20,
+      fontWeight: 600
+    }
+  }, synced ? "☁️ Synced" : "💾 Local")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -3308,10 +3398,10 @@ function WorkoutSchedule(_ref3) {
   }));
 }
 function BFWorkoutSubNav() {
-  var _useState5 = useState("split"),
-    _useState6 = _slicedToArray(_useState5, 2),
-    wTab = _useState6[0],
-    setWTab = _useState6[1];
+  var _useState7 = useState("split"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    wTab = _useState8[0],
+    setWTab = _useState8[1];
   var BF_BLUE = "#1565c0";
   var BF_LIGHT = "#e3f2fd";
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
@@ -3980,10 +4070,10 @@ function BFWorkoutSubNav() {
 }
 function ExerciseCard(_ref6) {
   var ex = _ref6.ex;
-  var _useState7 = useState(false),
-    _useState8 = _slicedToArray(_useState7, 2),
-    open = _useState8[0],
-    setOpen = _useState8[1];
+  var _useState9 = useState(false),
+    _useState0 = _slicedToArray(_useState9, 2),
+    open = _useState0[0],
+    setOpen = _useState0[1];
   return /*#__PURE__*/React.createElement("div", {
     style: {
       background: "white",
@@ -4161,10 +4251,10 @@ function ExerciseCard(_ref6) {
   }, "\uD83D\uDCF9 Watch on YouTube"))));
 }
 function WorkoutSubNav() {
-  var _useState9 = useState("split"),
-    _useState0 = _slicedToArray(_useState9, 2),
-    wTab = _useState0[0],
-    setWTab = _useState0[1];
+  var _useState1 = useState("split"),
+    _useState10 = _slicedToArray(_useState1, 2),
+    wTab = _useState10[0],
+    setWTab = _useState10[1];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -4828,14 +4918,14 @@ function WorkoutSubNav() {
 function RecipeCard(_ref9) {
   var recipe = _ref9.recipe,
     unit = _ref9.unit;
-  var _useState1 = useState(false),
-    _useState10 = _slicedToArray(_useState1, 2),
-    open = _useState10[0],
-    setOpen = _useState10[1];
-  var _useState11 = useState(1),
+  var _useState11 = useState(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    portions = _useState12[0],
-    setPortions = _useState12[1];
+    open = _useState12[0],
+    setOpen = _useState12[1];
+  var _useState13 = useState(1),
+    _useState14 = _slicedToArray(_useState13, 2),
+    portions = _useState14[0],
+    setPortions = _useState14[1];
   var cs = CAT[recipe.category] || {
     bg: "#eee",
     fg: "#333"
@@ -5400,38 +5490,38 @@ function Pill(_ref12) {
 // MAIN APP
 // ─────────────────────────────────────────────────────────────
 function App() {
-  var _useState13 = useState("tracking"),
-    _useState14 = _slicedToArray(_useState13, 2),
-    tab = _useState14[0],
-    setTab = _useState14[1];
-  var _useState15 = useState("heb"),
+  var _useState15 = useState("tracking"),
     _useState16 = _slicedToArray(_useState15, 2),
-    store = _useState16[0],
-    setStore = _useState16[1];
-  var _useState17 = useState("All"),
+    tab = _useState16[0],
+    setTab = _useState16[1];
+  var _useState17 = useState("heb"),
     _useState18 = _slicedToArray(_useState17, 2),
-    recipeFilter = _useState18[0],
-    setRF = _useState18[1];
+    store = _useState18[0],
+    setStore = _useState18[1];
   var _useState19 = useState("All"),
     _useState20 = _slicedToArray(_useState19, 2),
-    mealFilter = _useState20[0],
-    setMF = _useState20[1];
-  var _useState21 = useState("imperial"),
+    recipeFilter = _useState20[0],
+    setRF = _useState20[1];
+  var _useState21 = useState("All"),
     _useState22 = _slicedToArray(_useState21, 2),
-    unit = _useState22[0],
-    setUnit = _useState22[1];
-  var _useState23 = useState(""),
+    mealFilter = _useState22[0],
+    setMF = _useState22[1];
+  var _useState23 = useState("imperial"),
     _useState24 = _slicedToArray(_useState23, 2),
-    search = _useState24[0],
-    setSearch = _useState24[1];
-  var _useState25 = useState(false),
+    unit = _useState24[0],
+    setUnit = _useState24[1];
+  var _useState25 = useState(""),
     _useState26 = _slicedToArray(_useState25, 2),
-    pcosFilter = _useState26[0],
-    setPcosFilter = _useState26[1];
-  var _useState27 = useState("standard"),
+    search = _useState26[0],
+    setSearch = _useState26[1];
+  var _useState27 = useState(false),
     _useState28 = _slicedToArray(_useState27, 2),
-    mealPlanView = _useState28[0],
-    setMealPlanView = _useState28[1];
+    pcosFilter = _useState28[0],
+    setPcosFilter = _useState28[1];
+  var _useState29 = useState("standard"),
+    _useState30 = _slicedToArray(_useState29, 2),
+    mealPlanView = _useState30[0],
+    setMealPlanView = _useState30[1];
   var goToRecipe = function goToRecipe(title) {
     setTab("recipes");
     setSearch(title);
@@ -5441,14 +5531,14 @@ function App() {
       behavior: "smooth"
     });
   };
-  var _useState29 = useState("eloise"),
-    _useState30 = _slicedToArray(_useState29, 2),
-    person = _useState30[0],
-    setPerson = _useState30[1];
-  var _useState31 = useState(false),
+  var _useState31 = useState("eloise"),
     _useState32 = _slicedToArray(_useState31, 2),
-    copied = _useState32[0],
-    setCopied = _useState32[1];
+    person = _useState32[0],
+    setPerson = _useState32[1];
+  var _useState33 = useState(false),
+    _useState34 = _slicedToArray(_useState33, 2),
+    copied = _useState34[0],
+    setCopied = _useState34[1];
   var PROFILES = {
     eloise: {
       name: "Eloise 🌿",
@@ -5541,33 +5631,28 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState33 = useState(function () {
-      try {
-        var s = localStorage.getItem("wellness_logs");
-        return s ? JSON.parse(s) : {
-          eloise: {},
-          boyfriend: {}
-        };
-      } catch (e) {
-        return {
-          eloise: {},
-          boyfriend: {}
-        };
-      }
+  var _useState35 = useState(function () {
+      return syncGet("wellness_logs", {
+        eloise: {},
+        boyfriend: {}
+      });
     }),
-    _useState34 = _slicedToArray(_useState33, 2),
-    logs = _useState34[0],
-    setLogsRaw = _useState34[1];
+    _useState36 = _slicedToArray(_useState35, 2),
+    logs = _useState36[0],
+    setLogsRaw = _useState36[1];
   var setLogs = function setLogs(u) {
-    setLogsRaw(function (p) {
+    return setLogsRaw(function (p) {
       var n = typeof u === "function" ? u(p) : u;
-      try {
-        localStorage.setItem("wellness_logs", JSON.stringify(n));
-      } catch (e) {}
+      syncSet("wellness_logs", n);
       return n;
     });
   };
-  var _useState35 = useState({
+  useEffect(function () {
+    syncListen("wellness_logs", function (val) {
+      if (val) setLogsRaw(val);
+    });
+  }, []);
+  var _useState37 = useState({
       weight: "",
       waist: "",
       hips: "",
@@ -5576,17 +5661,17 @@ function App() {
       water: "",
       workout: false
     }),
-    _useState36 = _slicedToArray(_useState35, 2),
-    form = _useState36[0],
-    setForm = _useState36[1];
-  var _useState37 = useState("log"),
     _useState38 = _slicedToArray(_useState37, 2),
-    mView = _useState38[0],
-    setMView = _useState38[1];
-  var _useState39 = useState("weight"),
+    form = _useState38[0],
+    setForm = _useState38[1];
+  var _useState39 = useState("log"),
     _useState40 = _slicedToArray(_useState39, 2),
-    cKey = _useState40[0],
-    setCKey = _useState40[1];
+    mView = _useState40[0],
+    setMView = _useState40[1];
+  var _useState41 = useState("weight"),
+    _useState42 = _slicedToArray(_useState41, 2),
+    cKey = _useState42[0],
+    setCKey = _useState42[1];
   var saveLog = function saveLog() {
     if (Object.values(form).every(function (v) {
       return v === "" || v === false;
