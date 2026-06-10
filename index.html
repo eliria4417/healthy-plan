@@ -17,7 +17,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{font-family:"DM Sans",sans-serif;background:#faf8f4;overscroll-behavior:none}
+  body{font-family:"DM Sans",sans-serif;background:#faf8f4;overscroll-behavior:none;transition:background 0.3s,color 0.3s}
+  @media(prefers-color-scheme:dark){body{background:#0f1410}}
   ::-webkit-scrollbar{display:none}
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
@@ -42,21 +43,21 @@ function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArra
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var _React = React,
   useState = _React.useState,
   useEffect = _React.useEffect;
-var C = {
+var LIGHT = {
   sage: "#5c8a60",
   sageDark: "#3d6142",
   sageLight: "#e6f0e7",
@@ -66,11 +67,150 @@ var C = {
   accentLight: "#fdf0e4",
   charcoal: "#252525",
   muted: "#6e6e6e",
+  card: "#ffffff",
+  border: "#f0ede8",
   heb: "#e8192c",
   tj: "#9b1b2a",
-  wf: "#00674b"
+  wf: "#00674b",
+  navBg: "#ffffff",
+  navBorder: "#eee",
+  inputBg: "#f0ede8",
+  inputBorder: "#e0e0e0",
+  pill: "#edeae5",
+  pillBorder: "#dedad4",
+  highlight: "#e8f5e9",
+  highlightBorder: "#c8e6c9",
+  warning: "#fff3e0",
+  warningFg: "#e65100",
+  info: "#e3f2fd",
+  infoFg: "#1565c0",
+  pink: "#fce4ec",
+  pinkFg: "#880e4f",
+  purple: "#f3e5f5",
+  purpleFg: "#6a1b9a",
+  orange: "#fff3e0",
+  orangeFg: "#e65100",
+  batchBg: "#f1f8f1",
+  batchFg: "#2e7d32",
+  sub: "#f0ede8"
+};
+var DARK = {
+  sage: "#7ab87e",
+  sageDark: "#5ea863",
+  sageLight: "#1a2e1b",
+  cream: "#0f1410",
+  warm: "#141008",
+  accent: "#e09050",
+  accentLight: "#2a1e10",
+  charcoal: "#e8e8e8",
+  muted: "#909090",
+  card: "#1a1f1a",
+  border: "#252d25",
+  heb: "#ff5555",
+  tj: "#cc3344",
+  wf: "#00aa77",
+  navBg: "#131813",
+  navBorder: "#252d25",
+  inputBg: "#1e241e",
+  inputBorder: "#2d352d",
+  pill: "#1c221c",
+  pillBorder: "#2a322a",
+  highlight: "#1a2e1b",
+  highlightBorder: "#2d4a2e",
+  warning: "#2a1800",
+  warningFg: "#ff9800",
+  info: "#001a2e",
+  infoFg: "#64b5f6",
+  pink: "#2e0a18",
+  pinkFg: "#f48fb1",
+  purple: "#1a0a2e",
+  purpleFg: "#ce93d8",
+  orange: "#2a1800",
+  orangeFg: "#ffb74d",
+  batchBg: "#0d1f0e",
+  batchFg: "#66bb6a",
+  sub: "#141914"
+};
+var CAT_LIGHT = {
+  Breakfast: {
+    bg: "#fff8e1",
+    fg: "#7a5c00"
+  },
+  Lunch: {
+    bg: "#e0f2f1",
+    fg: "#00574b"
+  },
+  Snack: {
+    bg: "#e6f0e7",
+    fg: "#3d6142"
+  },
+  Dinner: {
+    bg: "#fde8d8",
+    fg: "#b05e20"
+  },
+  Wrap: {
+    bg: "#ede7f6",
+    fg: "#4527a0"
+  },
+  "Pre-Workout": {
+    bg: "#e3f2fd",
+    fg: "#1565c0"
+  },
+  "Late Night": {
+    bg: "#f3e5f5",
+    fg: "#6a1b9a"
+  },
+  "Goûter": {
+    bg: "#fce4ec",
+    fg: "#880e4f"
+  },
+  "Dessert": {
+    bg: "#fce4ec",
+    fg: "#880e4f"
+  }
+};
+var CAT_DARK = {
+  Breakfast: {
+    bg: "#2a2200",
+    fg: "#ffd54f"
+  },
+  Lunch: {
+    bg: "#002a28",
+    fg: "#4db6ac"
+  },
+  Snack: {
+    bg: "#1a2e1b",
+    fg: "#81c784"
+  },
+  Dinner: {
+    bg: "#2a1800",
+    fg: "#ffb74d"
+  },
+  Wrap: {
+    bg: "#1a1030",
+    fg: "#ce93d8"
+  },
+  "Pre-Workout": {
+    bg: "#001a2e",
+    fg: "#64b5f6"
+  },
+  "Late Night": {
+    bg: "#1a0a2e",
+    fg: "#ce93d8"
+  },
+  "Goûter": {
+    bg: "#2e0a18",
+    fg: "#f48fb1"
+  },
+  "Dessert": {
+    bg: "#2e0a18",
+    fg: "#f48fb1"
+  }
 };
 
+// Global mutable references updated by App — used by components that don't receive props
+var C = _objectSpread({}, LIGHT);
+var CAT = _objectSpread({}, CAT_LIGHT);
 // ── FIREBASE SYNC ───────────────────────────────────────────
 // Replace the firebaseConfig below with your own from Firebase Console
 // console.firebase.google.com → Your project → Project settings → Web app
@@ -138,44 +278,6 @@ var syncGet = function syncGet(key, fallback) {
     return s ? JSON.parse(s) : fallback;
   } catch (e) {
     return fallback;
-  }
-};
-var CAT = {
-  Breakfast: {
-    bg: "#fff8e1",
-    fg: "#7a5c00"
-  },
-  Lunch: {
-    bg: "#e0f2f1",
-    fg: "#00574b"
-  },
-  Snack: {
-    bg: "#e6f0e7",
-    fg: "#3d6142"
-  },
-  Dinner: {
-    bg: "#fde8d8",
-    fg: "#b05e20"
-  },
-  Wrap: {
-    bg: "#ede7f6",
-    fg: "#4527a0"
-  },
-  "Pre-Workout": {
-    bg: "#e3f2fd",
-    fg: "#1565c0"
-  },
-  "Late Night": {
-    bg: "#f3e5f5",
-    fg: "#6a1b9a"
-  },
-  "Goûter": {
-    bg: "#fce4ec",
-    fg: "#880e4f"
-  },
-  "Dessert": {
-    bg: "#fce4ec",
-    fg: "#880e4f"
   }
 };
 
@@ -6502,7 +6604,7 @@ function WorkoutSchedule(_ref3) {
     style: {
       width: "".concat(pct, "%"),
       height: "100%",
-      background: "white",
+      background: C.card,
       borderRadius: 4,
       transition: "width 0.3s"
     }
@@ -6526,7 +6628,7 @@ function WorkoutSchedule(_ref3) {
     return /*#__PURE__*/React.createElement("div", {
       key: wi,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 16,
         marginBottom: 10,
@@ -6579,7 +6681,7 @@ function WorkoutSchedule(_ref3) {
           padding: "8px 4px",
           borderRadius: 10,
           cursor: isWorkout ? "pointer" : "default",
-          background: isDone ? "#4caf50" : isRest ? "#f5f5f5" : isWalk ? "#e8f5e9" : isRun ? "#e3f2fd" : "white",
+          background: isDone ? "#4caf50" : isRest ? C.sub : isWalk ? "#e8f5e9" : isRun ? "#e3f2fd" : "white",
           border: "2px solid ".concat(isDone ? "#4caf50" : isWorkout ? accentColor : "#e0e0e0"),
           transition: "all 0.2s"
         }
@@ -6633,7 +6735,7 @@ function BFWorkoutSubNav() {
         borderRadius: 20,
         border: "none",
         cursor: "pointer",
-        background: wTab === id ? BF_BLUE : "#efefef",
+        background: wTab === id ? BF_BLUE : C.pill,
         color: wTab === id ? "white" : C.muted,
         fontFamily: "inherit",
         fontSize: 12,
@@ -6659,7 +6761,7 @@ function BFWorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 12,
@@ -6691,7 +6793,7 @@ function BFWorkoutSubNav() {
       style: {
         fontSize: 12,
         fontWeight: 700,
-        color: "#1976d2",
+        color: C.infoFg,
         textTransform: "uppercase",
         letterSpacing: 1,
         marginBottom: 10
@@ -6707,7 +6809,7 @@ function BFWorkoutSubNav() {
         key: j,
         style: {
           padding: "8px 0",
-          borderBottom: "1px solid #f5f5f5"
+          borderBottom: "1px solid ".concat(C.border)
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
@@ -6802,7 +6904,7 @@ function BFWorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         marginBottom: 12,
         boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
@@ -6847,8 +6949,8 @@ function BFWorkoutSubNav() {
       }
     }, ex.equipment), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#e8f5e9",
-        color: "#2e7d32",
+        background: C.highlight,
+        color: C.batchFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -6856,8 +6958,8 @@ function BFWorkoutSubNav() {
       }
     }, ex.sets), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#fde8d8",
-        color: "#b05e20",
+        background: C.orange,
+        color: C.orangeFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -6910,7 +7012,7 @@ function BFWorkoutSubNav() {
         fontWeight: 700,
         letterSpacing: 1.5,
         textTransform: "uppercase",
-        color: "#e65100",
+        color: C.warningFg,
         marginBottom: 6,
         marginTop: 14
       }
@@ -6925,7 +7027,7 @@ function BFWorkoutSubNav() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         style: {
-          color: "#e65100",
+          color: C.warningFg,
           flexShrink: 0
         }
       }, "\u26A0\uFE0F"), m);
@@ -6963,7 +7065,7 @@ function BFWorkoutSubNav() {
     }, "\uD83D\uDCF9 Watch on YouTube"))));
   })), wTab === "machines" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff3e0",
+      background: C.warning,
       borderRadius: 12,
       padding: "12px 16px",
       marginBottom: 18,
@@ -6972,14 +7074,14 @@ function BFWorkoutSubNav() {
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#e65100",
+      color: C.warningFg,
       lineHeight: 1.6
     }
   }, /*#__PURE__*/React.createElement("strong", null, "\u2699\uFE0F Start machines from Week 5."), " Your running is already building serious cardio fitness. These machines fill the strength gaps that running leaves \u2014 especially upper body and glute isolation.")), WORKOUT_PLAN_BF.machines.map(function (m, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 12,
@@ -7002,8 +7104,8 @@ function BFWorkoutSubNav() {
       }
     }, m.name), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#fff3e0",
-        color: "#e65100",
+        background: C.warning,
+        color: C.warningFg,
         fontSize: 11,
         fontWeight: 700,
         padding: "3px 10px",
@@ -7034,8 +7136,8 @@ function BFWorkoutSubNav() {
       }
     }, m.sets), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#fde8d8",
-        color: "#b05e20",
+        background: C.orange,
+        color: C.orangeFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -7043,8 +7145,8 @@ function BFWorkoutSubNav() {
       }
     }, "Start: ", m.beginner_weight), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#e8f5e9",
-        color: "#2e7d32",
+        background: C.highlight,
+        color: C.batchFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -7091,7 +7193,7 @@ function BFWorkoutSubNav() {
         fontWeight: 700,
         letterSpacing: 1.5,
         textTransform: "uppercase",
-        color: "#e65100",
+        color: C.warningFg,
         marginBottom: 6,
         marginTop: 12
       }
@@ -7107,7 +7209,7 @@ function BFWorkoutSubNav() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         style: {
-          color: "#e65100",
+          color: C.warningFg,
           flexShrink: 0
         }
       }, "\u26A0\uFE0F"), e);
@@ -7157,7 +7259,7 @@ function BFWorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: 18,
         marginBottom: 12,
@@ -7211,7 +7313,7 @@ function BFWorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 14,
@@ -7258,7 +7360,7 @@ function BFWorkoutSubNav() {
           fontSize: 13,
           color: C.charcoal,
           padding: "5px 0",
-          borderBottom: "1px solid #f5f5f5",
+          borderBottom: "1px solid ".concat(C.border),
           display: "flex",
           gap: 10,
           alignItems: "center"
@@ -7284,7 +7386,7 @@ function ExerciseCard(_ref6) {
     setOpen = _useState0[1];
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       marginBottom: 12,
       boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
@@ -7322,8 +7424,8 @@ function ExerciseCard(_ref6) {
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#e3f2fd",
-      color: "#1565c0",
+      background: C.info,
+      color: C.infoFg,
       fontSize: 10,
       fontWeight: 700,
       padding: "2px 8px",
@@ -7340,8 +7442,8 @@ function ExerciseCard(_ref6) {
     }
   }, ex.sets), /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#fde8d8",
-      color: "#b05e20",
+      background: C.orange,
+      color: C.orangeFg,
       fontSize: 10,
       fontWeight: 700,
       padding: "2px 8px",
@@ -7402,7 +7504,7 @@ function ExerciseCard(_ref6) {
       fontWeight: 700,
       letterSpacing: 1.5,
       textTransform: "uppercase",
-      color: "#e65100",
+      color: C.warningFg,
       marginBottom: 8,
       marginTop: 16
     }
@@ -7418,18 +7520,18 @@ function ExerciseCard(_ref6) {
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        color: "#e65100",
+        color: C.warningFg,
         flexShrink: 0
       }
     }, "\u26A0\uFE0F"), m);
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 14,
-      background: "#e3f2fd",
+      background: C.info,
       borderRadius: 10,
       padding: "10px 14px",
       fontSize: 12,
-      color: "#1565c0",
+      color: C.infoFg,
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -7484,7 +7586,7 @@ function WorkoutSubNav() {
         borderRadius: 20,
         border: "none",
         cursor: "pointer",
-        background: wTab === id ? C.sageDark : "#efefef",
+        background: wTab === id ? C.sageDark : C.pill,
         color: wTab === id ? "white" : C.muted,
         fontFamily: "inherit",
         fontSize: 12,
@@ -7510,7 +7612,7 @@ function WorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 12,
@@ -7561,7 +7663,7 @@ function WorkoutSubNav() {
         key: j,
         style: {
           padding: "8px 0",
-          borderBottom: "1px solid #f5f5f5"
+          borderBottom: "1px solid ".concat(C.border)
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
@@ -7651,7 +7753,7 @@ function WorkoutSubNav() {
     }, "\uD83D\uDCA1 ", day.notes));
   })), wTab === "exercises" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#e3f2fd",
+      background: C.info,
       borderRadius: 12,
       padding: "12px 16px",
       marginBottom: 18,
@@ -7660,7 +7762,7 @@ function WorkoutSubNav() {
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#1565c0",
+      color: C.infoFg,
       lineHeight: 1.6
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Before your first session:"), " Read through each exercise. Film yourself from the side for squats and RDLs. Start with the lightest weight and do 5 reps to test your form.")), WORKOUT_PLAN.exercises.map(function (ex, i) {
@@ -7670,7 +7772,7 @@ function WorkoutSubNav() {
     });
   })), wTab === "machines" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff3e0",
+      background: C.warning,
       borderRadius: 12,
       padding: "12px 16px",
       marginBottom: 18,
@@ -7679,14 +7781,14 @@ function WorkoutSubNav() {
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#e65100",
+      color: C.warningFg,
       lineHeight: 1.6
     }
   }, /*#__PURE__*/React.createElement("strong", null, "\u2699\uFE0F Start machines from Week 5 onward."), " Weeks 1\u20134 are for learning dumbbell movements. Once those feel solid, swap in or add these machines for better isolation and heavier loads.")), WORKOUT_PLAN.machines.map(function (m, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 12,
@@ -7709,8 +7811,8 @@ function WorkoutSubNav() {
       }
     }, m.name), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#fff3e0",
-        color: "#e65100",
+        background: C.warning,
+        color: C.warningFg,
         fontSize: 11,
         fontWeight: 700,
         padding: "3px 10px",
@@ -7741,8 +7843,8 @@ function WorkoutSubNav() {
       }
     }, m.sets), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#fde8d8",
-        color: "#b05e20",
+        background: C.orange,
+        color: C.orangeFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -7750,8 +7852,8 @@ function WorkoutSubNav() {
       }
     }, "Start: ", m.beginner_weight), /*#__PURE__*/React.createElement("span", {
       style: {
-        background: "#e8f5e9",
-        color: "#2e7d32",
+        background: C.highlight,
+        color: C.batchFg,
         fontSize: 10,
         fontWeight: 700,
         padding: "2px 8px",
@@ -7798,7 +7900,7 @@ function WorkoutSubNav() {
         fontWeight: 700,
         letterSpacing: 1.5,
         textTransform: "uppercase",
-        color: "#e65100",
+        color: C.warningFg,
         marginBottom: 6,
         marginTop: 12
       }
@@ -7814,7 +7916,7 @@ function WorkoutSubNav() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         style: {
-          color: "#e65100",
+          color: C.warningFg,
           flexShrink: 0
         }
       }, "\u26A0\uFE0F"), e);
@@ -7853,23 +7955,23 @@ function WorkoutSubNav() {
     lightColor: C.sageLight
   }), wTab === "cycle" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fce4ec",
+      background: C.pink,
       borderRadius: 12,
       padding: "14px 16px",
       marginBottom: 18,
-      borderLeft: "3px solid #c2185b"
+      borderLeft: "3px solid ".concat(C.pinkFg)
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#880e4f",
+      color: C.pinkFg,
       lineHeight: 1.7
     }
   }, /*#__PURE__*/React.createElement("strong", null, "\uD83C\uDF38 Why this matters for PCOS:"), " Your hormones fluctuate across your cycle and directly affect how your body responds to exercise. Training the same way every week means working against your body half the time. Cycle-syncing = better results, less frustration.")), WORKOUT_PLAN.cycle_guide.map(function (phase, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 14,
@@ -7914,7 +8016,7 @@ function WorkoutSubNav() {
         fontWeight: 700,
         letterSpacing: 1.5,
         textTransform: "uppercase",
-        color: "#2e7d32",
+        color: C.batchFg,
         marginBottom: 6
       }
     }, "\u2705 Do This"), phase["do"].map(function (d, j) {
@@ -7929,7 +8031,7 @@ function WorkoutSubNav() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         style: {
-          color: "#2e7d32",
+          color: C.batchFg,
           flexShrink: 0
         }
       }, "\xB7"), d);
@@ -7939,7 +8041,7 @@ function WorkoutSubNav() {
         fontWeight: 700,
         letterSpacing: 1.5,
         textTransform: "uppercase",
-        color: "#e65100",
+        color: C.warningFg,
         marginBottom: 6,
         marginTop: 12
       }
@@ -7955,7 +8057,7 @@ function WorkoutSubNav() {
         }
       }, /*#__PURE__*/React.createElement("span", {
         style: {
-          color: "#e65100",
+          color: C.warningFg,
           flexShrink: 0
         }
       }, "\xB7"), d);
@@ -7988,7 +8090,7 @@ function WorkoutSubNav() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 14,
         padding: 20,
         marginBottom: 14,
@@ -8041,7 +8143,7 @@ function WorkoutSubNav() {
           fontSize: 13,
           color: C.charcoal,
           padding: "5px 0",
-          borderBottom: "1px solid #f5f5f5",
+          borderBottom: "1px solid ".concat(C.border),
           display: "flex",
           gap: 10,
           alignItems: "center"
@@ -8059,7 +8161,7 @@ function WorkoutSubNav() {
     }));
   })), wTab === "tips" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#e3f2fd",
+      background: C.info,
       borderRadius: 12,
       padding: "12px 16px",
       marginBottom: 18,
@@ -8068,14 +8170,14 @@ function WorkoutSubNav() {
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#1565c0",
+      color: C.infoFg,
       lineHeight: 1.6
     }
   }, /*#__PURE__*/React.createElement("strong", null, "The most important thing:"), " Show up at 4:30am consistently for 4 weeks. After that it becomes automatic. The first 2 weeks are the hardest \u2014 not because of lifting, but because of the schedule change.")), WORKOUT_PLAN.beginner_tips.map(function (tip, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: 18,
         marginBottom: 12,
@@ -8109,16 +8211,16 @@ function WorkoutSubNav() {
     }, tip.tip))));
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fce4ec",
+      background: C.pink,
       borderRadius: 12,
       padding: "16px 18px",
       marginTop: 8,
-      borderLeft: "3px solid #c2185b"
+      borderLeft: "3px solid ".concat(C.pinkFg)
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#880e4f",
+      color: C.pinkFg,
       lineHeight: 1.7
     }
   }, /*#__PURE__*/React.createElement("strong", null, "\uD83D\uDCAA Final note:"), " Weight loss from lifting isn't always linear. You may lose 0.5kg one week and nothing the next \u2014 that's normal and not failure. Muscle is being built while fat is being lost. Judge progress monthly, not weekly. By September you will be stronger, more toned, and more in tune with your body than you've been in years."))));
@@ -8172,7 +8274,7 @@ function RecipeCard(_ref9) {
   };
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 16,
       marginBottom: 14,
       boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
@@ -8222,8 +8324,8 @@ function RecipeCard(_ref9) {
     }
   }, "\uD83C\uDF00 Air Fryer"), recipe.pcos === "great" && /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#e8f5e9",
-      color: "#2e7d32",
+      background: C.highlight,
+      color: C.batchFg,
       fontSize: 10,
       fontWeight: 700,
       padding: "2px 9px",
@@ -8231,8 +8333,8 @@ function RecipeCard(_ref9) {
     }
   }, "\uD83C\uDF38 PCOS Friendly"), recipe.pcos === "caution" && /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#fff3e0",
-      color: "#e65100",
+      background: C.warning,
+      color: C.warningFg,
       fontSize: 10,
       fontWeight: 700,
       padding: "2px 9px",
@@ -8240,7 +8342,7 @@ function RecipeCard(_ref9) {
     }
   }, "\u26A0\uFE0F PCOS Caution"), recipe.bloat === "medium" && /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#fff8e1",
+      background: C.warm,
       color: "#f57f17",
       fontSize: 10,
       fontWeight: 700,
@@ -8249,7 +8351,7 @@ function RecipeCard(_ref9) {
     }
   }, "\uD83D\uDCA8 Mild Bloating"), recipe.bloat === "high" && /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#fce4ec",
+      background: C.pink,
       color: "#c62828",
       fontSize: 10,
       fontWeight: 700,
@@ -8270,8 +8372,8 @@ function RecipeCard(_ref9) {
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      background: "#fde8d8",
-      color: "#b05e20",
+      background: C.orange,
+      color: C.orangeFg,
       fontSize: 11,
       fontWeight: 600,
       padding: "3px 10px",
@@ -8324,7 +8426,7 @@ function RecipeCard(_ref9) {
   }, "Portion For"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      background: "#f5f5f5",
+      background: C.sub,
       borderRadius: 12,
       padding: 4,
       gap: 3
@@ -8418,7 +8520,7 @@ function RecipeCard(_ref9) {
       style: {
         fontSize: 13,
         padding: "8px 0",
-        borderBottom: "1px solid #f5f5f5",
+        borderBottom: "1px solid ".concat(C.border),
         color: C.charcoal,
         lineHeight: 1.5
       }
@@ -8454,7 +8556,7 @@ function RecipeCard(_ref9) {
         display: "block",
         marginTop: 4,
         padding: "3px 8px",
-        background: "#f0f7f0",
+        background: C.highlight,
         borderRadius: 6,
         fontSize: 12
       }
@@ -8484,7 +8586,7 @@ function RecipeCard(_ref9) {
         display: "flex",
         gap: 12,
         padding: "8px 0",
-        borderBottom: "1px solid #f5f5f5",
+        borderBottom: "1px solid ".concat(C.border),
         alignItems: "flex-start"
       }
     }, /*#__PURE__*/React.createElement("span", {
@@ -8565,6 +8667,10 @@ function MealDay(_ref11) {
   var day = _ref11.day,
     mealFilter = _ref11.mealFilter,
     onRecipeClick = _ref11.onRecipeClick;
+  var _useState15 = useState(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    open = _useState16[0],
+    setOpen = _useState16[1];
   var meals = mealFilter === "All" ? day.meals : day.meals.filter(function (m) {
     return m.label === mealFilter;
   });
@@ -8588,44 +8694,99 @@ function MealDay(_ref11) {
   var isPrep = function isPrep(label) {
     return label && (label.includes("Evening prep") || label.includes("Supplements"));
   };
+  var previewMeals = day.meals.filter(function (m) {
+    return !isBatch(m.label) && !isPrep(m.label) && m.cal > 0;
+  }).slice(0, 2).map(function (m) {
+    return m.desc.split("(")[0].trim();
+  }).join(" · ");
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
-      padding: 20,
-      marginBottom: 14,
-      boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+      marginBottom: 10,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: function onClick() {
+      return setOpen(function (o) {
+        return !o;
+      });
+    },
+    style: {
+      padding: "14px 20px",
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: 12,
+      userSelect: "none"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "Georgia, serif",
-      fontSize: 18,
-      color: C.sageDark,
-      marginBottom: 12,
-      paddingBottom: 10,
-      borderBottom: "1px solid ".concat(C.sageLight),
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "baseline"
+      fontSize: 17,
+      color: C.sageDark
     }
-  }, /*#__PURE__*/React.createElement("span", null, day.day), mealFilter === "All" && /*#__PURE__*/React.createElement("span", {
+  }, day.day, day.theme ? /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: C.muted,
-      fontStyle: "italic"
+      fontWeight: 400
     }
-  }, total, " kcal \xB7 ", totalP, "g / ", Math.round(totalP * 0.035), "oz protein")), meals.map(function (meal, i) {
+  }, " \xB7 ", day.theme) : ""), !open && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: C.muted,
+      marginTop: 3,
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis"
+    }
+  }, previewMeals, "\u2026")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: C.sageDark,
+      fontWeight: 700
+    }
+  }, total, " kcal"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 18,
+      color: C.sage,
+      transition: "transform 0.25s",
+      display: "inline-block",
+      transform: open ? "rotate(180deg)" : "rotate(0deg)",
+      lineHeight: 1
+    }
+  }, "\u2304"))), open && /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: "1px solid ".concat(C.border),
+      padding: "4px 20px 16px"
+    }
+  }, meals.map(function (meal, i) {
     var batch = isBatch(meal.label);
     var prep = isPrep(meal.label);
     var cs = batch ? {
-      bg: "#e8f5e9",
-      fg: "#2e7d32"
+      bg: C.batchBg,
+      fg: C.batchFg
     } : prep ? {
-      bg: "#f3e5f5",
-      fg: "#6a1b9a"
+      bg: C.purple,
+      fg: C.purpleFg
     } : CAT[meal.label] || {
-      bg: "#eee",
-      fg: "#333"
+      bg: C.sub,
+      fg: C.muted
     };
     var linkedRecipe = findRecipe(meal.desc);
     return /*#__PURE__*/React.createElement("div", {
@@ -8634,10 +8795,10 @@ function MealDay(_ref11) {
         display: "flex",
         gap: 12,
         padding: "9px 0",
-        borderBottom: i < meals.length - 1 ? "1px solid #f5f5f5" : "none",
+        borderBottom: i < meals.length - 1 ? "1px solid ".concat(C.border) : "none",
         alignItems: "flex-start"
       }, batch ? {
-        background: "#f1f8f1",
+        background: C.batchBg,
         margin: "4px -8px",
         padding: "10px 8px",
         borderRadius: 10,
@@ -8669,7 +8830,7 @@ function MealDay(_ref11) {
     }, meal.desc), meal.note && /*#__PURE__*/React.createElement("div", {
       style: {
         fontSize: 11,
-        color: batch ? "#2e7d32" : C.muted,
+        color: batch ? C.batchFg : C.muted,
         fontStyle: "italic",
         marginTop: 3,
         lineHeight: 1.5
@@ -8713,8 +8874,8 @@ function MealDay(_ref11) {
         fontSize: 11,
         color: C.sage
       }
-    }, meal.protein, "g / ", Math.round(meal.protein * 0.035), "oz")));
-  }));
+    }, meal.protein, "g")));
+  })));
 }
 function Pill(_ref12) {
   var value = _ref12.value,
@@ -8731,7 +8892,7 @@ function Pill(_ref12) {
       borderRadius: 20,
       border: "none",
       cursor: "pointer",
-      background: active ? cs ? cs.bg : C.sageDark : "#efefef",
+      background: active ? cs ? cs.bg : C.sageDark : C.pill,
       color: active ? cs ? cs.fg : "white" : C.muted,
       fontFamily: "inherit",
       fontSize: 13,
@@ -8746,42 +8907,75 @@ function Pill(_ref12) {
 // MAIN APP
 // ─────────────────────────────────────────────────────────────
 function App() {
-  var _useState15 = useState("tracking"),
-    _useState16 = _slicedToArray(_useState15, 2),
-    tab = _useState16[0],
-    setTab = _useState16[1];
-  var _useState17 = useState("heb"),
+  // ── Dark mode ───────────────────────────────────────────────
+  var _useState17 = useState(function () {
+      var saved = localStorage.getItem("hp_dark_mode");
+      if (saved !== null) return saved === "true";
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }),
     _useState18 = _slicedToArray(_useState17, 2),
-    store = _useState18[0],
-    setStore = _useState18[1];
-  var _useState19 = useState("All"),
+    dark = _useState18[0],
+    setDark = _useState18[1];
+
+  // Sync with system preference changes
+  useEffect(function () {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var handler = function handler(e) {
+      var saved = localStorage.getItem("hp_dark_mode");
+      if (saved === null) setDark(e.matches);
+    };
+    mq.addEventListener("change", handler);
+    return function () {
+      return mq.removeEventListener("change", handler);
+    };
+  }, []);
+
+  // Update global colour references on every render
+  Object.assign(C, dark ? DARK : LIGHT);
+  Object.assign(CAT, dark ? CAT_DARK : CAT_LIGHT);
+  var toggleDark = function toggleDark() {
+    setDark(function (d) {
+      var next = !d;
+      localStorage.setItem("hp_dark_mode", String(next));
+      return next;
+    });
+  };
+  var _useState19 = useState("tracking"),
     _useState20 = _slicedToArray(_useState19, 2),
-    recipeFilter = _useState20[0],
-    setRF = _useState20[1];
-  var _useState21 = useState("All"),
+    tab = _useState20[0],
+    setTab = _useState20[1];
+  var _useState21 = useState("heb"),
     _useState22 = _slicedToArray(_useState21, 2),
-    mealFilter = _useState22[0],
-    setMF = _useState22[1];
-  var _useState23 = useState("imperial"),
+    store = _useState22[0],
+    setStore = _useState22[1];
+  var _useState23 = useState("All"),
     _useState24 = _slicedToArray(_useState23, 2),
-    unit = _useState24[0],
-    setUnit = _useState24[1];
-  var _useState25 = useState(""),
+    recipeFilter = _useState24[0],
+    setRF = _useState24[1];
+  var _useState25 = useState("All"),
     _useState26 = _slicedToArray(_useState25, 2),
-    search = _useState26[0],
-    setSearch = _useState26[1];
-  var _useState27 = useState(false),
+    mealFilter = _useState26[0],
+    setMF = _useState26[1];
+  var _useState27 = useState("imperial"),
     _useState28 = _slicedToArray(_useState27, 2),
-    pcosFilter = _useState28[0],
-    setPcosFilter = _useState28[1];
-  var _useState29 = useState("standard"),
+    unit = _useState28[0],
+    setUnit = _useState28[1];
+  var _useState29 = useState(""),
     _useState30 = _slicedToArray(_useState29, 2),
-    mealPlanView = _useState30[0],
-    setMealPlanView = _useState30[1];
-  var _useState31 = useState(0),
+    search = _useState30[0],
+    setSearch = _useState30[1];
+  var _useState31 = useState(false),
     _useState32 = _slicedToArray(_useState31, 2),
-    weekIndex = _useState32[0],
-    setWeekIndex = _useState32[1];
+    pcosFilter = _useState32[0],
+    setPcosFilter = _useState32[1];
+  var _useState33 = useState("standard"),
+    _useState34 = _slicedToArray(_useState33, 2),
+    mealPlanView = _useState34[0],
+    setMealPlanView = _useState34[1];
+  var _useState35 = useState(0),
+    _useState36 = _slicedToArray(_useState35, 2),
+    weekIndex = _useState36[0],
+    setWeekIndex = _useState36[1];
   var goToRecipe = function goToRecipe(title) {
     setTab("recipes");
     setSearch(title);
@@ -8791,14 +8985,14 @@ function App() {
       behavior: "smooth"
     });
   };
-  var _useState33 = useState("eloise"),
-    _useState34 = _slicedToArray(_useState33, 2),
-    person = _useState34[0],
-    setPerson = _useState34[1];
-  var _useState35 = useState(false),
-    _useState36 = _slicedToArray(_useState35, 2),
-    copied = _useState36[0],
-    setCopied = _useState36[1];
+  var _useState37 = useState("eloise"),
+    _useState38 = _slicedToArray(_useState37, 2),
+    person = _useState38[0],
+    setPerson = _useState38[1];
+  var _useState39 = useState(false),
+    _useState40 = _slicedToArray(_useState39, 2),
+    copied = _useState40[0],
+    setCopied = _useState40[1];
   var PROFILES = {
     eloise: {
       name: "Eloise 🌿",
@@ -8891,15 +9085,15 @@ function App() {
 
   // metrics
   var today = new Date().toISOString().split("T")[0];
-  var _useState37 = useState(function () {
+  var _useState41 = useState(function () {
       return syncGet("wellness_logs", {
         eloise: {},
         boyfriend: {}
       });
     }),
-    _useState38 = _slicedToArray(_useState37, 2),
-    logs = _useState38[0],
-    setLogsRaw = _useState38[1];
+    _useState42 = _slicedToArray(_useState41, 2),
+    logs = _useState42[0],
+    setLogsRaw = _useState42[1];
   var setLogs = function setLogs(u) {
     return setLogsRaw(function (p) {
       var n = typeof u === "function" ? u(p) : u;
@@ -8912,7 +9106,7 @@ function App() {
       if (val) setLogsRaw(val);
     });
   }, []);
-  var _useState39 = useState({
+  var _useState43 = useState({
       weight: "",
       waist: "",
       hips: "",
@@ -8921,17 +9115,17 @@ function App() {
       water: "",
       workout: false
     }),
-    _useState40 = _slicedToArray(_useState39, 2),
-    form = _useState40[0],
-    setForm = _useState40[1];
-  var _useState41 = useState("log"),
-    _useState42 = _slicedToArray(_useState41, 2),
-    mView = _useState42[0],
-    setMView = _useState42[1];
-  var _useState43 = useState("weight"),
     _useState44 = _slicedToArray(_useState43, 2),
-    cKey = _useState44[0],
-    setCKey = _useState44[1];
+    form = _useState44[0],
+    setForm = _useState44[1];
+  var _useState45 = useState("log"),
+    _useState46 = _slicedToArray(_useState45, 2),
+    mView = _useState46[0],
+    setMView = _useState46[1];
+  var _useState47 = useState("weight"),
+    _useState48 = _slicedToArray(_useState47, 2),
+    cKey = _useState48[0],
+    setCKey = _useState48[1];
   var saveLog = function saveLog() {
     if (Object.values(form).every(function (v) {
       return v === "" || v === false;
@@ -9116,12 +9310,13 @@ function App() {
       fontFamily: "system-ui,sans-serif",
       background: C.cream,
       minHeight: "100vh",
-      color: C.charcoal
+      color: C.charcoal,
+      transition: "background 0.3s, color 0.3s"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "linear-gradient(135deg,".concat(C.sageDark, " 0%,#2d4f31 100%)"),
-      color: "white",
+      background: dark ? "linear-gradient(135deg,#1a2e1c 0%,#0f1a10 100%)" : "linear-gradient(135deg,".concat(C.sageDark, " 0%,#2d4f31 100%)"),
+      color: dark ? "#d4e8d4" : "white",
       padding: "44px 24px 38px",
       position: "relative",
       overflow: "hidden"
@@ -9136,7 +9331,27 @@ function App() {
       borderRadius: "50%",
       background: "rgba(255,255,255,0.04)"
     }
-  }), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: toggleDark,
+    style: {
+      position: "absolute",
+      top: 16,
+      right: 16,
+      background: "rgba(255,255,255,0.15)",
+      border: "none",
+      borderRadius: 20,
+      padding: "6px 14px",
+      cursor: "pointer",
+      fontSize: 13,
+      color: "white",
+      fontFamily: "inherit",
+      fontWeight: 600,
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      backdropFilter: "blur(4px)"
+    }
+  }, dark ? "☀️ Light" : "🌙 Dark"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 11,
       fontWeight: 600,
@@ -9229,14 +9444,15 @@ function App() {
     }, l));
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.navBg,
       display: "flex",
       overflowX: "auto",
-      borderBottom: "1px solid #e8e8e8",
+      borderBottom: "1px solid ".concat(C.navBorder),
       position: "sticky",
       top: 0,
       zIndex: 100,
-      boxShadow: "0 2px 12px rgba(0,0,0,0.07)"
+      boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+      transition: "background 0.3s"
     }
   }, TABS.map(function (t) {
     return /*#__PURE__*/React.createElement("button", {
@@ -9279,7 +9495,7 @@ function App() {
     }
   }, "Personalised targets for ", /*#__PURE__*/React.createElement("strong", null, P.name), " \u2014 switch profiles in the header anytime."), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 20,
@@ -9312,7 +9528,7 @@ function App() {
         display: "flex",
         justifyContent: "space-between",
         padding: "5px 0",
-        borderBottom: "1px solid #f5f5f5",
+        borderBottom: "1px solid ".concat(C.border),
         fontSize: 13
       }
     }, /*#__PURE__*/React.createElement("span", {
@@ -9329,7 +9545,7 @@ function App() {
     }, v));
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "linear-gradient(135deg,".concat(C.sageDark, ",#2d4f31)"),
+      background: dark ? "linear-gradient(135deg,#1a2e1c 0%,#0f1a10 100%)" : "linear-gradient(135deg,".concat(C.sageDark, ",#2d4f31)"),
       borderRadius: 18,
       padding: 26,
       marginBottom: 22,
@@ -9381,7 +9597,7 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: "14px 18px",
         marginBottom: 10,
@@ -9404,7 +9620,7 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: 18,
         marginBottom: 12,
@@ -9463,17 +9679,17 @@ function App() {
     }
   }, "Personalised guidance based on your diagnosis. PCOS affects weight, hormones, and digestion \u2014 your plan already accounts for this."), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "linear-gradient(135deg,#f8bbd0,#f48fb1)",
+      background: dark ? "linear-gradient(135deg,#2e0a18,#1a0510)" : "linear-gradient(135deg,#f8bbd0,#f48fb1)",
       borderRadius: 16,
       padding: 22,
-      marginBottom: 20,
-      color: "#4a0020"
+      marginBottom: 20
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "Georgia,serif",
       fontSize: 17,
-      marginBottom: 12
+      marginBottom: 12,
+      color: dark ? "#f48fb1" : "#4a0020"
     }
   }, "Why your plan is already PCOS-optimised"), ["Low carb + high protein = directly targets insulin resistance, the core PCOS mechanism.", "Walking daily reduces cortisol (stress hormone) which worsens PCOS symptoms.", "High protein keeps you full longer — important because PCOS often causes stronger hunger signals.", "Your 1,350 kcal target is a gentle deficit — aggressive restriction worsens hormonal imbalance in PCOS.", "Strength training 2x/week improves insulin sensitivity — this is as important as the diet."].map(function (t, i) {
     return /*#__PURE__*/React.createElement("div", {
@@ -9482,9 +9698,10 @@ function App() {
         display: "flex",
         gap: 10,
         padding: "6px 0",
-        borderBottom: "1px solid rgba(255,255,255,0.3)",
+        borderBottom: "1px solid ".concat(dark ? "rgba(244,143,177,0.2)" : "rgba(255,255,255,0.3)"),
         fontSize: 13,
-        lineHeight: 1.6
+        lineHeight: 1.6,
+        color: dark ? "#f48fb1" : "#4a0020"
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
@@ -9493,7 +9710,7 @@ function App() {
     }, "\u2713"), /*#__PURE__*/React.createElement("span", null, t));
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 14,
@@ -9505,7 +9722,7 @@ function App() {
       fontWeight: 700,
       letterSpacing: 1.5,
       textTransform: "uppercase",
-      color: "#2e7d32",
+      color: C.batchFg,
       marginBottom: 14
     }
   }, "\u2705 Prioritise These"), [["🐟 Fatty fish (salmon, tuna)", "Anti-inflammatory omega-3s — eat 3x/week minimum"], ["🥬 Leafy greens (spinach, arugula)", "Low glycemic, high magnesium — helps insulin sensitivity"], ["🫐 Berries", "Low sugar, high antioxidants — reduce PCOS inflammation"], ["🥚 Eggs", "Hormone-balancing choline, high protein, low GI"], ["🫚 Olive oil", "Anti-inflammatory healthy fat — use as your main cooking fat"], ["🌿 Cinnamon", "Clinically shown to improve insulin sensitivity — add to everything"], ["🫚 Flaxseed (add to oats/yogurt)", "Balances estrogen levels — 1 tbsp daily is ideal"], ["🍵 Spearmint tea", "Evidence-backed for reducing androgens in PCOS — 2 cups/day"], ["🫚 Turmeric & ginger", "Powerful anti-inflammatories — already in several recipes"]].map(function (_ref20, i) {
@@ -9518,7 +9735,7 @@ function App() {
         display: "flex",
         gap: 12,
         padding: "8px 0",
-        borderBottom: "1px solid #f5f5f5"
+        borderBottom: "1px solid ".concat(C.border)
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -9539,7 +9756,7 @@ function App() {
     }, why)));
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 14,
@@ -9551,7 +9768,7 @@ function App() {
       fontWeight: 700,
       letterSpacing: 1.5,
       textTransform: "uppercase",
-      color: "#e65100",
+      color: C.warningFg,
       marginBottom: 14
     }
   }, "\u26A0\uFE0F Limit These"), [["🍞 Refined carbs (white bread, pasta, pastries)", "Spike insulin rapidly — already mostly out of your plan ✅"], ["🥛 Excess dairy", "Fine in moderate amounts — watch total daily dairy intake"], ["🧅 Raw onion & garlic", "Major bloating triggers — always cook them"], ["🥦 Large amounts of raw cruciferous veg", "Broccoli, cauliflower, Brussels sprouts — cook them to reduce bloating"], ["🫘 Large portions of legumes", "Black beans, chickpeas — fine in small amounts, known bloating trigger"], ["🍬 Sugar alcohols", "Found in many protein bars — read labels carefully"], ["🧂 Excess salt", "Worsens water retention which PCOS already promotes"], ["🍺 Alcohol", "Disrupts hormones and worsens insulin resistance — minimise"]].map(function (_ref22, i) {
@@ -9564,7 +9781,7 @@ function App() {
         display: "flex",
         gap: 12,
         padding: "8px 0",
-        borderBottom: "1px solid #f5f5f5"
+        borderBottom: "1px solid ".concat(C.border)
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -9585,7 +9802,7 @@ function App() {
     }, why)));
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 14,
@@ -9610,7 +9827,7 @@ function App() {
         display: "flex",
         gap: 12,
         padding: "8px 0",
-        borderBottom: "1px solid #f5f5f5"
+        borderBottom: "1px solid ".concat(C.border)
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -9631,29 +9848,29 @@ function App() {
     }, why)));
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#e8f5e9",
+      background: C.highlight,
       borderRadius: 12,
       padding: "14px 18px",
-      borderLeft: "3px solid #2e7d32",
+      borderLeft: "3px solid ".concat(C.batchFg),
       marginBottom: 16
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#1b5e20",
+      color: C.batchFg,
       lineHeight: 1.7
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Weight loss with PCOS is slower than average"), " \u2014 this is normal and not your fault. Hormonal fluctuations can cause 1\u20133 kg of water weight variation week to week. Judge progress monthly, not weekly. The scale is not the full picture \u2014 how your clothes fit and your energy levels matter just as much.")), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fce4ec",
+      background: C.pink,
       borderRadius: 12,
       padding: "14px 18px",
-      borderLeft: "3px solid #c2185b"
+      borderLeft: "3px solid ".concat(C.pinkFg)
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 13,
-      color: "#880e4f",
+      color: C.pinkFg,
       lineHeight: 1.7
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Consider speaking to your doctor about:"), " Inositol (Myo-inositol + D-chiro inositol) \u2014 a supplement with strong clinical evidence for improving PCOS symptoms, insulin sensitivity, and weight loss. It's not a drug, widely available, and many PCOS doctors recommend it. Not medical advice \u2014 just worth asking about at your next appointment.")))), tab === "grocery" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
@@ -9691,7 +9908,7 @@ function App() {
         borderRadius: 20,
         border: "none",
         cursor: "pointer",
-        background: store === id ? color : "#efefef",
+        background: store === id ? color : C.pill,
         color: store === id ? "white" : C.muted,
         fontFamily: "inherit",
         fontSize: 13,
@@ -9855,7 +10072,7 @@ function App() {
       fontSize: 14,
       outline: "none",
       boxSizing: "border-box",
-      background: "white",
+      background: C.card,
       transition: "border-color 0.2s"
     }
   }), search && /*#__PURE__*/React.createElement("button", {
@@ -9916,7 +10133,7 @@ function App() {
   }, "\uD83C\uDF38 PCOS \u2713")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      background: "#efefef",
+      background: C.pill,
       borderRadius: 20,
       padding: 3,
       gap: 2,
@@ -9952,7 +10169,7 @@ function App() {
     }
   }, filtered.length, " recipe", filtered.length !== 1 ? "s" : "", search && /*#__PURE__*/React.createElement("span", null, " matching ", /*#__PURE__*/React.createElement("strong", null, "\"", search, "\"")), !search && /*#__PURE__*/React.createElement("span", null, " \xB7 ", unit === "metric" ? "Metric (g, ml, °C)" : "Imperial (oz, cups, °F)"), filtered.length === 0 && " — try a different search"), filtered.length === 0 && /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: "40px 20px",
       textAlign: "center",
@@ -10013,7 +10230,7 @@ function App() {
   }, "4 weeks of variety \u2014 switch between Standard and PCOS plans, and navigate weeks with the tabs below."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      background: "#efefef",
+      background: C.pill,
       borderRadius: 24,
       padding: 4,
       gap: 3,
@@ -10060,7 +10277,7 @@ function App() {
         borderRadius: 20,
         border: "none",
         cursor: "pointer",
-        background: weekIndex === i ? mealPlanView === "pcos" ? "#c2185b" : C.sageDark : "#efefef",
+        background: weekIndex === i ? mealPlanView === "pcos" ? "#c2185b" : C.sageDark : C.pill,
         color: weekIndex === i ? "white" : C.muted,
         fontFamily: "inherit",
         fontSize: 13,
@@ -10160,7 +10377,7 @@ function App() {
         fg: "#2e7d32"
       };
       return cs[label] || {
-        bg: "#f5f5f5",
+        bg: C.sub,
         fg: "#555"
       };
     };
@@ -10173,11 +10390,11 @@ function App() {
     };
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       style: {
-        background: "linear-gradient(135deg,#f8bbd0,#f48fb1)",
+        background: dark ? "linear-gradient(135deg,#2e0a18,#1a0510)" : "linear-gradient(135deg,#f8bbd0,#f48fb1)",
         borderRadius: 14,
         padding: "14px 18px",
         marginBottom: 18,
-        color: "#4a0020"
+        color: dark ? "#f48fb1" : "#4a0020"
       }
     }, /*#__PURE__*/React.createElement("p", {
       style: {
@@ -10185,128 +10402,185 @@ function App() {
         lineHeight: 1.7
       }
     }, /*#__PURE__*/React.createElement("strong", null, "\uD83C\uDF38 Week ", weekIndex + 1, " \u2014 ", week.label), " \xB7 Anti-inflammatory \xB7 Low glycemic \xB7 Hormone-supporting \xB7 1,350 kcal/day \xB7 Daily spearmint ritual \xB7 ", weekIndex === 0 ? "Foundation PCOS week" : weekIndex === 1 ? "New recipes + same PCOS themes" : weekIndex === 2 ? "Week 3 — variety builds confidence" : "Week 4 — 4 weeks of consistency makes real PCOS changes visible")), week.days.map(function (day, di) {
-      return /*#__PURE__*/React.createElement("div", {
-        key: di,
-        style: {
-          background: "white",
-          borderRadius: 14,
-          padding: 20,
-          marginBottom: 14,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "baseline",
-          marginBottom: 4
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        style: {
-          fontFamily: "Georgia,serif",
-          fontSize: 17,
-          color: "#c2185b"
-        }
-      }, day.day), /*#__PURE__*/React.createElement("div", {
-        style: {
-          fontSize: 11,
-          color: "#c2185b",
-          fontWeight: 700
-        }
-      }, "~", day.meals.reduce(function (s, m) {
-        return s + m.cal;
-      }, 0), " kcal")), /*#__PURE__*/React.createElement("div", {
-        style: {
-          fontSize: 12,
-          color: C.muted,
-          marginBottom: 12,
-          fontStyle: "italic"
-        }
-      }, day.theme), day.meals.map(function (meal, mi) {
-        var linkedRecipes = findRecipes(meal.desc);
-        var cs = labelStyle(meal.label);
-        var isBatchEntry = meal.label && meal.label.includes("🍱 Batch");
+      var PcosDayAccordion = function PcosDayAccordion() {
+        var _React$useState = React.useState(false),
+          _React$useState2 = _slicedToArray(_React$useState, 2),
+          open = _React$useState2[0],
+          setOpen = _React$useState2[1];
+        var total = day.meals.reduce(function (s, m) {
+          return s + m.cal;
+        }, 0);
+        var preview = day.meals.filter(function (m) {
+          return m.cal > 0 && !m.label.includes("🍱");
+        }).slice(0, 2).map(function (m) {
+          return m.desc.split("(")[0].trim();
+        }).join(" · ");
         return /*#__PURE__*/React.createElement("div", {
-          key: mi,
-          style: _objectSpread({
-            display: "flex",
-            gap: 10,
-            padding: "8px 0",
-            borderBottom: mi < day.meals.length - 1 ? "1px solid #f5f5f5" : "none",
-            alignItems: "flex-start"
-          }, isBatchEntry ? {
-            background: "#f1f8f1",
-            margin: "4px -8px",
-            padding: "10px 8px",
-            borderRadius: 10,
-            borderBottom: "none"
-          } : {})
-        }, /*#__PURE__*/React.createElement("span", {
+          key: di,
           style: {
-            background: cs.bg,
-            color: cs.fg,
-            fontSize: 10,
-            fontWeight: 700,
-            padding: "3px 8px",
-            borderRadius: 20,
-            whiteSpace: "nowrap",
-            marginTop: 2,
-            flexShrink: 0
+            background: C.card,
+            borderRadius: 14,
+            marginBottom: 10,
+            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            overflow: "hidden"
           }
-        }, meal.label), /*#__PURE__*/React.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
+          onClick: function onClick() {
+            return setOpen(function (o) {
+              return !o;
+            });
+          },
           style: {
-            flex: 1
+            padding: "14px 20px",
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 12,
+            userSelect: "none"
           }
         }, /*#__PURE__*/React.createElement("div", {
           style: {
-            fontSize: 13,
-            color: C.charcoal,
-            marginBottom: 2,
-            fontWeight: isBatchEntry ? 600 : 400
+            flex: 1,
+            minWidth: 0
           }
-        }, meal.desc), /*#__PURE__*/React.createElement("div", {
+        }, /*#__PURE__*/React.createElement("div", {
           style: {
-            fontSize: 11,
-            color: isBatchEntry ? "#2e7d32" : "#c2185b",
-            marginBottom: linkedRecipes.length > 0 ? 4 : 0,
-            fontStyle: "italic"
+            fontFamily: "Georgia,serif",
+            fontSize: 17,
+            color: C.pinkFg
           }
-        }, meal.note), linkedRecipes.length > 0 && !isBatchEntry && /*#__PURE__*/React.createElement("div", {
-          style: {
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 6
-          }
-        }, linkedRecipes.map(function (r, ri) {
-          return /*#__PURE__*/React.createElement("button", {
-            key: ri,
-            onClick: function onClick() {
-              return goToRecipe(r.title);
-            },
-            style: {
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 4,
-              fontSize: 11,
-              color: "#c2185b",
-              background: "#fce4ec",
-              border: "none",
-              borderRadius: 12,
-              padding: "3px 10px",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              fontWeight: 600
-            }
-          }, "\uD83C\uDF73 ", r.title, " \u2192");
-        }))), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
+        }, day.day, " ", /*#__PURE__*/React.createElement("span", {
           style: {
             fontSize: 12,
-            color: C.accent,
-            fontWeight: 600,
+            color: C.muted,
+            fontWeight: 400
+          }
+        }, day.theme)), !open && /*#__PURE__*/React.createElement("div", {
+          style: {
+            fontSize: 11,
+            color: C.muted,
+            marginTop: 3,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
+          }
+        }, preview, "\u2026")), /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
             flexShrink: 0
           }
-        }, meal.cal));
-      }));
+        }, /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 12,
+            color: C.pinkFg,
+            fontWeight: 700
+          }
+        }, total, " kcal"), /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 18,
+            color: C.pinkFg,
+            transition: "transform 0.25s",
+            display: "inline-block",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            lineHeight: 1
+          }
+        }, "\u2304"))), open && /*#__PURE__*/React.createElement("div", {
+          style: {
+            borderTop: "1px solid ".concat(C.border),
+            padding: "4px 20px 16px"
+          }
+        }, day.meals.map(function (meal, mi) {
+          var linkedRecipes = findRecipes(meal.desc);
+          var cs = labelStyle(meal.label);
+          var isBatchEntry = meal.label && meal.label.includes("🍱 Batch");
+          return /*#__PURE__*/React.createElement("div", {
+            key: mi,
+            style: _objectSpread({
+              display: "flex",
+              gap: 10,
+              padding: "8px 0",
+              borderBottom: mi < day.meals.length - 1 ? "1px solid ".concat(C.border) : "none",
+              alignItems: "flex-start"
+            }, isBatchEntry ? {
+              background: C.batchBg,
+              margin: "4px -8px",
+              padding: "10px 8px",
+              borderRadius: 10,
+              borderBottom: "none"
+            } : {})
+          }, /*#__PURE__*/React.createElement("span", {
+            style: {
+              background: cs.bg,
+              color: cs.fg,
+              fontSize: 10,
+              fontWeight: 700,
+              padding: "3px 8px",
+              borderRadius: 20,
+              whiteSpace: "nowrap",
+              marginTop: 2,
+              flexShrink: 0
+            }
+          }, meal.label), /*#__PURE__*/React.createElement("div", {
+            style: {
+              flex: 1
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              fontSize: 13,
+              color: C.charcoal,
+              marginBottom: 2,
+              fontWeight: isBatchEntry ? 600 : 400
+            }
+          }, meal.desc), /*#__PURE__*/React.createElement("div", {
+            style: {
+              fontSize: 11,
+              color: isBatchEntry ? C.batchFg : C.pinkFg,
+              marginBottom: linkedRecipes.length > 0 ? 4 : 0,
+              fontStyle: "italic"
+            }
+          }, meal.note), linkedRecipes.length > 0 && !isBatchEntry && /*#__PURE__*/React.createElement("div", {
+            style: {
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 6
+            }
+          }, linkedRecipes.map(function (r, ri) {
+            return /*#__PURE__*/React.createElement("button", {
+              key: ri,
+              onClick: function onClick() {
+                return goToRecipe(r.title);
+              },
+              style: {
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+                fontSize: 11,
+                color: C.pinkFg,
+                background: C.pink,
+                border: "none",
+                borderRadius: 12,
+                padding: "3px 10px",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontWeight: 600
+              }
+            }, "\uD83C\uDF73 ", r.title, " \u2192");
+          }))), meal.cal > 0 && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 12,
+              color: C.accent,
+              fontWeight: 600,
+              flexShrink: 0
+            }
+          }, meal.cal));
+        })));
+      };
+      return /*#__PURE__*/React.createElement(PcosDayAccordion, {
+        key: di
+      });
     }));
   }()), tab === "workout" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -10318,7 +10592,7 @@ function App() {
   }, "\uD83D\uDCAA Workout Plan"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      background: "#efefef",
+      background: C.pill,
       borderRadius: 24,
       padding: 4,
       gap: 3,
@@ -10468,7 +10742,7 @@ function App() {
         borderRadius: 20,
         border: "none",
         cursor: "pointer",
-        background: mView === id ? C.sageDark : "#efefef",
+        background: mView === id ? C.sageDark : C.pill,
         color: mView === id ? "white" : C.muted,
         fontFamily: "inherit",
         fontSize: 13,
@@ -10495,7 +10769,7 @@ function App() {
     day: "numeric"
   }), personLogs[today] && " \u2705 ".concat(P.name, " already logged today!"))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 12,
@@ -10553,7 +10827,7 @@ function App() {
     }));
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 12,
@@ -10648,7 +10922,7 @@ function App() {
       width: 18,
       height: 18,
       borderRadius: "50%",
-      background: "white",
+      background: C.card,
       position: "absolute",
       top: 3,
       left: form.workout ? 21 : 3,
@@ -10657,7 +10931,7 @@ function App() {
     }
   })))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 20,
@@ -10752,7 +11026,7 @@ function App() {
     }
   }, "Track patterns over time to identify your triggers. This saves with your daily log."), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
@@ -10769,7 +11043,7 @@ function App() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "10px 0",
-        borderBottom: "1px solid #f5f5f5",
+        borderBottom: "1px solid ".concat(C.border),
         flexWrap: "wrap",
         gap: 8
       }
@@ -10798,7 +11072,7 @@ function App() {
           borderRadius: "50%",
           border: "none",
           cursor: "pointer",
-          background: form["pcos_".concat(label.split(" ")[0].toLowerCase())] === n ? type === "migrainescale" ? "#c62828" : C.sageDark : "#efefef",
+          background: form["pcos_".concat(label.split(" ")[0].toLowerCase())] === n ? type === "migrainescale" ? "#c62828" : C.sageDark : C.pill,
           color: form["pcos_".concat(label.split(" ")[0].toLowerCase())] === n ? "white" : C.muted,
           fontFamily: "inherit",
           fontSize: 13,
@@ -10821,7 +11095,7 @@ function App() {
           borderRadius: 20,
           border: "none",
           cursor: "pointer",
-          background: form.pcos_headache === v ? v === "No" ? C.sageDark : "#c62828" : "#efefef",
+          background: form.pcos_headache === v ? v === "No" ? C.sageDark : "#c62828" : C.pill,
           color: form.pcos_headache === v ? "white" : C.muted,
           fontFamily: "inherit",
           fontSize: 11,
@@ -10842,7 +11116,7 @@ function App() {
           borderRadius: 20,
           border: "none",
           cursor: "pointer",
-          background: form["pcos_".concat(label.toLowerCase().replace(/[\s/]+/g, "_"))] === v ? C.sageDark : "#efefef",
+          background: form["pcos_".concat(label.toLowerCase().replace(/[\s/]+/g, "_"))] === v ? C.sageDark : C.pill,
           color: form["pcos_".concat(label.toLowerCase().replace(/[\s/]+/g, "_"))] === v ? "white" : C.muted,
           fontFamily: "inherit",
           fontSize: 11,
@@ -10855,15 +11129,15 @@ function App() {
     style: {
       marginTop: 14,
       padding: "12px 14px",
-      background: "#fff3e0",
+      background: C.warning,
       borderRadius: 10,
       fontSize: 12,
-      color: "#e65100",
+      color: C.warningFg,
       lineHeight: 1.6
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Migraine tip:"), " Common PCOS migraine triggers include blood sugar spikes (skip meals \u2192 migraine), hormonal fluctuations, dehydration, and poor sleep. Log consistently for 4 weeks to spot your personal pattern.")))), mView === "history" && (loggedDays.length === 0 ? /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 40,
       textAlign: "center",
@@ -10901,7 +11175,7 @@ function App() {
       style: {
         padding: "6px 14px",
         borderRadius: 20,
-        border: "2px solid ".concat(cKey === m.key ? m.color : "#e0e0e0"),
+        border: "2px solid ".concat(cKey === m.key ? m.color : C.border),
         background: cKey === m.key ? m.color : "white",
         color: cKey === m.key ? "white" : C.muted,
         fontFamily: "inherit",
@@ -10913,7 +11187,7 @@ function App() {
     }, m.label);
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "white",
+      background: C.card,
       borderRadius: 14,
       padding: 20,
       marginBottom: 20,
@@ -10972,7 +11246,7 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: date,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: 16,
         marginBottom: 10,
@@ -11012,7 +11286,7 @@ function App() {
       return log[key] ? /*#__PURE__*/React.createElement("span", {
         key: key,
         style: {
-          background: "#f5f5f5",
+          background: C.sub,
           fontSize: 12,
           padding: "4px 10px",
           borderRadius: 20,
@@ -11104,11 +11378,11 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: "14px 18px",
         marginBottom: 10,
-        borderLeft: "3px solid #c2185b",
+        borderLeft: "3px solid ".concat(C.pinkFg),
         boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
         display: "flex",
         gap: 12
@@ -11122,7 +11396,7 @@ function App() {
       style: {
         fontSize: 14,
         fontWeight: 600,
-        color: "#c2185b",
+        color: C.pinkFg,
         marginBottom: 4
       }
     }, item.title), /*#__PURE__*/React.createElement("p", {
@@ -11172,7 +11446,7 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: "14px 18px",
         marginBottom: 10,
@@ -11190,7 +11464,7 @@ function App() {
       style: {
         fontSize: 14,
         fontWeight: 600,
-        color: "#e65100",
+        color: C.warningFg,
         marginBottom: 4
       }
     }, item.title), /*#__PURE__*/React.createElement("p", {
@@ -11236,7 +11510,7 @@ function App() {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       style: {
-        background: "white",
+        background: C.card,
         borderRadius: 12,
         padding: "14px 18px",
         marginBottom: 10,
@@ -11297,7 +11571,7 @@ function App() {
     }, "\xB7"), item);
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#fff3e0",
+      background: C.warning,
       borderRadius: 12,
       padding: "14px 18px",
       marginTop: 16
